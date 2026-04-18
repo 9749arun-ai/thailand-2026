@@ -1065,7 +1065,13 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
 .bv-empty{text-align:center;padding:24px;color:#94a3b8;font-size:13px}
 
 /* ── BROWSE VIEW ──────────────────────────────────────────────── */
+/* IMPORTANT: browseView defaults to display:none. Without this, if the JS
+   constructor throws or the main script hasn't executed yet (slow cellular,
+   iOS cache, etc), the hardcoded "0 places / Find your spot" placeholder
+   bleeds through while Map tab is meant to be active. switchView("browse")
+   sets display:block explicitly when the user asks for Explore. */
 #browseView{
+  display:none;
   position:fixed;top:var(--header);left:0;right:0;
   bottom:var(--bottom-nav);
   overflow-y:auto;overflow-x:hidden;
@@ -4026,4 +4032,1507 @@ const PLACES=[
   {id:"pkt135",dest:"Phuket",name:"Phuket Wake Park",cat:"shoot",lat:8.0302,lng:98.3105,
    tagline:"Cable wakeboarding — action sports content paradise",
    img:"https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=800&q=75",
-   desc:"A cable wakeboard park in the Kathu area with a scenic lagoon surrounded by jungle
+   desc:"A cable wakeboard park in the Kathu area with a scenic lagoon surrounded by jungle hills. Great for action sports photography and video content. Beginners welcome with instruction included.",
+   menu:[],
+   shoot:"Action sports photography — wakeboarding, cable skiing. Jungle lagoon setting. GoPro POV.",
+   tips:["~700B for 2 hours","All levels welcome","Equipment included","Kathu area","Open 9am–6pm"],
+   gmaps:"https://maps.app.goo.gl/phuket-wake-park",yt:"https://www.youtube.com/results?search_query=phuket+wake+park"},
+
+
+
+  // ── KO PHANGAN EXTRAS ──
+  {id:"kph08",dest:"KoPhangan",name:"Thong Nai Pan Noi Beach",cat:"shoot",lat:9.7900,lng:100.0595,viral:true,
+   tagline:"Phangan\u2019s most beautiful north coast beach",
+   img:"https://upload.wikimedia.org/wikipedia/commons/f/fd/Koh_Phangan01.jpg",
+   desc:"A stunning white sand horseshoe bay backed by jungle hills. Accessible by rough road (worth it). Crystal clear water, minimal crowds.",
+   menu:[],
+   shoot:"Shoot looking south from the waterline \u2014 headland curves frame beautifully. Morning light 7\u20139am.",
+   tips:["40-min scooter north from Thong Sala","Road is rough \u2014 take it slow","Worth staying a night"],
+   gmaps:"https://maps.app.goo.gl/thong-nai-pan-koh-phangan",yt:"https://www.youtube.com/results?search_query=thong+nai+pan+koh+phangan"},
+  {id:"kph09",dest:"KoPhangan",name:"Secret Beach (Hat Son)",cat:"shoot",lat:9.7650,lng:99.9670,
+   tagline:"Hidden west coast cove \u2014 sunset perfection",
+   img:"https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=800&q=75",
+   desc:"A tiny cove on the west coast accessible by a jungle path or by kayak. The sunset here, looking over the Gulf, is one of the best on the island.",
+   menu:["Beach bar cocktails (basic)"],
+   shoot:"The cove entrance framed by jungle is a classic shot. Sunset silhouettes in the shallow water.",
+   tips:["Park at the top \u2014 path steep","Low tide gives more beach","Last swim by 5:30pm for sunset"],
+   gmaps:"https://maps.app.goo.gl/secret-beach-koh-phangan",yt:"https://www.youtube.com/results?search_query=secret+beach+koh+phangan"},
+  {id:"kph10",dest:"KoPhangan",name:"Agama Yoga Centre",cat:"fitness",lat:9.7590,lng:99.9680,
+   tagline:"Ko Phangan\u2019s premier yoga school",
+   img:"https://images.unsplash.com/photo-1588286840104-8957b019727f?auto=format&fit=crop&w=800&q=75",
+   desc:"Internationally recognised yoga school with a full curriculum of tantra, hatha and raja yoga. Drop-in classes available alongside 4-week intensives.",
+   menu:[],
+   shoot:"Yoga at sunrise on the rooftop deck with sea views \u2014 quintessential Ko Phangan content.",
+   tips:["Drop-in ~300 THB","Book 4-week course online","Vegetarian cafe on-site"],
+   gmaps:"https://maps.app.goo.gl/agama-yoga-koh-phangan",yt:"https://www.youtube.com/results?search_query=agama+yoga+koh+phangan"},
+
+  // ── KOH LIPE EXTRAS ──
+  {id:"klipe06",dest:"KohLipe",name:"Pattaya Beach",cat:"shoot",lat:6.4908,lng:99.3024,
+   tagline:"Sunset beach \u2014 long, calm, photogenic",
+   img:"https://upload.wikimedia.org/wikipedia/commons/e/ec/Pattaya_beach_from_view_point.jpg",
+   desc:"Koh Lipe\u2019s longest beach, facing west for spectacular sunsets. Calmer water than Sunrise Beach, with a more local vibe at the southern end.",
+   menu:[],
+   shoot:"Shoot the sun dropping into the Andaman from knee-deep water. Long exposures of waves at dusk.",
+   tips:["Walk the full beach to south end for fewer crowds","Palm tree foreground for composition","Fire shows from Walking Street visible at night"],
+   gmaps:"https://maps.app.goo.gl/pattaya-beach-koh-lipe",yt:"https://www.youtube.com/results?search_query=pattaya+beach+koh+lipe"},
+  {id:"klipe07",dest:"KohLipe",name:"4 Islands Snorkel Tour",cat:"dive",lat:6.4850,lng:99.2950,
+   tagline:"Full-day speedboat to 4 uninhabited islands",
+   img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=75",
+   desc:"Day trip by longtail or speedboat to four uninhabited limestone islands with pristine coral reefs. Koh Usen has Thailand\u2019s best near-shore soft coral.",
+   menu:["BBQ lunch on beach included"],
+   shoot:"Uninhabited island arrivals by boat with GoPro. Underwater footage is world-class.",
+   tips:["Book through any guesthouse ~1,000 THB","Bring reef-safe sunscreen","Go early before speedboats crowd the sites"],
+   gmaps:"https://maps.app.goo.gl/4-islands-koh-lipe",yt:"https://www.youtube.com/results?search_query=koh+lipe+4+islands+snorkel"},
+
+  // ── SHOPPING (viral + cheap) ──────────────────────────────────────────────
+  {id:"shop01",dest:"Bangkok",name:"Chatuchak Weekend Market",cat:"shopping",lat:13.7995,lng:100.5503,viral:true,
+   tagline:"15,000 stalls. The mother of all weekend markets.",
+   img:"https://upload.wikimedia.org/wikipedia/commons/3/33/Bangkok_-_Jatujak_Market_02.JPG",
+   desc:"Sat\u2013Sun only. Vintage tees from 100 THB, handmade silver, Thai designer streetwear, plant section, and the legendary food zone. Plan a 4\u2013hour loop, bargain in the second half of the day.",
+   menu:["Vintage band tees 150\u2013300 THB","Linen shirts 250 THB","Coconut ice cream 50 THB"],
+   shoot:"Aerial walking POV through Section 8. Crane up from the food court at noon when light hits the tin roof.",
+   tips:["Open 9am, dies after 6pm","BTS Mo Chit exit 1","Carry cash, 30% bargain off first quote","Map the sections on the official app first"],
+   gmaps:"https://maps.app.goo.gl/chatuchak",yt:"https://www.youtube.com/results?search_query=chatuchak+market+vlog+2026"},
+  {id:"shop02",dest:"Bangkok",name:"Platinum Fashion Mall",cat:"shopping",lat:13.7510,lng:100.5402,
+   tagline:"Wholesale fashion: 5 floors, prices in 3-piece minimums",
+   img:"https://upload.wikimedia.org/wikipedia/commons/4/45/Platinum_Fashion_Mall_%28I%29.jpg",
+   desc:"Where Bangkok's resellers stock up. Tops from 80 THB, dresses 200 THB if you buy 3. Aircon paradise after Chatuchak.",
+   menu:["Tops 80\u2013150 THB","Linen sets 350 THB","Bags 250 THB"],
+   shoot:"Skip filming inside (no-camera vibes). Get the storefront facade at golden hour.",
+   tips:["Buy in 3s for the wholesale price","Cash only at most stalls","BTS Chit Lom + 10-min walk"],
+   gmaps:"https://maps.app.goo.gl/platinum-fashion-mall",yt:"https://www.youtube.com/results?search_query=platinum+fashion+mall+haul"},
+  {id:"shop03",dest:"Bangkok",name:"Pratunam Market",cat:"shopping",lat:13.7517,lng:100.5407,
+   tagline:"Garment district maze \u2014 cheaper than Platinum if you hunt",
+   img:"https://upload.wikimedia.org/wikipedia/commons/f/f5/Pratunam_market.jpg",
+   desc:"Open-air alleys behind Platinum. Fabric, tailored shirts, knockoff trainers. Quality varies wildly \u2014 buy after touching.",
+   menu:["T-shirts 60 THB","Slides 150 THB","Tailored shirts 400 THB"],
+   shoot:"Tight street walks at 6pm, signs lighting up. Vertical 4K30 + Cinematic mode.",
+   tips:["Best 4\u201310pm","Watch belongings","Negotiate firmly"],
+   gmaps:"https://maps.app.goo.gl/pratunam",yt:"https://www.youtube.com/results?search_query=pratunam+bangkok"},
+  {id:"shop04",dest:"Bangkok",name:"JJ Green Night Market",cat:"shopping",lat:13.8027,lng:100.5497,
+   tagline:"Vintage Americana, neon bars, Thursday\u2013Sunday only",
+   img:"https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=800&q=75",
+   desc:"Bangkok's hipster open-air night market. Vintage Levi's, Polaroid cameras, leather jackets. Outdoor bars run till 2am.",
+   menu:["Vintage Levi's 800\u20131,200 THB","Pad Thai bowl 80 THB","Chang draft 90 THB"],
+   shoot:"Neon sign close-ups, bokeh from string lights, sit-down POVs at the bars.",
+   tips:["Thu\u2013Sun 6pm\u20131am","Free entry","BTS Mo Chit"],
+   gmaps:"https://maps.app.goo.gl/jj-green",yt:"https://www.youtube.com/results?search_query=jj+green+night+market"},
+  {id:"shop05",dest:"Bangkok",name:"Asiatique The Riverfront",cat:"shopping",lat:13.7045,lng:100.5028,
+   tagline:"Riverside warehouse market + 60-m Ferris wheel",
+   img:"https://upload.wikimedia.org/wikipedia/commons/8/8b/Asiatique_%28II%29.jpg",
+   desc:"Tourist-priced but the riverside setting + free shuttle boat from Saphan Taksin makes it worth one evening. Boutique souvenirs better than Khao San.",
+   menu:["Free shuttle from Sathorn pier","Ferris wheel 500 THB","Thai silk scarves 600 THB"],
+   shoot:"Sunset shuttle boat approach \u2014 iPhone 17 Pro handheld at 2.40:1, ND8.",
+   tips:["Open 4\u201311pm","Boat from Sathorn pier every 30 min","Skip the food court"],
+   gmaps:"https://maps.app.goo.gl/asiatique",yt:"https://www.youtube.com/results?search_query=asiatique+bangkok"},
+  {id:"shop06",dest:"Bangkok",name:"Khao San Road Market",cat:"shopping",lat:13.7589,lng:100.4972,
+   tagline:"Backpacker classic \u2014 cheap, chaotic, character",
+   img:"https://upload.wikimedia.org/wikipedia/commons/4/4b/2016_Bangkok%2C_Dystrykt_Phra_Nakhon%2C_Ulica_Khaosan_%2808%29.jpg",
+   desc:"Elephant pants, fake IDs, fruit shakes, neon bars. Touristy but iconic. Better at midnight than midday.",
+   menu:["Elephant pants 100 THB","Pad Thai 60 THB","Chang bucket 250 THB"],
+   shoot:"FPV-style walk at 11pm, vertical, music sync.",
+   tips:["Avoid lunch (dead)","Watch for tuk-tuk scams","Best Thu\u2013Sat night"],
+   gmaps:"https://maps.app.goo.gl/khao-san",yt:"https://www.youtube.com/results?search_query=khao+san+road+night"},
+  {id:"shop07",dest:"Phuket",name:"Phuket Walking Street (Sunday Night)",cat:"shopping",lat:7.8830,lng:98.3902,viral:true,
+   tagline:"Old Town Sunday market \u2014 Sino-Portuguese magic",
+   img:"https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=75",
+   desc:"Thalang Road closes Sundays 4\u201310pm. Pastel shophouses, street food, indie crafts, and the loveliest market vibe in Phuket. Eat moo ping while you shop.",
+   menu:["Moo ping (grilled pork) 10 THB/stick","Roti 40 THB","Indie tees 250 THB"],
+   shoot:"Drone is allowed before sundown for facade shots. Ground level: iPhone 17 Pro tracking shot down Thalang Rd at 6pm.",
+   tips:["Sundays only 4\u201310pm","Park at Robinson basement","Try the dim sum stalls north end"],
+   gmaps:"https://maps.app.goo.gl/phuket-walking-street",yt:"https://www.youtube.com/results?search_query=phuket+walking+street+sunday"},
+  {id:"shop08",dest:"Phuket",name:"Phuket Weekend Market (Naka)",cat:"shopping",lat:7.8970,lng:98.3850,viral:true,
+   tagline:"Locals' market \u2014 5 min from Wichit, dirt cheap",
+   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
+   desc:"Sat\u2013Sun nights. 100% local clientele. T-shirts 80 THB, fresh seafood plates 150 THB, fruit by the kilo. Five minutes from your Wichit Airbnb.",
+   menu:["Grilled squid plate 120 THB","Whole pineapple 30 THB","Thai t-shirts 80 THB"],
+   shoot:"Hand-held iPhone 17 Pro (Blackmagic Cam app) at neon stalls, ISO 1250, 1/50, 5600K. Vertical phone B-roll for reels.",
+   tips:["Sat\u2013Sun 4\u201310pm","Bring small notes","Park outside, walk in"],
+   gmaps:"https://maps.app.goo.gl/naka-market-phuket",yt:"https://www.youtube.com/results?search_query=phuket+weekend+market+naka"},
+  {id:"shop09",dest:"Phuket",name:"Chillva Market",cat:"shopping",lat:7.8985,lng:98.3814,
+   tagline:"Container-stall hipster night market in Phuket Town",
+   img:"https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=800&q=75",
+   desc:"Thu\u2013Sat 5pm\u201311pm. Repurposed shipping containers, indie streetwear, bubble tea, live music. Younger crowd, cheaper than Walking Street.",
+   menu:["Indie tees 200 THB","Bubble tea 50 THB","Korean corn dog 60 THB"],
+   shoot:"Container-row tracking shot at sunset, ND filter on drone for the overhead pan.",
+   tips:["Thu\u2013Sat 5\u201311pm","Free parking","Live music after 8pm"],
+   gmaps:"https://maps.app.goo.gl/chillva-market",yt:"https://www.youtube.com/results?search_query=chillva+market+phuket"},
+  {id:"shop10",dest:"Phuket",name:"Banzaan Fresh Market (Patong)",cat:"shopping",lat:7.8948,lng:98.2974,
+   tagline:"Pick fresh seafood downstairs \u2014 they cook it upstairs",
+   img:"https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=800&q=75",
+   desc:"Two-floor market behind Jungceylon. Buy live tiger prawns / red snapper / squid by the kilo on ground floor, take it to a vendor upstairs to cook for ~150 THB. Cheaper than any beachfront restaurant.",
+   menu:["Tiger prawns 800 THB/kg","Snapper 400 THB/kg","Cooking fee 150 THB"],
+   shoot:"Top-down macro of the seafood ice trays. Then time-lapse of the wok upstairs.",
+   tips:["Daily 7am\u201310pm","Bargain on per-kg price","Bring own beer"],
+   gmaps:"https://maps.app.goo.gl/banzaan-market",yt:"https://www.youtube.com/results?search_query=banzaan+market+phuket"},
+  {id:"shop11",dest:"Phuket",name:"Boat Avenue Market (Cherngtalay)",cat:"shopping",lat:7.9941,lng:98.2939,
+   tagline:"Friday-night farmers' market \u2014 expat / digital-nomad scene",
+   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
+   desc:"Friday 4\u201310pm. Artisan bread, organic veg, craft beer, vinyl, kid-friendly. Closer to the north Phuket cafe scene.",
+   menu:["Sourdough loaf 180 THB","Craft IPA 200 THB","Wood-fire pizza 350 THB"],
+   shoot:"Glide through the wood-stall aisles with Osmo, golden-hour lateral.",
+   tips:["Fridays only","Park at Boat Avenue plaza","Pair with Pa Pa Cafe Surin pre-market"],
+   gmaps:"https://maps.app.goo.gl/boat-avenue",yt:"https://www.youtube.com/results?search_query=boat+avenue+market+phuket"},
+  {id:"shop12",dest:"Phuket",name:"Indy Market (Phuket Town)",cat:"shopping",lat:7.8836,lng:98.3920,
+   tagline:"Wed\u2013Fri night market \u2014 student crowd, dirt-cheap food",
+   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
+   desc:"Behind Limelight Mall. Wed\u2013Fri 4\u201310:30pm. Student vibe, 30-THB satay, fashion off the rack from local designers, cheaper than Walking Street.",
+   menu:["Satay 30 THB","Mango sticky rice 60 THB","Streetwear from 250 THB"],
+   shoot:"Low-angle iPhone 17 Pro walk at 7pm with neon. Student-energy reels.",
+   tips:["Wed\u2013Fri only","Cash","Skip if Walking Street is on Sunday"],
+   gmaps:"https://maps.app.goo.gl/indy-market-phuket",yt:"https://www.youtube.com/results?search_query=indy+market+phuket"}
+];
+
+// ── THAI PHRASEBOOK: 55+ essential phrases across categories ──
+const PHRASES = [
+  // Greetings
+  {c:"Greetings", en:"Hello / Goodbye", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35", r:"sa-wat-dee"},
+  {c:"Greetings", en:"Hello (male speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e23\u0e31\u0e1a", r:"sa-wat-dee khrap"},
+  {c:"Greetings", en:"Hello (female speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e48\u0e30", r:"sa-wat-dee kha"},
+  {c:"Greetings", en:"Thank you", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13", r:"khop khun"},
+  {c:"Greetings", en:"Thank you very much", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13\u0e21\u0e32\u0e01", r:"khop khun maak"},
+  {c:"Greetings", en:"You're welcome / No problem", th:"\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e44\u0e23", r:"mai pen rai"},
+  {c:"Greetings", en:"Sorry / Excuse me", th:"\u0e02\u0e2d\u0e42\u0e17\u0e29", r:"khor thot"},
+  {c:"Greetings", en:"How are you?", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35\u0e44\u0e2b\u0e21", r:"sa-baai dee mai"},
+  {c:"Greetings", en:"I'm fine", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35", r:"sa-baai dee"},
+  {c:"Greetings", en:"See you later", th:"\u0e41\u0e25\u0e49\u0e27\u0e40\u0e08\u0e2d\u0e01\u0e31\u0e19", r:"laew jer gan"},
+  {c:"Greetings", en:"My name is Arun", th:"\u0e1c\u0e21\u0e0a\u0e37\u0e48\u0e2d\u0e2d\u0e32\u0e23\u0e38\u0e13", r:"phom cheu Arun"},
+
+  // Food
+  {c:"Food", en:"Delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22", r:"a-roi"},
+  {c:"Food", en:"Very delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22\u0e21\u0e32\u0e01", r:"a-roi maak"},
+  {c:"Food", en:"Not spicy, please", th:"\u0e44\u0e21\u0e48\u0e40\u0e1c\u0e47\u0e14", r:"mai phet"},
+  {c:"Food", en:"A little spicy", th:"\u0e40\u0e1c\u0e47\u0e14\u0e19\u0e34\u0e14\u0e2b\u0e19\u0e48\u0e2d\u0e22", r:"phet nit noi"},
+  {c:"Food", en:"I'm vegetarian", th:"\u0e1c\u0e21\u0e01\u0e34\u0e19\u0e40\u0e08", r:"phom gin jay"},
+  {c:"Food", en:"No meat", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d", r:"mai ao neua"},
+  {c:"Food", en:"No fish sauce", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e19\u0e49\u0e33\u0e1b\u0e25\u0e32", r:"mai ao nam pla"},
+  {c:"Food", en:"Water please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33", r:"khor naam"},
+  {c:"Food", en:"Ice please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33\u0e41\u0e02\u0e47\u0e07", r:"khor naam khaeng"},
+  {c:"Food", en:"One Pad Thai", th:"\u0e1c\u0e31\u0e14\u0e44\u0e17\u0e22\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e17\u0e35\u0e48", r:"pad thai neung thee"},
+  {c:"Food", en:"Bill please", th:"\u0e40\u0e0a\u0e47\u0e04\u0e1a\u0e34\u0e25", r:"chek bin"},
+  {c:"Food", en:"Cheers!", th:"\u0e0a\u0e19\u0e41\u0e01\u0e49\u0e27", r:"chon kaew"},
+
+  // Numbers / Money
+  {c:"Numbers", en:"One / Two / Three", th:"\u0e2b\u0e19\u0e36\u0e48\u0e07 \u0e2a\u0e2d\u0e07 \u0e2a\u0e32\u0e21", r:"neung, song, saam"},
+  {c:"Numbers", en:"Four / Five", th:"\u0e2a\u0e35\u0e48 \u0e2b\u0e49\u0e32", r:"see, haa"},
+  {c:"Numbers", en:"Ten / Hundred / Thousand", th:"\u0e2a\u0e34\u0e1a \u0e23\u0e49\u0e2d\u0e22 \u0e1e\u0e31\u0e19", r:"sip, roi, phan"},
+  {c:"Numbers", en:"How much?", th:"\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48", r:"thao rai"},
+  {c:"Numbers", en:"Too expensive", th:"\u0e41\u0e1e\u0e07\u0e44\u0e1b", r:"phaeng pai"},
+  {c:"Numbers", en:"Cheaper please?", th:"\u0e25\u0e14\u0e2b\u0e19\u0e48\u0e2d\u0e22\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"lot noi dai mai"},
+  {c:"Numbers", en:"I don't want it", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32", r:"mai ao"},
+  {c:"Numbers", en:"I'll take it", th:"\u0e40\u0e2d\u0e32", r:"ao"},
+
+  // Transport
+  {c:"Transport", en:"Where is...?", th:"...\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19", r:"... yoo thee nai"},
+  {c:"Transport", en:"Airport", th:"\u0e2a\u0e19\u0e32\u0e21\u0e1a\u0e34\u0e19", r:"sa-naam bin"},
+  {c:"Transport", en:"Hotel", th:"\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21", r:"rong raem"},
+  {c:"Transport", en:"Taxi please", th:"\u0e02\u0e2d\u0e41\u0e17\u0e47\u0e01\u0e0b\u0e35\u0e48", r:"khor taxi"},
+  {c:"Transport", en:"Turn on the meter", th:"\u0e01\u0e14\u0e21\u0e34\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e14\u0e49\u0e27\u0e22", r:"got meter duai"},
+  {c:"Transport", en:"Stop here", th:"\u0e08\u0e2d\u0e14\u0e17\u0e35\u0e48\u0e19\u0e35\u0e48", r:"jot thee nee"},
+  {c:"Transport", en:"Go straight", th:"\u0e15\u0e23\u0e07\u0e44\u0e1b", r:"trong pai"},
+  {c:"Transport", en:"Turn left / right", th:"\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e0b\u0e49\u0e32\u0e22 / \u0e02\u0e27\u0e32", r:"liao sai / khwa"},
+  {c:"Transport", en:"Boat to Koh Yao Noi", th:"\u0e40\u0e23\u0e37\u0e2d\u0e44\u0e1b\u0e40\u0e01\u0e32\u0e30\u0e22\u0e32\u0e27\u0e19\u0e49\u0e2d\u0e22", r:"reua pai Koh Yao Noi"},
+
+  // Emergency
+  {c:"Emergency", en:"Help!", th:"\u0e0a\u0e48\u0e27\u0e22\u0e14\u0e49\u0e27\u0e22", r:"chuay duay"},
+  {c:"Emergency", en:"Call police", th:"\u0e40\u0e23\u0e35\u0e22\u0e01\u0e15\u0e33\u0e23\u0e27\u0e08", r:"riak tam-ruat"},
+  {c:"Emergency", en:"I need a doctor", th:"\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e2b\u0e21\u0e2d", r:"tong-kaan maw"},
+  {c:"Emergency", en:"Hospital", th:"\u0e42\u0e23\u0e07\u0e1e\u0e22\u0e32\u0e1a\u0e32\u0e25", r:"rong pha-ya-baan"},
+  {c:"Emergency", en:"I'm lost", th:"\u0e1c\u0e21\u0e2b\u0e25\u0e07\u0e17\u0e32\u0e07", r:"phom long thaang"},
+  {c:"Emergency", en:"I don't understand", th:"\u0e1c\u0e21\u0e44\u0e21\u0e48\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08", r:"phom mai khao-jai"},
+  {c:"Emergency", en:"Do you speak English?", th:"\u0e1e\u0e39\u0e14\u0e20\u0e32\u0e29\u0e32\u0e2d\u0e31\u0e07\u0e01\u0e24\u0e29\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"phood paasaa ang-grit dai mai"},
+  {c:"Emergency", en:"Dangerous", th:"\u0e2d\u0e31\u0e19\u0e15\u0e23\u0e32\u0e22", r:"an-taraai"},
+
+  // Diving / Beach
+  {c:"Dive / Beach", en:"Dive shop", th:"\u0e23\u0e49\u0e32\u0e19\u0e14\u0e33\u0e19\u0e49\u0e33", r:"raan dam naam"},
+  {c:"Dive / Beach", en:"Strong current", th:"\u0e01\u0e23\u0e30\u0e41\u0e2a\u0e19\u0e49\u0e33\u0e41\u0e23\u0e07", r:"kra-sae naam raeng"},
+  {c:"Dive / Beach", en:"Sunscreen", th:"\u0e04\u0e23\u0e35\u0e21\u0e01\u0e31\u0e19\u0e41\u0e14\u0e14", r:"cream gan dadt"},
+  {c:"Dive / Beach", en:"Beach", th:"\u0e0a\u0e32\u0e22\u0e2b\u0e32\u0e14", r:"chai haat"},
+  {c:"Dive / Beach", en:"Full moon party", th:"\u0e1b\u0e32\u0e23\u0e4c\u0e15\u0e35\u0e49\u0e1e\u0e23\u0e30\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e40\u0e15\u0e47\u0e21\u0e14\u0e27\u0e07", r:"party phra-jan tem duang"},
+
+  // Shopping / Social
+  {c:"Shopping", en:"I want this", th:"\u0e40\u0e2d\u0e32\u0e2d\u0e31\u0e19\u0e19\u0e35\u0e49", r:"ao an nee"},
+  {c:"Shopping", en:"Do you have...?", th:"\u0e21\u0e35...\u0e44\u0e2b\u0e21", r:"mee ... mai"},
+  {c:"Shopping", en:"Can I pay by card?", th:"\u0e08\u0e48\u0e32\u0e22\u0e14\u0e49\u0e27\u0e22\u0e1a\u0e31\u0e15\u0e23\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"jaai duay bat dai mai"},
+  {c:"Shopping", en:"Receipt please", th:"\u0e02\u0e2d\u0e43\u0e1a\u0e40\u0e2a\u0e23\u0e47\u0e08", r:"khor bai set"},
+  {c:"Shopping", en:"Beautiful!", th:"\u0e2a\u0e27\u0e22", r:"suay"},
+  {c:"Shopping", en:"Handsome", th:"\u0e2b\u0e25\u0e48\u0e2d", r:"law"},
+  {c:"Shopping", en:"Friend", th:"\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19", r:"pheuan"},
+  {c:"Shopping", en:"Good luck!", th:"\u0e42\u0e0a\u0e04\u0e14\u0e35", r:"chok dee"}
+];
+
+// ── Offline EN->TH dictionary for translator (word + phrase level) ──
+const THAI_DICT = {
+  "hello":["\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35","sa-wat-dee"],
+  "hi":["\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35","sa-wat-dee"],
+  "goodbye":["\u0e25\u0e32\u0e01\u0e48\u0e2d\u0e19","laa gorn"],
+  "bye":["\u0e25\u0e32\u0e01\u0e48\u0e2d\u0e19","laa gorn"],
+  "thank you":["\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13","khop khun"],
+  "thanks":["\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13","khop khun"],
+  "sorry":["\u0e02\u0e2d\u0e42\u0e17\u0e29","khor thot"],
+  "excuse me":["\u0e02\u0e2d\u0e42\u0e17\u0e29","khor thot"],
+  "yes":["\u0e43\u0e0a\u0e48","chai"],
+  "no":["\u0e44\u0e21\u0e48","mai"],
+  "ok":["\u0e15\u0e01\u0e25\u0e07","tok long"],
+  "please":["\u0e01\u0e23\u0e38\u0e13\u0e32","garunaa"],
+  "you":["\u0e04\u0e38\u0e13","khun"],
+  "i":["\u0e1c\u0e21","phom"],
+  "me":["\u0e1c\u0e21","phom"],
+  "we":["\u0e40\u0e23\u0e32","rao"],
+  "friend":["\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19","pheuan"],
+  "good":["\u0e14\u0e35","dee"],
+  "bad":["\u0e44\u0e21\u0e48\u0e14\u0e35","mai dee"],
+  "beautiful":["\u0e2a\u0e27\u0e22","suay"],
+  "delicious":["\u0e2d\u0e23\u0e48\u0e2d\u0e22","a-roi"],
+  "love":["\u0e23\u0e31\u0e01","rak"],
+  "i love you":["\u0e1c\u0e21\u0e23\u0e31\u0e01\u0e04\u0e38\u0e13","phom rak khun"],
+  "how much":["\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48","thao rai"],
+  "how much is this":["\u0e2d\u0e31\u0e19\u0e19\u0e35\u0e49\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48","an nee thao rai"],
+  "expensive":["\u0e41\u0e1e\u0e07","phaeng"],
+  "cheap":["\u0e16\u0e39\u0e01","thook"],
+  "too expensive":["\u0e41\u0e1e\u0e07\u0e44\u0e1b","phaeng pai"],
+  "discount":["\u0e25\u0e14\u0e23\u0e32\u0e04\u0e32","lot ra-kha"],
+  "water":["\u0e19\u0e49\u0e33","naam"],
+  "food":["\u0e2d\u0e32\u0e2b\u0e32\u0e23","aa-haan"],
+  "rice":["\u0e02\u0e49\u0e32\u0e27","khao"],
+  "chicken":["\u0e44\u0e01\u0e48","gai"],
+  "pork":["\u0e2b\u0e21\u0e39","moo"],
+  "beef":["\u0e40\u0e19\u0e37\u0e49\u0e2d","neua"],
+  "fish":["\u0e1b\u0e25\u0e32","pla"],
+  "shrimp":["\u0e01\u0e38\u0e49\u0e07","goong"],
+  "vegetable":["\u0e1c\u0e31\u0e01","phak"],
+  "spicy":["\u0e40\u0e1c\u0e47\u0e14","phet"],
+  "not spicy":["\u0e44\u0e21\u0e48\u0e40\u0e1c\u0e47\u0e14","mai phet"],
+  "sweet":["\u0e2b\u0e27\u0e32\u0e19","waan"],
+  "coffee":["\u0e01\u0e32\u0e41\u0e1f","gaa-fae"],
+  "tea":["\u0e0a\u0e32","chaa"],
+  "beer":["\u0e40\u0e1a\u0e35\u0e22\u0e23\u0e4c","beer"],
+  "cheers":["\u0e0a\u0e19\u0e41\u0e01\u0e49\u0e27","chon kaew"],
+  "bill":["\u0e40\u0e0a\u0e47\u0e04\u0e1a\u0e34\u0e25","chek bin"],
+  "menu":["\u0e40\u0e21\u0e19\u0e39","menu"],
+  "taxi":["\u0e41\u0e17\u0e47\u0e01\u0e0b\u0e35\u0e48","taxi"],
+  "hotel":["\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21","rong raem"],
+  "airport":["\u0e2a\u0e19\u0e32\u0e21\u0e1a\u0e34\u0e19","sa-naam bin"],
+  "beach":["\u0e0a\u0e32\u0e22\u0e2b\u0e32\u0e14","chai haat"],
+  "boat":["\u0e40\u0e23\u0e37\u0e2d","reua"],
+  "market":["\u0e15\u0e25\u0e32\u0e14","ta-laat"],
+  "temple":["\u0e27\u0e31\u0e14","wat"],
+  "where":["\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19","thee nai"],
+  "where is the bathroom":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19","hong naam yoo thee nai"],
+  "toilet":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33","hong naam"],
+  "bathroom":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33","hong naam"],
+  "help":["\u0e0a\u0e48\u0e27\u0e22\u0e14\u0e49\u0e27\u0e22","chuay duay"],
+  "police":["\u0e15\u0e33\u0e23\u0e27\u0e08","tam-ruat"],
+  "doctor":["\u0e2b\u0e21\u0e2d","maw"],
+  "hospital":["\u0e42\u0e23\u0e07\u0e1e\u0e22\u0e32\u0e1a\u0e32\u0e25","rong pha-ya-baan"],
+  "today":["\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49","wan nee"],
+  "tomorrow":["\u0e1e\u0e23\u0e38\u0e48\u0e07\u0e19\u0e35\u0e49","phrung nee"],
+  "yesterday":["\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e27\u0e32\u0e19","meua waan"],
+  "now":["\u0e15\u0e2d\u0e19\u0e19\u0e35\u0e49","ton nee"],
+  "hot":["\u0e23\u0e49\u0e2d\u0e19","ron"],
+  "cold":["\u0e2b\u0e19\u0e32\u0e27","naao"],
+  "big":["\u0e43\u0e2b\u0e0d\u0e48","yai"],
+  "small":["\u0e40\u0e25\u0e47\u0e01","lek"],
+  "one":["\u0e2b\u0e19\u0e36\u0e48\u0e07","neung"],
+  "two":["\u0e2a\u0e2d\u0e07","song"],
+  "three":["\u0e2a\u0e32\u0e21","saam"],
+  "four":["\u0e2a\u0e35\u0e48","see"],
+  "five":["\u0e2b\u0e49\u0e32","haa"]
+};
+
+// ── REELS DATA: hook + captions + camera + drone + osmo + edit per place ──
+const REELS = {
+  "bkk01":{hook:"POV: 1am Bangkok pad thai through a wok-fire window",
+    captions:["thip samai \u2014 pad thai religion","ordering the royal version means river prawns and zero regrets","the wok hits 600\u00b0c so your reel hits 60fps"],
+    story:"Pad thai at midnight \u2014 ask for the river prawn",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 60p Apple Log \u00b7 ISO 1250 \u00b7 1/120 \u00b7 ND2 \u00b7 5600K \u00b7 lock on the wok flame",
+    drone:"\u2014 (street, no drone)",
+    osmo:"FlowMode portrait, ActiveTrack on the wok, slow lateral over the prep counter",
+    edit:"Cut on flame flares. Sound design: oil sizzle high-pass + sub kick on plate hit. Pace: 0.4s\u20130.8s clips, no music until first bite."},
+  "bkk03":{hook:"Sky bar at 1330ft \u2014 don't drop your phone",
+    captions:["sirocco rooftop, lebua","this is the bond skyfall bar btw","gin sour at 63rd floor hits different"],
+    story:"Sundowner at Sirocco \u2014 jacket required",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 ND8 sun then ND2 dusk \u00b7 lock 5200K \u00b7 18mm wide",
+    drone:"Avoid \u2014 helipad airspace, illegal",
+    osmo:"Inception spin from the Sky Bar dome, then orbit around the glass cocktail",
+    edit:"Open on glass refraction. Use 3s drone-style locked shots between sips. Sound: low ambient drone + soft jazz fade-in."},
+  "pkt01":{hook:"Tiger Muay Thai 6am, the only sound is shins on bag",
+    captions:["6am muay thai \u2014 the bag hits back","this is the gym that built bukaw","add to cart: shin guards. Add to soul: discipline"],
+    story:"Pad work at sunrise \u2014 sound on",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 60p Apple Log \u00b7 ISO 800 \u00b7 1/120 \u00b7 ND4 \u00b7 5600K \u00b7 50mm tight on shins, 18mm wide for ring",
+    drone:"Mini 4 Pro outdoor track at 4K30, AE-L on the ring, 15m altitude",
+    osmo:"Track 6 on coach holding pads, lateral move on slow-mo round",
+    edit:"Sync shin contact to a snare. 24fps base, 60fps slow-mo on impact. Cool LUT, raise blacks for that gym haze."},
+  "pkt03":{hook:"Phuket Old Town pastel run \u2014 every facade a different decade",
+    captions:["sino-portuguese > postcard","every door is a different paint chip","walking street, sundays only, the rest of the week is a movie set"],
+    story:"Old Town Sunday \u2014 6pm to 10pm window",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 day, ND4 dusk \u00b7 5200K \u00b7 25mm walking",
+    drone:"Mini 4 Pro pre-sundown, 30m altitude, lateral down Thalang Rd \u2014 confirm with vendors first",
+    osmo:"FlowMode portrait, ActiveTrack on the colour you like, walking pace",
+    edit:"Match-cut on doorways of similar colour. Music: lofi or thai-pop. End on a wide drone reveal."},
+  "pkt09":{hook:"Promthep at sunset \u2014 the original Phuket viral reel",
+    captions:["promthep cape \u2014 sunset, every day, free","get there 60 min early or you're filming the back of someone's head","the wind here is your free ND filter"],
+    story:"Promthep sunset \u2014 6:15pm in April",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 200 dropping to 1250 \u00b7 1/50 \u00b7 ND64 then off \u00b7 5600K \u2192 7000K as sun drops \u00b7 35mm",
+    drone:"Mini 4 Pro 4K30 D-Log M \u00b7 ISO 100 \u00b7 1/100 \u00b7 ND16 \u00b7 50m altitude orbit at 5\u00b0/sec, AE-L locked",
+    osmo:"DynamicZoom (vertigo) pull from the lighthouse, then locked off tripod for the sun line",
+    edit:"Sun-drop time-lapse cuts to 2x speed. Drone orbit underneath. Music: ambient build, drop on horizon-touch."},
+  "pkt12":{hook:"Suay Cherngtalay \u2014 the cafe that broke phuket instagram",
+    captions:["suay cherngtalay \u00b7 north phuket cafe row","matcha lavender. yes really. yes order it","the most photographed corner in cherngtalay"],
+    story:"Brunch at Suay \u2014 corner table, lavender matcha",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u00b7 5200K \u00b7 35mm static, 50mm food close",
+    drone:"Skip \u2014 residential",
+    osmo:"FlowMode top-down on the latte art pour, then ActiveTrack on the carry-out",
+    edit:"Shallow DOF cuts only. Music: jazzy lo-fi. Cap caption with location pin."},
+  "pkt10":{hook:"Cape Promthep \u2014 Phuket's southern tip, drone reveal at sunset",
+    captions:["cape promthep","the southwest tip where land meets andaman","drone went up 6:40pm, light hit at 6:52"],
+    story:"Cape Promthep sunset \u2014 arrive 60 min early",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u2192 1250 \u00b7 1/50 \u00b7 ND32 \u2192 off \u00b7 5400K \u2192 6400K \u00b7 25mm standard, 16mm for lighthouse",
+    drone:"Mini 4 Pro D-Log M 4K60 \u00b7 ISO 100 \u00b7 1/120 \u00b7 ND32 \u00b7 launch 80m, isolate-track-ascend past the lighthouse, keep horizon in lower third",
+    osmo:"Locked iPhone 17 Pro 4K60 ProRes Log for the lighthouse walk-up and the sun-drop timelapse",
+    edit:"Drone reveal in the first 1.2s = the hook. Build music soft-to-drop on the horizon kiss. End on a slow boat silhouette."},
+  "kph01":{hook:"Full Moon Party \u2014 the only viral reel that needs zero edit",
+    captions:["full moon haad rin","9pm: vibes. midnight: chaos. 4am: regret","fire skipping rope is not for tourists. don't try."],
+    story:"Full Moon Party \u2014 don't film the fire rope",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 60p Apple Log \u00b7 ISO 1600 \u00b7 1/120 \u00b7 NO ND \u00b7 4000K (fire warmth) \u00b7 wear strap, sand kills cameras",
+    drone:"Forbidden \u2014 don't",
+    osmo:"FlowMode + iPhone 17 Pro 4K60 ProRes Log + waterproof phone case. ActiveTrack on a friend on the dance floor.",
+    edit:"60fps slow-mo on fire pour. Audio: keep raw crowd, mix in track at 30%. End on sunrise wide."},
+  "kph08":{hook:"Bottle Beach \u2014 only reachable by longtail, only quiet at sunrise",
+    captions:["bottle beach \u00b7 koh phangan","30 mins by longtail. 0 phone signal. 100% point.","arrive 7am, shoot at 7:15, you have the beach to yourself"],
+    story:"Bottle Beach 7am \u2014 longtail from Chaloklum",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 200 \u00b7 1/50 \u00b7 ND32 \u00b7 5600K \u00b7 18mm wide, 50mm tight on water lines",
+    drone:"Mini 4 Pro 4K60 D-Log M \u00b7 ISO 100 \u00b7 ND16 \u00b7 100m altitude pullback over jungle to bay reveal",
+    osmo:"FlowMode + iPhone, walking length of beach, lateral",
+    edit:"Drone reveal first 2s. Cut to iPhone 17 Pro tight on water lapping toes. Music: ambient build. End on wide drone push-out."},
+  "ktao03":{hook:"Whale shark at Sail Rock \u2014 the only reel that matters",
+    captions:["sail rock, koh tao","20m down. ten minutes that changed me.","shutter 1/200 on the gopro, lock white balance to underwater preset"],
+    story:"Sail Rock dive \u2014 6:30am boat from Mae Haad",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · \u2014 (boat only, phone in dive case)",
+    drone:"Mini 4 Pro on the boat: 4K60, ND16, slow circle around moored boats at 30m altitude",
+    osmo:"Locked iPhone 17 Pro 4K60 ProRes Log for the boat ride out. Below water: GoPro 13 5.3K30, flat profile, dive housing.",
+    edit:"Open on drone reveal of the boat fleet, then cut to underwater. Audio: soft ambient pad. End on whale-shark silhouette held for 4s."},
+  "bkk02":{hook:"Michelin Thai fine dining that still tastes like grandma",
+    captions:["bo.lan \u2014 michelin, but make it ancestral","9 courses, 3 hours, 1 palm sugar epiphany","the nam phrik platter is the flex"],
+    story:"Bo.lan tasting \u2014 book 2 weeks out",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 5200K \u00b7 50mm macro on plates, 25mm for the sala",
+    drone:"Skip \u2014 residential garden",
+    osmo:"Top-down on each course carry-in, ActiveTrack on the dish",
+    edit:"Slow pans, no music for first 5s so the ambience lands. Add soft strings on course 3. End on palm sugar ice cream shot."},
+  "pkt02":{hook:"45m Buddha at golden hour, wind at 400m elevation",
+    captions:["big buddha phuket","the marble turns amber at 5:45","scooter up is more fun than grab"],
+    story:"Big Buddha \u2014 arrive 5pm, stay for dusk",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 200 \u2192 1000 \u00b7 1/50 \u00b7 ND32 \u2192 ND4 \u00b7 5200K \u2192 6000K \u00b7 18mm for looking-up, 50mm for marble detail",
+    drone:"Mini 4 Pro 4K30 D-Log M \u00b7 ISO 100 \u00b7 ND16 \u00b7 60m altitude reveal pull-back \u2014 check no-fly zones",
+    osmo:"FlowMode circling the base statues, ActiveTrack on sarong-clad visitors",
+    edit:"Open with detail of marble grain, cut wide on drone reveal. Track: ambient drone + chime. End on sunset silhouette."},
+  "pkt06":{hook:"Kata Noi viewpoint sunrise \u2014 three bays in one frame",
+    captions:["kata noi viewpoint","walk up 20 min or regret sleeping in","the panorama deletes your stress"],
+    story:"Kata Noi sunrise \u2014 6:05am, bring water",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u2192 none \u00b7 5200K \u2192 5600K \u00b7 16mm ultra-wide, 35mm for horizon",
+    drone:"Mini 4 Pro 4K60 D-Log M \u00b7 ISO 100 \u00b7 1/120 \u00b7 ND16 \u00b7 climb-reveal from beach to 120m",
+    osmo:"FlowMode walking up the trail POV, ActiveTrack nothing \u2014 just steady",
+    edit:"Time-lapse sunrise pan to normal-speed drone reveal. Music: soft piano build to the reveal crest."},
+  "pkt07":{hook:"Nai Harn morning paddle \u2014 water so clear you film both fish and feet",
+    captions:["nai harn beach","7am the lagoon is a mirror","this is phuket without the noise"],
+    story:"Nai Harn sunrise paddle \u2014 yoga on the beach after",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u00b7 5600K \u00b7 18mm wide, 35mm for paddle strokes",
+    drone:"Mini 4 Pro 4K30 \u00b7 ISO 100 \u00b7 ND16 \u00b7 top-down over paddleboarder, 40m altitude",
+    osmo:"Waterproof mount iPhone 17 Pro 4K60 ProRes Log, half-in/half-out for split shots",
+    edit:"Split-shots set to slow build. Cut in drone top-down at the 4s mark. Music: bass-heavy ambient, no drop."},
+  "pkt13":{hook:"Kopitiam \u2014 80-year-old kaya toast in a heritage shophouse",
+    captions:["kopitiam by wilai","kaya + butter + eggs + condensed milk coffee = old town breakfast","the green shutters are just bait"],
+    story:"Old Town kaya toast \u2014 8am opening",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 5200K \u00b7 50mm tight on egg break, 25mm for shophouse interior",
+    drone:"Skip",
+    osmo:"Top-down pour shot on condensed milk coffee, slow-mo 4K60",
+    edit:"ASMR audio: knife on toast, coffee pour, egg yolk. No music till bite. Vertical 9:16 with phone overlay for reel output."},
+  "pkt14":{hook:"Chalong Bay distillery tour \u2014 rum reveal with copper still reflections",
+    captions:["chalong bay rum \u00b7 single-estate phuket","the copper still is the shot","sugarcane \u2192 glass in 90 minutes"],
+    story:"Distillery tour \u2014 book 4pm slot, sunset cocktails after",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 4800K \u00b7 25mm for the still, 50mm on cocktail pour",
+    drone:"Skip \u2014 indoor",
+    osmo:"Locked ActiveTrack on the bartender, 4K60 slow-mo on the shake",
+    edit:"Music builds with the shake. Cut to drone wide of the plantation at sunset as the final shot."},
+  "pkt22":{hook:"Tiger Muay Thai 5:30am bag work, shin pads optional",
+    captions:["tiger muay thai","the bag hits back","no filter needed \u2014 the gym light is already cinema"],
+    story:"Tiger Muay 6am morning session",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 60p Apple Log \u00b7 ISO 1000 \u00b7 1/120 \u00b7 ND2 \u00b7 5200K \u00b7 50mm tight on shins, 18mm wide on ring",
+    drone:"Mini 4 Pro exterior, 4K30, 15m altitude above the outdoor ring \u2014 coordinate with staff",
+    osmo:"Track 6 on coach with pads, lateral drift during round",
+    edit:"Cut impacts to snare hits. Mix real glove slap at 60% + track at 40%. End on the bell."},
+  "pkt25":{hook:"Phuket FantaSea sky show \u2014 the gaudy tourist trap that films like fiction",
+    captions:["phuket fantasea","yes it's kitsch. yes the pyrotechnics slap.","eat the pre-show buffet, skip the mains"],
+    story:"FantaSea show night \u2014 buy tickets day-of online",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 1600 \u00b7 1/50 \u00b7 NO ND \u00b7 3800K (stage warmth) \u00b7 no flash allowed",
+    drone:"Forbidden indoors",
+    osmo:"Steady locked off shots of the stage, no flow \u2014 movement on stage is already chaotic",
+    edit:"Cut to stage music. Compress crowd audio. End on firework wide."},
+  "pkt35":{hook:"Heroines Monument sunrise wide \u2014 the statue nobody shoots",
+    captions:["heroines monument","thailand's first gender-equality statue since 1785","shot at 6am, zero crowd"],
+    story:"Heroines Monument sunrise \u2014 drop by on scooter",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u00b7 5400K \u00b7 25mm for roundabout, 50mm tight on statue face",
+    drone:"Mini 4 Pro 4K60 \u00b7 ND16 \u00b7 80m orbit around the roundabout, 5\u00b0/sec",
+    osmo:"FlowMode lateral from the roundabout exterior, avoid traffic",
+    edit:"Orbit shot as the hook, then cut to face detail. Caption with the 1785 date overlay."},
+  "klipe01":{hook:"Koh Lipe sunrise beach \u2014 skip if you're lazy, otherwise book now",
+    captions:["koh lipe sunrise beach","3 ferries + 1 speedboat to get here. worth it.","the sand is so white it blows out at f/4"],
+    story:"Sunrise Beach 5:30am \u2014 bring the 35mm",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 200 \u00b7 1/50 \u00b7 ND16 \u2192 none \u00b7 5400K \u2192 5800K \u00b7 35mm standard",
+    drone:"Mini 4 Pro 4K60 \u00b7 ND16 \u00b7 reveal pullback from beach to offshore islands, 100m alt",
+    osmo:"Waterproof iPhone 17 Pro, half-submerged Miró split-shots",
+    edit:"Drone reveal first 1.5s. Cut to shore walk. Music: ambient build, no drop. End on silhouette."},
+  "kyn01":{hook:"Koh Yao Nai \u2014 the longtail island 90 minutes from Phuket",
+    captions:["koh yao nai, not yai","locals outnumber tourists 40:1","longtail reveal at low tide is the shot"],
+    story:"Koh Yao Nai day \u2014 ferry from Bang Rong, scooter the whole island",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u00b7 5600K \u00b7 18mm for ferry arrival, 50mm for longtail details",
+    drone:"Mini 4 Pro 4K60 \u00b7 ND16 \u00b7 ascend-reveal from the longtail boat fleet, 80m altitude",
+    osmo:"FlowMode scooter POV with chest mount on the quiet inland roads",
+    edit:"Start wide drone, cut to longtail rope detail, end on silhouette ride. Music: cinematic acoustic."},
+  "kph05":{hook:"Secret Mountain viewpoint Ko Phangan \u2014 5km scooter ride, 360\u00b0 reveal",
+    captions:["secret mountain koh phangan","scooter + 15 min hike","sunset here > any bar on the island"],
+    story:"Secret Mountain \u2014 5pm scooter from Thong Sala",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u2192 1250 \u00b7 1/50 \u00b7 ND16 \u2192 none \u00b7 5200K \u2192 6200K \u00b7 16mm ultra-wide",
+    drone:"Mini 4 Pro 4K60 \u00b7 ND16 \u00b7 climb-reveal from jungle canopy to full island view \u00b7 120m altitude",
+    osmo:"FlowMode hike-up POV, chest-mount, ActiveTrack off",
+    edit:"Climb-reveal is the hook. Time-lapse sunset sky as B-roll. Music: soft build, no drop."},
+  "kph09":{hook:"Bottle Beach snorkel \u2014 the reef nobody talks about",
+    captions:["bottle beach snorkel","parrotfish in ankle-deep water","mask on, phone in dry bag, go"],
+    story:"Bottle Beach snorkel \u2014 9am, low tide",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · \u2014 (water, phone in dive case only)",
+    drone:"Mini 4 Pro 4K60 \u00b7 top-down hover over snorkeler, 10m alt",
+    osmo:"GoPro 13 5.3K30 flat profile in dive housing. iPhone 17 Pro 4K60 ProRes Log above water.",
+    edit:"Above-water wide, cut to underwater reef, end on shore push-in. Music: ambient, no drum."},
+  "ktao01":{hook:"Mae Haad pier 6am \u2014 diveboats lit by a pink sky",
+    captions:["mae haad pier, koh tao","boats start loading at 6:30","this is the scuba capital of asia"],
+    story:"Mae Haad sunrise \u2014 before your dive brief",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 ND8 \u00b7 5400K \u00b7 25mm for the piers, 50mm boat details",
+    drone:"Mini 4 Pro 4K60 \u00b7 top-down pier reveal, 50m altitude, AE-L locked",
+    osmo:"FlowMode lateral walk down the pier, ActiveTrack on a dive flag",
+    edit:"Drone reveal first, cut to pier walk, end on boat departure. Ambient pad + seagulls in mix."},
+  "ktao05":{hook:"Freediving Chumphon Pinnacle \u2014 20m on one breath",
+    captions:["chumphon pinnacle freedive","one breath, 20 meters, zero regrets","equalize every half meter or the reel is over"],
+    story:"Freedive Chumphon with Apnea Koh Tao",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · \u2014 (surface only)",
+    drone:"Mini 4 Pro 4K60 \u00b7 ND16 \u00b7 boat-orbit at 40m altitude",
+    osmo:"GoPro 13 5.3K30 flat, dive fin mount, buddy also with GoPro for counter-angle",
+    edit:"Synced breath-hold timer on screen. Cut to surface exhale for the payoff. Music: ambient pad, big reverb."},
+  "shop01":{hook:"Chatuchak 15,000 stalls \u2014 you need a map and a plan",
+    captions:["chatuchak weekend market","section 7 for thrifted denim","section 26 for the famous coconut ice cream"],
+    story:"Chatuchak Saturday \u2014 arrive at 9am, leave by 1pm",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 1600 \u00b7 1/50 \u00b7 5200K \u00b7 25mm walking, 50mm for hanging rack details",
+    drone:"Forbidden",
+    osmo:"FlowMode walking, ActiveTrack on racks, steady lateral down aisles",
+    edit:"Match-cuts on colours. Overlay section numbers as titles. End on coconut ice cream sit-down."},
+  "shop07":{hook:"Phuket Walking Street Sunday \u2014 old town transforms at 6pm",
+    captions:["phuket walking street","sunday only, thalang road","street food x local craft x portuguese facades"],
+    story:"Walking Street Sunday \u2014 6pm start, eat dinner here",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 1600 \u00b7 1/50 \u00b7 3800K (lanterns) \u00b7 25mm on crowd, 50mm on stall details",
+    drone:"Skip \u2014 crowded residential",
+    osmo:"FlowMode walking north-to-south, ActiveTrack on lanterns above head",
+    edit:"Crowd-walk continuous long take cut to music. Overlay stall prices as subtle captions."},
+  "pkt04":{hook:"Songkran Old Town \u2014 the one day you film with a GoPro, not your main rig",
+    captions:["songkran phuket \u00b7 13\u201315 april","water fights on thalang road","thai new year = the wettest reel you'll ever post"],
+    story:"Songkran Phuket Old Town \u2014 13\u201315 April, waterproof everything",
+    bmpcc:"iPhone 17 Pro in dive case · Blackmagic Cam app 4K60 Apple Log · ISO 400 · 1/120 · 5600K",
+    drone:"Mini 4 Pro brief establish only, 60m altitude \u2014 wet crowd below, don't fly low",
+    osmo:"Osmo Action 5 chest-mount + Osmo Mobile 6 in waterproof sleeve. FlowMode in-crowd.",
+    edit:"Beat-drop on the first water-bucket splash. 120fps slow-mo only on splashes. Colour warm, raise mids."},
+  "pkt08":{hook:"Bang Tao 5:40am \u2014 the only Phuket beach with zero footprints",
+    captions:["bang tao beach \u00b7 cherngtalay","sunrise 5:52 in april","run west to east to keep the sun behind you"],
+    story:"Bang Tao sunrise run \u2014 6km empty sand",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800\u2192400 as sun climbs \u00b7 1/50 \u00b7 ND off \u2192 ND8 \u00b7 5200K \u00b7 25mm + 50mm for feet",
+    drone:"Mini 4 Pro 4K60 D-Log M \u00b7 ISO 100 \u00b7 ND16 \u00b7 reveal pull-back 40m up, start behind palms, horizon in upper third",
+    osmo:"iPhone 17 Pro 4K60 ProRes Log \u00b7 FlowMode run-tracking \u00b7 ActiveTrack 6 on the runner",
+    edit:"Open on feet splash, cut to drone reveal in under 1.2s. Music: ambient build, drop at drone reveal."},
+  "pkt11":{hook:"Khao Rang Viewpoint \u2014 the free Phuket skyline shot",
+    captions:["khao rang hill \u00b7 free viewpoint","the whole of phuket town in one frame","best at blue hour, 6:40pm in april"],
+    story:"Khao Rang blue hour \u2014 park at the top, cafe is open",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400\u21921250 \u00b7 1/50 \u00b7 ND16 \u2192 off \u00b7 5200K \u2192 4400K \u00b7 25mm wide, 85mm for distant buildings",
+    drone:"Mini 4 Pro 4K30 \u00b7 ISO 100\u2192400 \u00b7 ND8 \u2192 ND2 \u00b7 ascend reveal from parking lot, 80m peak, pan right over the bay",
+    osmo:"Locked iPhone 17 Pro timelapse on tripod \u2014 one clean 8-sec blue-hour lapse",
+    edit:"Blue-hour timelapse = the hook. Keep it under 8s so IG doesn't crush it. Close on neon cafe sign cut-in."},
+  "pkt15":{hook:"Rawai Seafood Market \u2014 pick it alive, eat it 20 minutes later",
+    captions:["rawai pier market","tiger prawns, crab, lobster \u2014 you pick, they cook","sit-down restaurants across the road grill it for 100 baht/kg"],
+    story:"Rawai Seafood Market \u2014 5pm, sunset side of the pier",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 ND8 \u2192 off at dusk \u00b7 4800K (market lights) \u00b7 50mm macro for seafood",
+    drone:"Mini 4 Pro brief establishing only, 50m above pier, don't hover over stalls",
+    osmo:"FlowMode slow lateral across the ice beds, ActiveTrack on the wok once cooked",
+    edit:"Macro crab-claw hero shot first, then pull out to market wide. Sound design: ice + wok hiss."},
+  "pkt20":{hook:"Bangla Road at 11pm \u2014 film with a wide lens and no shame",
+    captions:["bangla road \u00b7 patong","the strip that never turns off the neon","film fast, drink slow"],
+    story:"Bangla Road \u2014 walk, film, leave by midnight",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 60p Apple Log \u00b7 ISO 1250 \u00b7 1/120 \u00b7 NO ND \u00b7 4000K (neon) \u00b7 18mm wide only",
+    drone:"Forbidden \u2014 dense crowd",
+    osmo:"FlowMode tilt-up on neon signs, ActiveTrack on a fire-show. iPhone Action Mode backup.",
+    edit:"Neon sign flicker to beat. Avoid faces. 60fps slow-mo on fire poi spins. Keep under 25s."},
+  "bkk05":{hook:"Sing Sing Theater \u2014 a shanghai opium den, but make it a bar",
+    captions:["sing sing theater \u00b7 sukhumvit 45","red lanterns + dragon murals + art deco","arrive by 10, the set piece shots get crowded after"],
+    story:"Sing Sing \u2014 10pm, order the lychee martini",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 1600 \u00b7 1/50 \u00b7 NO ND \u00b7 3400K (lantern warm) \u00b7 35mm static",
+    drone:"\u2014 (indoor)",
+    osmo:"Osmo Mobile 6 FlowMode \u2014 slow lateral across the dragon bar, tilt-up on the second-floor balcony",
+    edit:"Open on a red-lantern close-up, pull out to reveal the room. Music: slow jazz or dark synth."},
+  "bkk09":{hook:"Ari Cafe Crawl \u2014 4 cafes, 1 morning, zero regrets",
+    captions:["ari district \u00b7 bangkok","4 cafes in 3 blocks: brave roasters, mother roaster, porcupine, dog in town","bts phaya thai \u2192 ari, 1 stop"],
+    story:"Ari cafe crawl \u2014 8am start, finish by noon",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND8 \u00b7 5200K \u00b7 50mm latte-art close, 25mm interior",
+    drone:"Skip (residential)",
+    osmo:"FlowMode walking, ActiveTrack on the espresso pour, match-cut between cafes",
+    edit:"Match-cut on coffee cups: 4 cafes, same framing. Title-card each cafe name. 0.6s pacing."},
+  "bkk10":{hook:"Vertigo Rooftop \u2014 61 floors up, zero glass walls",
+    captions:["vertigo \u00b7 banyan tree bangkok","no glass. just sky.","the moon bar is literally the moon"],
+    story:"Vertigo sundowner \u2014 reservation needed, smart-casual",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 800 \u00b7 1/50 \u00b7 ND8 \u2192 off \u00b7 5200K \u2192 3800K \u00b7 18mm wide for vertigo, 50mm for cocktail",
+    drone:"Forbidden \u2014 airspace restricted",
+    osmo:"iPhone 17 Pro 4K60 ProRes Log \u00b7 FlowMode tilt-up from the glass to the skyline",
+    edit:"Vertigo tilt-up = hook. Horizon-dip timelapse. End on a clinking glass slow-mo."},
+  "ktao04":{hook:"Zest Coffee Koh Tao \u2014 the smoothie bowl that funds island life",
+    captions:["zest coffee \u00b7 sairee beach","ko tao acai bowl > bali","post-dive fuel, pre-dive fuel, between-dive fuel"],
+    story:"Zest breakfast \u2014 8am after the first dive",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u00b7 1/50 \u00b7 ND16 \u00b7 5200K \u00b7 50mm top-down food",
+    drone:"Skip (residential)",
+    osmo:"Osmo Mobile 6 top-down rig. FlowMode pour shot on the smoothie.",
+    edit:"Top-down slow-pour on acai \u2014 that's the hook. Cut to dive-fins cameo if you have one. Warm LUT."},
+  "kyn02":{hook:"Koh Yao Nai mangrove kayak \u2014 tunnels that close behind you",
+    captions:["koh yao nai mangroves","low tide opens the tunnels, high tide seals them","sea eagle sightings at 7am"],
+    story:"Mangrove kayak \u2014 book sunrise slot, 2.5hr tour",
+    bmpcc:"iPhone 17 Pro in dive case · Blackmagic Cam app 4K60 Apple Log · ISO 400 · 1/120 · 5600K",
+    drone:"Mini 4 Pro 4K30 D-Log M \u00b7 ISO 100 \u00b7 ND16 \u00b7 reveal from canopy break, track kayak at 15m altitude",
+    osmo:"Osmo Action 5 chest-mount + iPhone 17 Pro on a mount at the bow",
+    edit:"Hook: drone reveal of kayak entering the mangrove tunnel. Mid: POV paddle through. End: aerial pullback at open water."},
+  "klipe02":{hook:"Koh Lipe Castaway \u2014 the hammock-between-palms shot that built instagram",
+    captions:["castaway \u00b7 sunrise beach koh lipe","the pink sand is real, just at low tide","paradise, but with fiber wi-fi"],
+    story:"Castaway beachfront \u2014 sunrise swim, then breakfast",
+    bmpcc:"iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log \u00b7 ISO 400 \u2192 200 \u00b7 1/50 \u00b7 ND16 \u2192 ND32 \u00b7 5200K \u00b7 25mm + 50mm hammock close",
+    drone:"Mini 4 Pro 4K60 D-Log M \u00b7 ISO 100 \u00b7 ND32 \u00b7 top-down over turquoise shallows + orbit around hammock",
+    osmo:"FlowMode slow lateral from the hammock out to the water",
+    edit:"Top-down turquoise shallow is the hook. Orbit-around-hammock mid. End on a slow walk-out reveal."}
+};
+
+// ── APP ─────────────────────────────────────────────────────────────────────
+class ThailandApp {
+  constructor() {
+    this.dest = "Bangkok";
+    this.cat  = "all";
+    this.place = null;
+    this.view = "map";
+    this.markers = {};
+    this.map = null;
+    this.init();
+  }
+
+  init() {
+    setTimeout(() => this.hideSplash(), 5000);
+    document.getElementById("splash")?.addEventListener("click", () => this.hideSplash());
+    this.setupDestTabs();
+    this.setupCatPills();
+    this.setupMapFilters();
+    this.switchView("map");
+    this.initMap();
+    this.renderDest("Bangkok");
+    // Non-blocking: merge live Supabase data if available
+    fetchSupabasePlaces().then(rows => {
+      if (!rows) return;
+      rows.forEach(row => {
+        const idx = PLACES.findIndex(p => p.id === row.id);
+        if (idx !== -1) Object.assign(PLACES[idx], row);
+        else if (row.dest && row.cat && row.lat && row.lng) PLACES.push(row);
+      });
+      this.renderGrid();
+    });
+    // Non-blocking: pull any Supabase-stored reels (merge over local REELS)
+    fetchSupabaseReels().then(rows => {
+      if (!rows) return;
+      rows.forEach(row => { if (row && row.id && row.data) REELS[row.id] = row.data; });
+      // Re-render reels panel if it was already opened
+      const list = document.getElementById("rvList");
+      if (list && list.dataset.rendered === "1") { list.dataset.rendered = ""; this.renderReels(); }
+    });
+    // Non-blocking: push our local REELS library to Supabase once per session
+    if (!sessionStorage.getItem("th26_reels_pushed")) {
+      pushSupabaseReels(REELS).then(ok => { if (ok) sessionStorage.setItem("th26_reels_pushed","1"); });
+    }
+  }
+
+  hideSplash() {
+    const sp = document.getElementById("splash");
+    if (!sp || sp.classList.contains("gone")) return;
+    sp.classList.add("hiding");
+    // Also kill pointer events immediately so nothing can re-trigger
+    sp.style.pointerEvents = "none";
+    setTimeout(() => { sp.classList.add("gone"); sp.style.display = "none"; }, 650);
+  }
+
+  setupDestTabs() {
+    document.querySelectorAll(".dtab").forEach(b => b.addEventListener("click", () => {
+      document.querySelectorAll(".dtab").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      this.renderDest(b.dataset.dest);
+    }));
+    // Wire hero chips row (browse view)
+    document.querySelectorAll("#destChipsRow .dest-chip-hero").forEach(c => {
+      c.addEventListener("click", () => {
+        // sync top tabs too
+        document.querySelectorAll(".dtab").forEach(x => {
+          x.classList.toggle("active", x.dataset.dest === c.dataset.dest);
+        });
+        this.renderDest(c.dataset.dest);
+      });
+    });
+  }
+
+  setupCatPills() {
+    document.querySelectorAll("#catPills .cpill").forEach(b => b.addEventListener("click", () => {
+      document.querySelectorAll("#catPills .cpill").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      b.style.background = b.dataset.cat === "all" ? "var(--teal)" : `var(--cat-${b.dataset.cat})`;
+      this.cat = b.dataset.cat;
+      this.filterMarkers();
+      this.renderGrid();
+    }));
+    // Reset inactive pills background
+    document.querySelectorAll("#catPills .cpill").forEach(b => {
+      b.addEventListener("click", () => {
+        document.querySelectorAll("#catPills .cpill:not(.active)").forEach(x => x.style.background = "");
+      });
+    });
+  }
+
+  setupMapFilters() {
+    document.querySelectorAll("#mapFilterBar .mfpill").forEach(b => b.addEventListener("click", () => {
+      document.querySelectorAll("#mapFilterBar .mfpill").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      this.cat = b.dataset.cat;
+      this.filterMarkers();
+      this.renderGrid();
+    }));
+  }
+
+  initMap() {
+    const el = document.getElementById("map");
+    if (el._leaflet_id) { el.innerHTML = ""; delete el._leaflet_id; }
+    this.map = L.map("map", { zoomControl:true, tap:true, center:[13.754,100.501], zoom:12 });
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
+      attribution:'\u00a9 OSM \u00a9 CARTO', subdomains:"abcd", maxZoom:19
+    }).addTo(this.map);
+    PLACES.forEach(p => {
+      const cc = CAT[p.cat] || { color:"#888", icon:"\uD83D\uDCCD" };
+      const viralCls = p.viral ? " is-viral" : "";
+      const viralBadge = p.viral ? `<div class="map-pin-viral">\u2B50</div>` : "";
+      const viralPulse = p.viral ? `<div class="pin-viral-ring"></div>` : "";
+      const icon = L.divIcon({
+        className:"",
+        html:`<div class="map-pin-wrap${viralCls}" title="${p.name}${p.viral?' \u2014 VIRAL':''}">
+          ${viralPulse}
+          <div class="map-pin" style="background:${cc.color}">
+            <div class="map-pin-inner">${cc.icon}</div>
+          </div>
+          ${viralBadge}
+          <div class="pin-ring" style="color:${cc.color}"></div>
+          <div class="map-pin-tail" style="background:${cc.color}"></div>
+        </div>`,
+        iconSize:[32,38],iconAnchor:[16,36],popupAnchor:[0,-36]
+      });
+      const m = L.marker([p.lat,p.lng],{icon})
+        .addTo(this.map).on("click", () => this.selectPlace(p.id));
+      this.markers[p.id] = { marker:m, place:p };
+    });
+  }
+
+  _flyTo(dest) {
+    const d = DESTINATIONS[dest]; if (!d || !this.map) return;
+    try { this.map.setView(d.center, d.zoom); } catch(e){}
+  }
+
+  renderDest(dest) {
+    this.dest = dest;
+    this.closeSheet();
+    const d = DESTINATIONS[dest]; if (!d) return;
+    // Update editorial header
+    const nm = document.getElementById("destHeroName");
+    const sb = document.getElementById("destHeroSub");
+    if (nm) nm.textContent = d.label + ".";
+    if (sb) sb.textContent = d.tagline;
+    // Update hero chips active state
+    document.querySelectorAll("#destChipsRow .dest-chip-hero").forEach(c => {
+      c.classList.toggle("active", c.dataset.dest === dest);
+    });
+    // fly map
+    this._flyTo(dest);
+    this.filterMarkers();
+    this.renderGrid();
+  }
+
+  filterMarkers() {
+    Object.values(this.markers).forEach(({ marker, place }) => {
+      const show = place.dest === this.dest && (this.cat === "all" || place.cat === this.cat);
+      marker.setOpacity(show ? 1 : 0);
+      const el = marker.getElement();
+      if (el) el.querySelector(".map-pin-wrap")?.classList.toggle("pin-hidden", !show);
+    });
+  }
+
+  // Stable pseudo-random rating 4.1–4.9 from place id
+  _rating(id) {
+    let h = 0; for (let i=0; i<id.length; i++) h = (h*31+id.charCodeAt(i))&0xffff;
+    return (4.1 + (h % 9) * 0.1).toFixed(1);
+  }
+  _stars(r) {
+    const n = Math.round(parseFloat(r));
+    return "★".repeat(n) + "☆".repeat(5-n);
+  }
+
+  renderGrid() {
+    const places = PLACES.filter(p => p.dest===this.dest && (this.cat==="all" || p.cat===this.cat));
+    document.getElementById("browseCountText").textContent = `${places.length} place${places.length!==1?"s":""}`;
+
+    if (!places.length) {
+      document.getElementById("featuredCard").innerHTML = "";
+      document.getElementById("placesGrid").innerHTML =
+        `<div style="grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--ink3);font-size:13px">No places in this category yet.</div>`;
+      return;
+    }
+
+    const FB = "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75";
+
+    // Featured card — first place (white card design)
+    const fp = places[0];
+    const fcc = CAT[fp.cat] || {color:"#888",label:"Place"};
+    const fpImg = CLOUDINARY.resolve(fp.img, 900) || FB;
+    const fpRating = this._rating(fp.id);
+    document.getElementById("featuredCard").innerHTML = `
+      <div class="featured-card${fp.viral?' is-viral':''}" onclick="window.thApp.selectPlace('${fp.id}')">
+        <div class="fc-price-badge">${fcc.icon||""} ${fcc.label}</div>
+        ${fp.viral?'<div class="fc-price-badge" style="top:auto;bottom:14px;right:14px;left:auto;background:linear-gradient(135deg,#FFD54F,#FF8A00);color:#fff;font-weight:800">\u2B50 VIRAL 2026</div>':''}
+        <div class="fc-heart"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <img class="fc-img" src="${fpImg}" alt="${fp.name}" loading="lazy"
+          onload="this.classList.add('loaded')" onerror="this.src='${FB}';this.classList.add('loaded')">
+        <div class="fc-white-section">
+          <div class="fc-meta-row">
+            <div class="fc-label" style="color:${fcc.color}">${fp.viral?'\u2B50':'\u2726'} Featured Pick</div>
+            <div class="fc-rating"><span class="fc-rating-star">★</span>${fpRating}</div>
+          </div>
+          <div class="fc-name">${fp.name}${fp.viral?' \u2B50':''}</div>
+          <div class="fc-tag">${fp.tagline}</div>
+          <div class="fc-cta-row">
+            <div class="fc-location">📍 ${fp.dest.replace("KohYaoNai","Koh Yao Nai").replace("KohLipe","Koh Lipe").replace("KoPhangan","Ko Phangan").replace("KohTao","Koh Tao")}</div>
+            <button class="fc-explore-btn">Explore →</button>
+          </div>
+        </div>
+      </div>`;
+
+    // Grid — rest of places
+    document.getElementById("placesGrid").innerHTML = places.slice(1).map((p,i) => {
+      const cc = CAT[p.cat] || {color:"#888",icon:"📍",label:"Place"};
+      const imgSrc = CLOUDINARY.resolve(p.img, 400) || FB;
+      const rating = this._rating(p.id);
+      const vCls = p.viral ? " is-viral" : "";
+      const vStar = p.viral ? `<div class="viral-badge">Viral</div>` : "";
+      return `<div class="place-card${vCls}" style="animation-delay:${i*55}ms"
+          onclick="window.thApp.selectPlace('${p.id}')">
+        <div class="pc-img-wrap">
+          <img class="place-card-img" src="${imgSrc}" alt="${p.name}" loading="lazy" decoding="async"
+            onload="this.classList.add('loaded')" onerror="this.src='${FB}';this.classList.add('loaded')">
+          <div class="place-card-badge" style="background:${cc.color}e0">${cc.icon} ${cc.label}</div>
+          ${p.viral?'<div class="place-card-badge" style="top:auto;bottom:10px;left:10px;background:linear-gradient(135deg,#FFD54F,#FF8A00);color:#fff">\u2B50 VIRAL</div>':''}
+          <div class="place-card-fav" onclick="event.stopPropagation();this.querySelector('svg').style.fill='#EF4444';this.querySelector('svg').style.stroke='#EF4444'">
+            <svg viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="#94A3B8" style="width:13px;height:13px"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+        </div>
+        <div class="place-card-body">
+          <div class="place-card-name">${p.name}${p.viral?' \u2B50':''}</div>
+          <div class="place-card-tag">${p.tagline}</div>
+          <div class="pc-footer">
+            <div class="pc-rating"><span class="pc-rating-star">★</span>${rating}</div>
+            <button class="pc-explore">Explore →</button>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  selectPlace(id) {
+    const entry = this.markers[id]; if (!entry) return;
+    const { place } = entry;
+    this.place = place;
+    // If on map view, fly and show sheet; if browse, open detail directly
+    if (this.view === "browse") { this.openDetail(); return; }
+    // Map view
+    this._flyTo(this.dest);
+    try { this.map.flyTo([place.lat,place.lng], 15, { duration:.9 }); } catch(e){}
+    // activate pin
+    Object.values(this.markers).forEach(({ marker }) =>
+      marker.getElement()?.querySelector(".map-pin-wrap")?.classList.remove("pin-active"));
+    entry.marker.getElement()?.querySelector(".map-pin-wrap")?.classList.add("pin-active");
+    // populate sheet
+    const cc = CAT[place.cat] || { color:"#888", icon:"\uD83D\uDCCD", label:"Place" };
+    document.getElementById("sheetImg").src = CLOUDINARY.resolve(place.img, 800);
+    document.getElementById("sheetBadge").textContent = `${cc.icon} ${cc.label}`;
+    document.getElementById("sheetBadge").style.background = cc.color + "cc";
+    document.getElementById("sheetName").textContent = place.name;
+    document.getElementById("sheetTagline").textContent = place.tagline;
+    document.getElementById("sheetDesc").textContent = place.desc.length > 180 ?
+      place.desc.slice(0,180)+"\u2026" : place.desc;
+    document.getElementById("sheetMaps").href = place.gmaps;
+    document.getElementById("sheetYt").href = place.yt;
+    document.getElementById("infoSheet").classList.add("open");
+  }
+
+  closeSheet() {
+    document.getElementById("infoSheet").classList.remove("open");
+    Object.values(this.markers).forEach(({ marker }) =>
+      marker.getElement()?.querySelector(".map-pin-wrap")?.classList.remove("pin-active"));
+  }
+
+  openDetail() {
+    const p = this.place; if (!p) return;
+    const cc = CAT[p.cat] || { color:"#888", icon:"\uD83D\uDCCD", label:"Place" };
+    document.getElementById("detailImg").src = CLOUDINARY.resolve(p.img, 900);
+    document.getElementById("detailCat").style.background = cc.color + "cc";
+    document.getElementById("detailCat").textContent = `${cc.icon} ${cc.label}`;
+    document.getElementById("detailTitle").textContent = p.name;
+    const d = DESTINATIONS[p.dest] || {};
+    const detRating = this._rating(p.id);
+    document.getElementById("detailChips").innerHTML =
+      `<span class="detail-dest-chip">${p.dest.replace("KohYaoNai","Koh Yao Nai").replace("KohLipe","Koh Lipe").replace("KoPhangan","Ko Phangan").replace("KohTao","Koh Tao")}</span>` +
+      `<span class="detail-date-chip">${d.dates||""}</span>` +
+      `<div class="detail-rating-row" style="margin:0"><span class="detail-stars">${"★".repeat(Math.round(parseFloat(detRating)))}</span><span class="detail-rating-num">${detRating}</span></div>`;
+    document.getElementById("detailDesc").textContent = p.desc;
+    const ms = document.getElementById("menuSec");
+    const mg = document.getElementById("detailMenu");
+    if (p.menu && p.menu.length) {
+      mg.innerHTML = p.menu.map(m => `<div class="menu-tag">${m}</div>`).join("");
+      ms.style.display = "block";
+    } else { ms.style.display = "none"; }
+    const ss = document.getElementById("shootSec");
+    document.getElementById("detailShoot").textContent = p.shoot || "";
+    ss.style.display = p.shoot ? "block" : "none";
+    const ts = document.getElementById("tipsSec");
+    const tl = document.getElementById("detailTips");
+    if (p.tips && p.tips.length) {
+      tl.innerHTML = p.tips.map(t => `<li>${t}</li>`).join("");
+      ts.style.display = "block";
+    } else { ts.style.display = "none"; }
+    document.getElementById("detailMaps").href = p.gmaps;
+    document.getElementById("detailYt").href = p.yt;
+
+    // Reel brief (per-place)
+    const rbSec = document.getElementById("reelBriefSec");
+    const r = (typeof REELS !== "undefined") ? REELS[p.id] : null;
+    if (r) {
+      document.getElementById("rbHook").textContent = r.hook || "";
+      document.getElementById("rbStory").textContent = r.story || "";
+      const caps = (r.captions || []).map(c => `<div>"${c}"</div>`).join("");
+      document.getElementById("rbCaps").innerHTML = caps;
+      document.getElementById("rbBmpcc").textContent = r.bmpcc || "";
+      document.getElementById("rbDrone").textContent = r.drone || "";
+      document.getElementById("rbOsmo").textContent  = r.osmo  || "";
+      document.getElementById("rbEdit").textContent  = r.edit  || "";
+      rbSec.style.display = "block";
+    } else if (p.shoot) {
+      // Auto-generate a minimal brief from place.shoot so every place has guidance
+      document.getElementById("rbHook").textContent = `POV: ${p.name}`;
+      document.getElementById("rbStory").textContent = p.shoot.split(".")[0];
+      document.getElementById("rbCaps").innerHTML = `<div>"${p.name.toLowerCase()} — ${DESTINATIONS[p.dest]?.label||p.dest}"</div>`;
+      document.getElementById("rbBmpcc").textContent = "iPhone 17 Pro · Blackmagic Cam app · 4K 24p Apple Log · ISO 400 day / 1250 dusk · 1/50 · 5600K · 24mm wide / 48mm portrait";
+      document.getElementById("rbDrone").textContent = "Mini 4 Pro 4K30 D-Log M · ISO 100 · 1/100 · ND8/16 · AE-L locked";
+      document.getElementById("rbOsmo").textContent  = "iPhone 17 Pro 4K60 ProRes Log · Osmo Mobile 6 FlowMode · ActiveTrack 6";
+      document.getElementById("rbEdit").textContent  = "Hook in first 1.2s. 0.5–0.8s cuts. Match-cut on colour/motion. 60fps slow-mo on impact beats.";
+      rbSec.style.display = "block";
+    } else {
+      rbSec.style.display = "none";
+    }
+
+    document.getElementById("detailPage").classList.add("open");
+  }
+
+  closeDetail() {
+    document.getElementById("detailPage").classList.remove("open");
+  }
+
+  switchView(v) {
+    this.view = v;
+    // Leaving Budget? kill the cross-device poll
+    if (v !== "budget" && this._bvPollT) { clearInterval(this._bvPollT); this._bvPollT = null; }
+    const browse = document.getElementById("browseView");
+    const mapV   = document.getElementById("mapView");
+    const infoV  = document.getElementById("infoView");
+    const reelsV = document.getElementById("reelsView");
+    const budgetV = document.getElementById("budgetView");
+    const phrasesV = document.getElementById("phrasesView");
+    const nb = document.getElementById("navBrowse");
+    const nm = document.getElementById("navMap");
+    const ni = document.getElementById("navInfo");
+    const nr = document.getElementById("navReels");
+    const nbu = document.getElementById("navBudget");
+    const nph = document.getElementById("navPhrases");
+    [nb,nm,ni,nr,nbu,nph].forEach(x => x && x.classList.remove("active"));
+    browse.style.display = "none"; mapV.classList.remove("active"); infoV.style.display = "none";
+    if (reelsV) reelsV.classList.remove("active");
+    if (budgetV) budgetV.classList.remove("active");
+    if (phrasesV) phrasesV.classList.remove("active");
+    if (v === "map") {
+      mapV.classList.add("active"); nm.classList.add("active");
+      setTimeout(() => { if(this.map) { this.map.invalidateSize({pan:false}); this._flyTo(this.dest); } }, 50);
+    } else if (v === "info") {
+      infoV.style.display = "block"; ni.classList.add("active");
+      this.markTodayInTimeline();
+      this.closeSheet();
+    } else if (v === "reels") {
+      reelsV.classList.add("active"); nr.classList.add("active");
+      this.renderReels();
+      this.closeSheet();
+    } else if (v === "budget") {
+      budgetV.classList.add("active"); nbu.classList.add("active");
+      this.renderBudget();
+      this.closeSheet();
+    } else if (v === "phrases") {
+      phrasesV.classList.add("active"); nph.classList.add("active");
+      this.renderPhrases();
+      this.closeSheet();
+    } else {
+      browse.style.display = "block";
+      this.closeSheet();
+      nb.classList.add("active");
+    }
+  }
+
+  // ── FX (locked rates: 1 THB = 2.92 INR, 32 THB = 1 USD) ─────────────────
+  openFx() { document.getElementById("fxModal").classList.add("show"); this.fxSet(1000); }
+  closeFx() { document.getElementById("fxModal").classList.remove("show"); }
+  fxSet(thb) { document.getElementById("fxThb").value = thb; this.fxFrom("thb"); }
+  fxFrom(src) {
+    const RATE_INR = 2.92, RATE_USD_PER_THB = 1/32;
+    const t = document.getElementById("fxThb"), i = document.getElementById("fxInr"), u = document.getElementById("fxUsd");
+    let thb;
+    if (src === "thb") thb = parseFloat(t.value) || 0;
+    else if (src === "inr") thb = (parseFloat(i.value) || 0) / RATE_INR;
+    else if (src === "usd") thb = (parseFloat(u.value) || 0) / RATE_USD_PER_THB;
+    if (src !== "thb") t.value = thb ? Math.round(thb*100)/100 : "";
+    if (src !== "inr") i.value = thb ? Math.round(thb*RATE_INR*100)/100 : "";
+    if (src !== "usd") u.value = thb ? Math.round(thb*RATE_USD_PER_THB*100)/100 : "";
+  }
+
+  // ── Calendar (.ics) export ──────────────────────────────────────────────
+  _icsLine(s) { return s.replace(/[,;]/g,"").replace(/\n/g," "); }
+  _icsDate(d) { return d.replace(/-/g,"") + "T090000"; }
+  _icsEnd(d)  { return d.replace(/-/g,"") + "T210000"; }
+  _icsBuild(events) {
+    const dt = new Date().toISOString().replace(/[-:.]/g,"").slice(0,15)+"Z";
+    let ics = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//TH26//EN\r\nCALSCALE:GREGORIAN\r\n";
+    events.forEach((e,i) => {
+      ics += "BEGIN:VEVENT\r\n";
+      ics += "UID:th26-"+i+"-"+dt+"@trip\r\n";
+      ics += "DTSTAMP:"+dt+"\r\n";
+      ics += "DTSTART;TZID=Asia/Bangkok:"+this._icsDate(e.from)+"\r\n";
+      ics += "DTEND;TZID=Asia/Bangkok:"+this._icsEnd(e.to)+"\r\n";
+      ics += "SUMMARY:"+this._icsLine(e.title)+"\r\n";
+      if (e.note) ics += "DESCRIPTION:"+this._icsLine(e.note)+"\r\n";
+      ics += "END:VEVENT\r\n";
+    });
+    ics += "END:VCALENDAR\r\n";
+    return ics;
+  }
+  _icsDownload(ics, name) {
+    const blob = new Blob([ics], {type:"text/calendar;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = name + ".ics";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 500);
+  }
+  downloadIcs() {
+    const items = Array.from(document.querySelectorAll("#ivTimeline .iv-tl-item"));
+    const events = items.map(el => ({
+      from: el.dataset.from, to: el.dataset.to,
+      title: "TH26 \u00b7 " + (el.querySelector(".iv-tl-dest")?.textContent || "").split("\u2014")[0].trim(),
+      note: el.querySelector(".iv-tl-notes")?.textContent || ""
+    })).filter(e => e.from && e.to);
+    this._icsDownload(this._icsBuild(events), "thailand-2026-trip");
+  }
+  addLegToCal(title, from, to) {
+    this._icsDownload(this._icsBuild([{from, to, title:"TH26 \u00b7 "+title, note:"Trip leg from your TH26 planner."}]), title.replace(/\s+/g,"-"));
+  }
+
+  // ── Live "today" indicator on itinerary ─────────────────────────────────
+  markTodayInTimeline() {
+    const today = new Date().toISOString().slice(0,10);
+    const items = document.querySelectorAll("#ivTimeline .iv-tl-item");
+    let found = false;
+    items.forEach(el => {
+      el.classList.remove("iv-tl-now");
+      if (!found && el.dataset.from && el.dataset.to && today >= el.dataset.from && today <= el.dataset.to) {
+        el.classList.add("iv-tl-now"); found = true;
+      }
+    });
+    const live = document.getElementById("ivLive");
+    if (live) {
+      const d = new Date();
+      const m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];
+      live.textContent = "today " + m + " " + d.getDate();
+    }
+  }
+
+  // ── Phrases view rendering + offline translator ─────────────────────────
+  renderPhrases() {
+    const cats = document.getElementById("phCats");
+    const list = document.getElementById("phList");
+    if (!cats || !list) return;
+    this._phPrimeVoices();   // warm up Thai voice on tab open
+    if (!this._phCat) this._phCat = "All";
+    if (cats.dataset.rendered !== "1") {
+      const allCats = ["All", ...Array.from(new Set(PHRASES.map(p => p.c)))];
+      cats.innerHTML = allCats.map(c =>
+        `<button class="ph-cat${c===this._phCat?" active":""}" data-c="${c}" onclick="window.thApp.phFilter('${c}')">${c}</button>`
+      ).join("");
+      cats.dataset.rendered = "1";
+      // Wire the translator input (once)
+      const inp = document.getElementById("phTxIn");
+      if (inp && !inp.dataset.wired) {
+        inp.addEventListener("input", () => this.phTranslate(inp.value));
+        inp.dataset.wired = "1";
+      }
+    }
+    this._phRenderList();
+  }
+
+  _phRenderList() {
+    const list = document.getElementById("phList");
+    if (!list) return;
+    const cat = this._phCat || "All";
+    const items = PHRASES.filter(p => cat === "All" || p.c === cat);
+    if (!items.length) { list.innerHTML = '<div class="ph-empty">No phrases in this category</div>'; return; }
+    // Escape double quotes inside the JSON payload so the outer onclick="..." attribute
+    // doesn't terminate prematurely. Was producing onclick="phSpeak(" "สวัสดี")" which broke TTS.
+    const attrJSON = (s) => JSON.stringify(s).replace(/"/g, '&quot;');
+    list.innerHTML = items.map((p, i) => `
+      <div class="ph-item" data-th="${(p.th||'').replace(/"/g,'&quot;')}">
+        <div class="ph-item-body">
+          <div class="ph-en">${p.en}</div>
+          <div class="ph-th">${p.th}</div>
+          <div class="ph-rom">${p.r}</div>
+        </div>
+        <button class="ph-speak" onclick="window.thApp.phSpeak(${attrJSON(p.th)})">&#128266;</button>
+      </div>`).join("");
+  }
+
+  phFilter(c) {
+    this._phCat = c;
+    document.querySelectorAll("#phCats .ph-cat").forEach(b => {
+      b.classList.toggle("active", b.dataset.c === c);
+    });
+    this._phRenderList();
+  }
+
+  _phPrimeVoices() {
+    // iOS Safari loads voices async. Call on user gesture to warm them up.
+    if (this._phVoicesReady) return;
+    try {
+      if (!("speechSynthesis" in window)) return;
+      const s = window.speechSynthesis;
+      const silent = new SpeechSynthesisUtterance("");
+      silent.volume = 0; silent.rate = 1; silent.lang = "th-TH";
+      try { s.speak(silent); s.cancel(); } catch(_) {}
+      const tryLoad = () => {
+        const v = s.getVoices();
+        if (v && v.length) { this._phVoicesReady = true; this._phVoices = v; }
+      };
+      tryLoad();
+      if (!this._phVoicesReady) {
+        s.addEventListener("voiceschanged", tryLoad, { once: true });
+      }
+    } catch(e) {}
+  }
+
+  phSpeak(thaiText) {
+    if (!thaiText) return;
+    try {
+      if (!("speechSynthesis" in window)) {
+        alert("Your browser doesn't support speech synthesis.");
+        return;
+      }
+      const synth = window.speechSynthesis;
+      try { synth.cancel(); } catch(_) {}
+      this._phPrimeVoices();
+
+      const speakIt = () => {
+        const u = new SpeechSynthesisUtterance(thaiText);
+        u.lang = "th-TH";
+        u.rate = 0.85;
+        u.pitch = 1;
+        u.volume = 1;
+        const voices = synth.getVoices();
+        const thaiVoice = voices.find(v => (v.lang || "").toLowerCase().startsWith("th"));
+        if (thaiVoice) {
+          u.voice = thaiVoice;
+        } else {
+          // No Thai voice installed — show a one-time toast
+          if (!this._phNoVoiceWarned) {
+            this._phNoVoiceWarned = true;
+            const hint = document.createElement("div");
+            hint.innerHTML = "No Thai voice on this device.<br>iPhone: Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; Thai &rarr; download Kanya or Narisa (~40MB).";
+            hint.style.cssText = "position:fixed;left:14px;right:14px;bottom:88px;background:linear-gradient(135deg,#ff3b7a,#ff7a1a);color:#fff;padding:13px 15px;border-radius:13px;font-size:12.5px;line-height:1.5;z-index:9999;box-shadow:0 10px 28px rgba(0,0,0,.45);font-weight:600";
+            document.body.appendChild(hint);
+            setTimeout(() => hint.remove(), 8000);
+          }
+        }
+        u.onerror = (e) => console.warn("tts err", e);
+        synth.speak(u);
+      };
+
+      const voices = synth.getVoices();
+      if (voices && voices.length) {
+        speakIt();
+      } else {
+        // Voices not loaded yet (first tap on iOS) — wait for voiceschanged
+        let fired = false;
+        const once = () => { if (fired) return; fired = true; speakIt(); };
+        synth.addEventListener("voiceschanged", once, { once: true });
+        setTimeout(once, 500); // fallback for browsers that don't fire the event
+      }
+    } catch(e) { console.warn("tts error", e); }
+  }
+
+  phTranslate(raw) {
+    const thaiEl = document.getElementById("phTxThai");
+    const romEl  = document.getElementById("phTxRom");
+    if (!thaiEl || !romEl) return;
+    const q = (raw || "").toLowerCase().trim().replace(/[?!.,;:]/g, "");
+    if (!q) {
+      thaiEl.textContent = "Translation appears here";
+      thaiEl.classList.add("ph-tx-empty");
+      thaiEl.dataset.thai = "";
+      romEl.textContent = "";
+      return;
+    }
+    // 1) Exact phrase match in PHRASES
+    const exactPhrase = PHRASES.find(p => p.en.toLowerCase().replace(/[?!.,;:]/g,"").trim() === q);
+    if (exactPhrase) {
+      thaiEl.textContent = exactPhrase.th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = exactPhrase.th;
+      romEl.textContent = exactPhrase.r;
+      return;
+    }
+    // 2) Exact phrase match in THAI_DICT
+    if (THAI_DICT[q]) {
+      const [th, r] = THAI_DICT[q];
+      thaiEl.textContent = th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = th;
+      romEl.textContent = r;
+      return;
+    }
+    // 3) Fuzzy: find any PHRASE whose English contains the query
+    const contains = PHRASES.find(p => p.en.toLowerCase().includes(q));
+    if (contains) {
+      thaiEl.textContent = contains.th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = contains.th;
+      romEl.textContent = contains.r + "  (close match: \"" + contains.en + "\")";
+      return;
+    }
+    // 4) Word-by-word fallback using THAI_DICT
+    const words = q.split(/\s+/);
+    const thParts = [], rParts = [], missing = [];
+    for (const w of words) {
+      if (THAI_DICT[w]) { thParts.push(THAI_DICT[w][0]); rParts.push(THAI_DICT[w][1]); }
+      else { missing.push(w); }
+    }
+    if (thParts.length) {
+      const joined = thParts.join(" ");
+      thaiEl.textContent = joined;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = joined;
+      romEl.textContent = rParts.join(" ") + (missing.length ? "  (no dict: " + missing.join(", ") + ")" : "");
+      return;
+    }
+    thaiEl.textContent = "No match \u2014 try simpler words (hello, water, how much, taxi, beach)";
+    thaiEl.classList.add("ph-tx-empty");
+    thaiEl.dataset.thai = "";
+    romEl.textContent = "";
+  }
+
+  // ── Reels view rendering ────────────────────────────────────────────────
+  renderReels() {
+    const list = document.getElementById("rvList");
+    if (!list || list.dataset.rendered === "1") return;
+    const ids = Object.keys(REELS);
+    const cards = ids.map(id => {
+      const p = PLACES.find(x => x.id === id);
+      if (!p) return "";
+      const r = REELS[id];
+      const img = CLOUDINARY.resolve(p.img, 800) || p.img;
+      const captions = (r.captions || []).map(c =>
+        `<div class="rv-cap"><span>"${c}"</span><button class="rv-cap-copy" onclick="navigator.clipboard.writeText(this.previousElementSibling.textContent.replace(/\"/g,''));this.textContent='\u2713'">Copy</button></div>`
+      ).join("");
+      return `<div class="rv-card">
+        <div class="rv-card-img" style="background-image:url('${img}')">
+          <div class="rv-card-overlay">
+            <div class="rv-card-place">${DESTINATIONS[p.dest]?.label || p.dest}</div>
+            <div class="rv-card-name">${p.name}</div>
+          </div>
+        </div>
+        <div class="rv-card-body">
+          <div class="rv-row"><div class="rv-row-label">\uD83C\uDFAC Hook</div><div class="rv-row-val">${r.hook}</div></div>
+          <div class="rv-row"><div class="rv-row-label">\uD83D\uDCDD Captions</div><div class="rv-cap-list">${captions}</div></div>
+          <div class="rv-row"><div class="rv-row-label">\uD83D\uDCF1 Story (one-liner)</div><div class="rv-row-val">${r.story}</div></div>
+          <div class="rv-row"><div class="rv-row-label">\uD83C\uDFA5 Tech</div>
+            <div class="rv-tech-grid">
+              <div class="rv-tech-cell"><b>Blackmagic Cam</b>${r.bmpcc}</div>
+              <div class="rv-tech-cell"><b>Drone</b>${r.drone}</div>
+              <div class="rv-tech-cell"><b>Osmo</b>${r.osmo}</div>
+              <div class="rv-tech-cell"><b>Edit</b>${r.edit}</div>
+            </div>
+          </div>
+          <div class="rv-actions">
+            <a class="rv-action" href="${p.gmaps}" target="_blank">Maps</a>
+            <a class="rv-action" href="${p.yt}" target="_blank">YouTube refs</a>
+            <button class="rv-action" onclick="window.thApp.openDetail('${p.id}')">Open detail</button>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+    list.innerHTML = cards;
+    list.dataset.rendered = "1";
+  }
+
+  // ── BUDGET ──────────────────────────────────────────────────────
+  _bvRates() { return { INR_PER_THB: 2.92, THB_PER_USD: 32, INR_PER_USD: 2.92 * 32 }; }
+  _bvLoad() {
+    try {
+      const raw = localStorage.getItem("th26_budget_v1");
+      if (raw) { const j = JSON.parse(raw); return { expenses: j.expenses||[], wallets: j.wallets||{} }; }
+    } catch(e){}
+    // Seed from real expense log Apr 14-17
+    return { expenses: [
+      // 14 April
+      { ts: Date.parse("2026-04-14T06:30"), name:"Airport taxi (BLR)", cat:"transport", inr:450, paid:"card" },
+      { ts: Date.parse("2026-04-14T08:00"), name:"Dosa at airport", cat:"food", inr:519, paid:"card" },
+      { ts: Date.parse("2026-04-14T12:00"), name:"Flight food & snacks", cat:"food", inr:1110, paid:"card" },
+      { ts: Date.parse("2026-04-14T20:00"), name:"Tru5G SIM card (Phuket airport)", cat:"other", inr:3504, paid:"card" },
+      { ts: Date.parse("2026-04-14T21:30"), name:"Taxi airport \u2192 Airbnb Wichit", cat:"transport", inr:1245, paid:"card" },
+      { ts: Date.parse("2026-04-14T22:30"), name:"7/11 late-night run", cat:"groceries", inr:594, paid:"card" },
+      // 15 April  (exchanged $500 \u2192 \u0E3F15,680)
+      { ts: Date.parse("2026-04-15T10:00"), name:"Exchange: $500 @ 2.92 = \u0E3F15,680", cat:"other", inr:0, paid:"baht", note:"fx transfer, not a spend" },
+      { ts: Date.parse("2026-04-15T12:30"), name:"Mall food hall lunch", cat:"food", inr:3605, paid:"card" },
+      { ts: Date.parse("2026-04-15T13:45"), name:"Taxi back to Airbnb", cat:"transport", inr:297, paid:"card" },
+      { ts: Date.parse("2026-04-15T15:00"), name:"7/11 restock", cat:"groceries", inr:1589, paid:"card" },
+      { ts: Date.parse("2026-04-15T16:30"), name:"Honda Click 125 scooter (weekly)", cat:"transport", inr:5110, paid:"baht" },
+      { ts: Date.parse("2026-04-15T19:30"), name:"Ramen dinner", cat:"food", inr:1256, paid:"baht" },
+      { ts: Date.parse("2026-04-15T20:30"), name:"Cannabis sativa", cat:"other", inr:1898, paid:"card" },
+      { ts: Date.parse("2026-04-15T21:00"), name:"Songkran festival entry", cat:"activity", inr:2627, paid:"baht" },
+      { ts: Date.parse("2026-04-15T21:15"), name:"Water gun (Songkran kit)", cat:"shopping", inr:730, paid:"baht" },
+      // 16 April
+      { ts: Date.parse("2026-04-16T09:00"), name:"Airbnb \u2014 \u0E3F6,400 cash payment", cat:"stay", inr:18752, paid:"baht" },
+      { ts: Date.parse("2026-04-16T10:00"), name:"Gym (UltimateFitness24) + water \u0E3F40", cat:"fitness", inr:8800+117, paid:"card" },
+      { ts: Date.parse("2026-04-16T11:30"), name:"Post-workout meal", cat:"food", inr:1405, paid:"card" },
+      { ts: Date.parse("2026-04-16T15:00"), name:"Haircut + nails (\u0E3F1,000 cash)", cat:"shopping", inr:2930, paid:"baht" },
+      { ts: Date.parse("2026-04-16T19:30"), name:"Gyro dinner (\u0E3F110 cash)", cat:"food", inr:322, paid:"baht" },
+      { ts: Date.parse("2026-04-16T20:30"), name:"7/11", cat:"groceries", inr:707, paid:"card" },
+      { ts: Date.parse("2026-04-16T22:00"), name:"Koh Yao Nai ferry/entry booking", cat:"activity", inr:17800, paid:"card" },
+      // 17 April
+      { ts: Date.parse("2026-04-17T10:30"), name:"Big C weekly grocery haul", cat:"groceries", inr:9323, paid:"card" },
+      { ts: Date.parse("2026-04-17T17:00"), name:"Chillava market (top \u0E3F200 + tempered glass \u0E3F240 + dessert \u0E3F30 + tumbler \u0E3F350 + sushi \u0E3F80 + Stanley \u0E3F900)", cat:"shopping", inr:2344, paid:"baht" },
+    ], wallets: { usd: 600, baht: 3280, card: 120000 } };
+  }
+  _bvSave() {
+    const walUsd = parseFloat(document.getElementById("walUsd")?.value)||0;
+    const walBaht= parseFloat(document.getElementById("walBaht")?.value)||0;
+    const walCard= parseFloat(document.getElementById("walCard")?.value)||0;
+    const state = { expenses: this._bvState.expenses, wallets: { usd:walUsd, baht:walBaht, card:walCard } };
+    try { localStorage.setItem("th26_budget_v1", JSON.stringify(state)); } catch(e){}
+    // Supabase sync (debounced, non-blocking)
+    clearTimeout(this._bvSyncT);
+    this._bvSyncT = setTimeout(() => {
+      const badge = document.getElementById("bvSyncBadge");
+      if (badge) { badge.textContent = "\u2026 syncing"; badge.className = "bv-sync syncing"; }
+      pushSupabaseBudget(state).then(ok => {
+        if (badge) {
+          badge.textContent = ok ? "\u2713 synced to Supabase" : "\u26A0 offline \u2014 saved locally";
+          badge.className = "bv-sync " + (ok ? "ok" : "err");
+        }
+      });
+    }, 700);
+  }
+  _bvCatMeta(c) {
+    const m = { food:["\uD83C\uDF5B","Food"], stay:["\uD83C\uDFE8","Stay"], transport:["\uD83D\uDE8C","Transport"],
+                activity:["\uD83C\uDFC4","Activity"], shopping:["\uD83D\uDED5","Shopping"],
+                fitness:["\uD83D\uDCAA","Gym"], groceries:["\uD83E\uDD52","Groceries"], other:["\uD83D\uDCCC","Other"] };
+    return m[c] || m.other;
+  }
+  // Pull remote Supabase state; if remote is newer than our last local push, hydrate UI
+  _bvSyncFromRemote(opts={}) {
+    return fetchSupabaseBudget().then(remote => {
+      const badge = document.getElementById("bvSyncBadge");
+      if (!remote || !remote.state || !Array.isArray(remote.state.expenses)) {
+        if (badge && opts.showStatus) { badge.textContent = "local only \u2014 edits will sync"; badge.className = "bv-sync"; }
+        return false;
+      }
+      const localUpd = localStorage.getItem("th26_budget_updated_at") || "";
+      const remoteUpd = remote.updated_at || "";
+      // If remote is newer (or we have no local timestamp), hydrate from remote
+      if (remoteUpd > localUpd || !localUpd) {
+        this._bvState = { expenses: remote.state.expenses, wallets: remote.state.wallets || this._bvState?.wallets || {} };
+        try {
+          localStorage.setItem("th26_budget_v1", JSON.stringify(this._bvState));
+          localStorage.setItem("th26_budget_updated_at", remoteUpd);
+        } catch(e){}
+        // Re-paint wallet inputs + list without triggering another push
+        this._bvApplyStateToUI();
+        if (badge) { badge.textContent = "\u2713 synced from other device"; badge.className = "bv-sync ok"; }
+        return true;
+      }
+      if (badge && opts.showStatus) { badge.textContent = "\u2713 up to date"; badge.className = "bv-sync ok"; }
+      return false;
+    });
+  }
+  _bvApplyStateToUI() {
+    const usdEl = document.getElementById("walUsd");
+    const bahtEl= document.getElementById("walBaht");
+    const cardEl= document.getElementById("walCard");
+    if (usdEl && this._bvState.wallets?.usd!=null) usdEl.value = this._bvState.wallets.usd;
+    if (bahtEl && this._bvState.wallets?.baht!=null) bahtEl.value = this._bvState.wallets.baht;
+    if (cardEl && this._bvState.wallets?.card!=null) cardEl.value = this._bvState.wallets.card;
+    this._bvRenderList?.();
+    // Recompute hints/totals
+    const R = this._bvRates();
+    const usd  = parseFloat(usdEl?.value)||0, baht = parseFloat(bahtEl?.value)||0, card = parseFloat(cardEl?.value)||0;
+    const tInr = usd*R.INR_PER_USD + baht*R.INR_PER_THB + card;
+    const spent= this._bvState.expenses.reduce((s,e)=>s+(e.inr||0),0);
+    const $ = id => document.getElementById(id);
+    $("bvTotalInr") && ($("bvTotalInr").textContent = `\u20B9${Math.round(tInr).toLocaleString("en-IN")}`);
+    $("bvTotalAlt") && ($("bvTotalAlt").innerHTML = `$${Math.round(tInr/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(tInr/R.INR_PER_THB).toLocaleString("en-IN")}`);
+    $("bvSpentInr") && ($("bvSpentInr").textContent = `\u20B9${Math.round(spent).toLocaleString("en-IN")}`);
+    $("bvSpentAlt") && ($("bvSpentAlt").innerHTML = `$${Math.round(spent/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(spent/R.INR_PER_THB).toLocaleString("en-IN")}`);
+  }
+  renderBudget() {
+    if (!this._bvState) this._bvState = this._bvLoad();
+    // First mount: pull Supabase once + set up cross-device refresh loops
+    if (!this._bvPulled) {
+      this._bvPulled = true;
+      this._bvSyncFromRemote({showStatus:true});
+      // Re-pull whenever the user brings the app back to the foreground
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && this.view === "budget") this._bvSyncFromRemote();
+      });
+    }
+    // Poll every 15s while the Budget tab is visible \u2014 catches other-device edits live
+    clearInterval(this._bvPollT);
+    this._bvPollT = setInterval(() => {
+      if (this.view === "budget" && !document.hidden) this._bvSyncFromRemote();
+    }, 15000);
+    // Hook wallet inputs
+    const usdEl = document.getElementById("walUsd");
+    const bahtEl= document.getElementById("walBaht");
+    const cardEl= document.getElementById("walCard");
+    if (this._bvState.wallets?.usd!=null) usdEl.value = this._bvState.wallets.usd;
+    if (this._bvState.wallets?.baht!=null) bahtEl.value = this._bvState.wallets.baht;
+    if (this._bvState.wallets?.card!=null) cardEl.value = this._bvState.wallets.card;
+    const refreshHints = () => {
+      const R = this._bvRates();
+      const usd = parseFloat(usdEl.value)||0;
+      const baht= parseFloat(bahtEl.value)||0;
+      const card= parseFloat(cardEl.value)||0;
+      document.getElementById("walUsdHint").innerHTML  = `\u2248 \u20B9${Math.round(usd*R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(usd*R.THB_PER_USD).toLocaleString("en-IN")}`;
+      document.getElementById("walBahtHint").innerHTML = `\u2248 \u20B9${Math.round(baht*R.INR_PER_THB).toLocaleString("en-IN")} \u00B7 $${Math.round(baht/R.THB_PER_USD).toLocaleString("en-IN")}`;
+      document.getElementById("walCardHint").innerHTML = `\u2248 $${Math.round(card/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(card/R.INR_PER_THB).toLocaleString("en-IN")}`;
+      const totalInr = usd*R.INR_PER_USD + baht*R.INR_PER_THB + card;
+      document.getElementById("bvTotalInr").textContent = `\u20B9${Math.round(totalInr).toLocaleString("en-IN")}`;
+      document.getElementById("bvTotalAlt").innerHTML = `$${Math.round(totalInr/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(totalInr/R.INR_PER_THB).toLocaleString("en-IN")}`;
+      const spent = this._bvState.expenses.reduce((s,e)=>s+(e.inr||0),0);
+      document.getElementById("bvSpentInr").textContent = `\u20B9${Math.round(spent).toLocaleString("en-IN")}`;
+      document.getElementById("bvSpentAlt").innerHTML = `$${Math.round(spent/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(spent/R.INR_PER_THB).toLocaleString("en-IN")}`;
+      this._bvSave();
+    };
+    [usdEl,bahtEl,cardEl].forEach(el=>{ el.oninput = refreshHints; });
+    refreshHints();
+
+    // Hook triple-bound amount inputs
+    const inrEl = document.getElementById("bvInr"), thbEl = document.getElementById("bvThb"), usdAmt = document.getElementById("bvUsd");
+    const R = this._bvRates();
+    const syncAmt = (src) => {
+      const inrV = parseFloat(inrEl.value), thbV = parseFloat(thbEl.value), usdV = parseFloat(usdAmt.value);
+      if (src==="inr" && !isNaN(inrV)) { thbEl.value = Math.round(inrV/R.INR_PER_THB*100)/100; usdAmt.value = Math.round(inrV/R.INR_PER_USD*100)/100; }
+      else if (src==="thb" && !isNaN(thbV)) { inrEl.value = Math.round(thbV*R.INR_PER_THB*100)/100; usdAmt.value = Math.round(thbV/R.THB_PER_USD*100)/100; }
+      else if (src==="usd" && !isNaN(usdV)) { inrEl.value = Math.round(usdV*R.INR_PER_USD*100)/100; thbEl.value = Math.round(usdV*R.THB_PER_USD*100)/100; }
+    };
+    inrEl.oninput = () => syncAmt("inr");
+    thbEl.oninput = () => syncAmt("thb");
+    usdAmt.oninput = () => syncAmt("usd");
+
+    // Category chips
+    const chips = document.querySelectorAll(".bv-cat-chip");
+    chips.forEach(c => { c.onclick = () => { chips.forEach(x=>x.classList.remove("active")); c.classList.add("active"); }; });
+    if (!document.querySelector(".bv-cat-chip.active")) document.querySelector('[data-c="food"]').classList.add("active");
+
+    this._bvRenderList();
+  }
+  _bvRenderList() {
+    const R = this._bvRates();
+    const list = document.getElementById("bvList");
+    if (!list) return;
+    const items = [...this._bvState.expenses].sort((a,b)=>b.ts-a.ts);
+    if (!items.length) { list.innerHTML = `<div class="bv-empty">No expenses yet \u2014 add your first.</div>`; return; }
+    list.innerHTML = items.map(e => {
+      const [icon,lbl] = this._bvCatMeta(e.cat);
+      const dt = new Date(e.ts);
+      const when = `${dt.toLocaleDateString("en-IN",{month:"short",day:"numeric"})} \u00B7 ${dt.toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"})}`;
+      const paidLbl = e.paid==="usd"?"USD cash":e.paid==="baht"?"Baht cash":"Card";
+      return `<div class="bv-item">
+        <div class="bv-item-icon">${icon}</div>
+        <div class="bv-item-body">
+          <div class="bv-item-name">${e.name||lbl}</div>
+          <div class="bv-item-meta">${when} \u00B7 ${lbl} \u00B7 ${paidLbl}</div>
+        </div>
+        <div class="bv-item-price">
+          <div class="bv-item-inr">\u20B9${Math.round(e.inr).toLocaleString("en-IN")}</div>
+          <div class="bv-item-alt">\u0E3F${Math.round(e.inr/R.INR_PER_THB)} \u00B7 $${(e.inr/R.INR_PER_USD).toFixed(1)}</div>
+        </div>
+        <button class="bv-item-del" onclick="window.thApp.budgetDel(${e.ts})">\u2715</button>
+      </div>`;
+    }).join("");
+  }
+  budgetAdd() {
+    const R = this._bvRates();
+    const name = document.getElementById("bvActivity").value.trim();
+    const inr  = parseFloat(document.getElementById("bvInr").value)||0;
+    const thb  = parseFloat(document.getElementById("bvThb").value)||0;
+    const usd  = parseFloat(document.getElementById("bvUsd").value)||0;
+    const paid = document.getElementById("bvPaidWith").value;
+    const cat  = document.querySelector(".bv-cat-chip.active")?.dataset.c || "other";
+    const inrFinal = inr || thb*R.INR_PER_THB || usd*R.INR_PER_USD;
+    if (!inrFinal) return alert("Enter an amount");
+    this._bvState.expenses.unshift({ ts: Date.now(), name: name || "Expense", cat, inr: inrFinal, paid });
+    // Debit from wallet
+    if (paid==="baht") {
+      const el = document.getElementById("walBaht"); el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal/R.INR_PER_THB).toFixed(0);
+    } else if (paid==="usd") {
+      const el = document.getElementById("walUsd");  el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal/R.INR_PER_USD).toFixed(2);
+    } else {
+      const el = document.getElementById("walCard"); el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal).toFixed(0);
+    }
+    // Reset inputs
+    document.getElementById("bvActivity").value = "";
+    document.getElementById("bvInr").value = "";
+    document.getElementById("bvThb").value = "";
+    document.getElementById("bvUsd").value = "";
+    this.renderBudget();
+  }
+  budgetDel(ts) {
+    this._bvState.expenses = this._bvState.expenses.filter(e => e.ts !== ts);
+    this._bvSave();
+    this._bvRenderList();
+  }
+}
+
+try {
+  window.thApp = new ThailandApp();
+  console.log("ThailandApp v4 boot OK");
+} catch(e) {
+  console.error("Boot failed:", e.message, e.stack);
+}
+</script>
+</body>
+</html>
