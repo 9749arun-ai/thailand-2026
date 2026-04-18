@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-  <title>Thailand 2026 — Trip Guide</title>
+  <title>thaitrip</title>
+  <meta name="apple-mobile-web-app-title" content="thaitrip">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0b0d12">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ff3b7a'/><stop offset='1' stop-color='%23ff7a1a'/></linearGradient></defs><rect width='180' height='180' rx='38' fill='url(%23g)'/><text x='50%25' y='56%25' font-family='-apple-system,Helvetica,Arial' font-weight='900' font-size='44' fill='white' text-anchor='middle'>thai</text><text x='50%25' y='86%25' font-family='-apple-system,Helvetica,Arial' font-weight='900' font-size='44' fill='white' text-anchor='middle'>trip</text></svg>">
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ff3b7a'/><stop offset='1' stop-color='%23ff7a1a'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><text x='50%25' y='58%25' font-family='-apple-system,Helvetica,Arial' font-weight='900' font-size='16' fill='white' text-anchor='middle'>thaitrip</text></svg>">
   <style>.leaflet-container {
 	overflow: hidden;
 	}
@@ -830,7 +835,10 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
 }
 .nav-item.active .nav-icon-wrap{background:var(--blue-soft)}
 .nav-item svg{width:20px;height:20px;stroke-width:1.8;transition:all .2s;stroke:currentColor;fill:none}
-.nav-label{font-size:9.5px;font-weight:600;letter-spacing:.1px;line-height:1;transition:all .2s}
+.nav-label{font-size:9px;font-weight:600;letter-spacing:.1px;line-height:1;transition:all .2s}
+.bottom-nav{padding-left:4px;padding-right:4px}
+.nav-icon-wrap{width:38px;height:28px}
+.nav-item svg{width:19px;height:19px}
 
 /* ── TOP BAR — white, clean like reference ────────────────────── */
 .dest-strip{
@@ -970,6 +978,42 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
   padding:12px 16px 40px;
 }
 #budgetView.active{display:block}
+
+/* ── PHRASES VIEW ─────────────────────────────────────────────── */
+#phrasesView{
+  display:none;position:fixed;top:var(--header);left:0;right:0;
+  bottom:var(--bottom-nav);overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;background:#0b0d12;
+  padding:12px 14px 40px;color:#fff;
+}
+#phrasesView.active{display:block}
+.ph-header{padding:6px 0 10px}
+.ph-eyebrow{font-size:11px;font-weight:700;color:#ff7a1a;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px}
+.ph-title{font-size:30px;font-weight:900;letter-spacing:-1px;line-height:1.05;background:linear-gradient(90deg,#ff3b7a,#ff7a1a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ph-sub{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5}
+.ph-tx-card{background:linear-gradient(135deg,#1a1d26,#0f1117);border:1px solid rgba(255,122,26,.3);border-radius:16px;padding:14px;margin:14px 0 16px}
+.ph-tx-label{font-size:10.5px;font-weight:700;color:#ff7a1a;letter-spacing:.6px;text-transform:uppercase;margin-bottom:8px}
+.ph-tx-in{width:100%;background:#0b0d12;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:11px 12px;color:#fff;font-size:15px;outline:none;font-family:inherit}
+.ph-tx-in:focus{border-color:#ff7a1a}
+.ph-tx-out{margin-top:10px;padding:12px;background:#0b0d12;border:1px dashed rgba(255,255,255,.15);border-radius:10px;min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ph-tx-thai{font-size:18px;font-weight:700;color:#fff;line-height:1.4;flex:1}
+.ph-tx-rom{font-size:12px;color:rgba(255,255,255,.55);margin-top:4px;font-style:italic}
+.ph-tx-empty{color:rgba(255,255,255,.35);font-size:13px}
+.ph-speak{flex-shrink:0;background:linear-gradient(135deg,#ff3b7a,#ff7a1a);border:none;color:#fff;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px}
+.ph-speak:active{transform:scale(.92)}
+.ph-tx-hint{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:8px;line-height:1.4}
+.ph-cats{display:flex;gap:7px;overflow-x:auto;padding:4px 0 10px;margin:0 -14px;padding-left:14px;padding-right:14px;scrollbar-width:none}
+.ph-cats::-webkit-scrollbar{display:none}
+.ph-cat{flex-shrink:0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.75);padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.ph-cat.active{background:linear-gradient(135deg,#ff3b7a,#ff7a1a);border-color:transparent;color:#fff}
+.ph-list{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.ph-item{background:linear-gradient(135deg,#1a1d26,#13151c);border:1px solid rgba(255,255,255,.06);border-radius:13px;padding:12px 13px;display:flex;align-items:flex-start;gap:12px}
+.ph-item-body{flex:1;min-width:0}
+.ph-en{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:4px;line-height:1.35}
+.ph-th{font-size:17px;font-weight:700;color:#fff;line-height:1.4;letter-spacing:.2px}
+.ph-rom{font-size:11.5px;color:#ff9e5c;margin-top:2px;font-style:italic;letter-spacing:.15px}
+.ph-empty{padding:40px 20px;text-align:center;color:rgba(255,255,255,.4);font-size:13px}
+
 .bv-header{padding:6px 0 12px}
 .bv-eyebrow{font-size:11px;font-weight:700;color:#10B981;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px}
 .bv-title{font-size:30px;font-weight:900;color:#0E1A33;letter-spacing:-1px;line-height:1.05}
@@ -1568,9 +1612,9 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
   </div>
 
   <div class="splash-bottom">
-    <div class="splash-title">Thai</div>
-    <div class="splash-title-sub">land.</div>
-    <div class="splash-tagline">Arun's personal Thailand 2026 field guide. 200+ spots, viral reel briefs, gym &amp; healthy-cook intel, full-moon to PADI.</div>
+    <div class="splash-title">thai</div>
+    <div class="splash-title-sub">trip.</div>
+    <div class="splash-tagline">Arun's personal thaitrip field guide. 200+ spots, viral reel briefs, Thai phrasebook, gym &amp; healthy-cook intel, full-moon to PADI.</div>
     <div class="splash-cta-row">
       <button class="splash-cta" onclick="window.thApp.hideSplash()">
         Explore &nbsp;&#8594;
@@ -1588,7 +1632,7 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
 
   <!-- Destination strip top -->
   <div class="dest-strip">
-    <div class="dest-logo">&#127796; TH<em>26</em></div>
+    <div class="dest-logo">thai<em>trip</em></div>
     <div class="dest-tabs-scroll" id="destTabs">
       <button class="dtab active" data-dest="Bangkok">Bangkok</button>
       <button class="dtab" data-dest="Phuket">Phuket</button>
@@ -1779,7 +1823,7 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
   <!-- INFO / TRIP OVERVIEW VIEW -->
   <div id="infoView">
     <div class="iv-header">
-      <div class="iv-title">Thailand 2026</div>
+      <div class="iv-title">thaitrip</div>
       <div class="iv-sub" id="ivSub">31 days &nbsp;·&nbsp; 6 destinations &nbsp;·&nbsp; <span id="ivLive">today</span></div>
       <div class="iv-actions"><button class="iv-cal-btn" onclick="window.thApp.downloadIcs()">&#128197; Add full trip to iPhone Calendar</button></div>
     </div>
@@ -2039,7 +2083,7 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
   <div id="budgetView">
     <div class="bv-header">
       <div class="bv-eyebrow">&#128176; Live Wallet</div>
-      <div class="bv-title">Thailand 2026 Budget</div>
+      <div class="bv-title">thaitrip Budget</div>
       <div class="bv-sub">INR first &middot; auto &rarr; THB &amp; USD &middot; locked 1 THB = &#8377;2.92 &middot; 32 THB = $1</div>
       <div class="bv-sync" id="bvSyncBadge">local only &mdash; edits will sync</div>
     </div>
@@ -2114,6 +2158,31 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
     <div class="bv-list" id="bvList"></div>
   </div>
 
+  <!-- PHRASES VIEW -->
+  <div id="phrasesView">
+    <div class="ph-header">
+      <div class="ph-eyebrow">&#128483;&#65039; Thai Phrasebook</div>
+      <div class="ph-title">Speak Thai</div>
+      <div class="ph-sub">50+ essential phrases &middot; tap &#128266; to hear it &middot; offline translator below</div>
+    </div>
+
+    <div class="ph-tx-card">
+      <div class="ph-tx-label">&#128269; Offline Translator (EN &rarr; TH)</div>
+      <input id="phTxIn" class="ph-tx-in" placeholder="Type English: hello, thank you, how much..." autocomplete="off" spellcheck="false">
+      <div class="ph-tx-out">
+        <div class="ph-tx-body" style="flex:1">
+          <div id="phTxThai" class="ph-tx-thai ph-tx-empty">Translation appears here</div>
+          <div id="phTxRom" class="ph-tx-rom"></div>
+        </div>
+        <button class="ph-speak" id="phTxSpeak" onclick="window.thApp.phSpeak(document.getElementById('phTxThai').dataset.thai||'')">&#128266;</button>
+      </div>
+      <div class="ph-tx-hint">Works offline &middot; dictionary-based phrase + word matcher &middot; TTS uses your iPhone's built-in Thai voice (Settings &rarr; Accessibility &rarr; Spoken Content &rarr; Voices &rarr; Thai)</div>
+    </div>
+
+    <div class="ph-cats" id="phCats"></div>
+    <div class="ph-list" id="phList"></div>
+  </div>
+
   <!-- BOTTOM NAV -->
   <nav class="bottom-nav">
     <button class="nav-item" id="navBrowse" onclick="window.thApp.switchView('browse')">
@@ -2139,6 +2208,12 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/><path d="M7 15h3"/></svg>
       </div>
       <span class="nav-label">Budget</span>
+    </button>
+    <button class="nav-item" id="navPhrases" onclick="window.thApp.switchView('phrases')">
+      <div class="nav-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <span class="nav-label">Phrases</span>
     </button>
     <button class="nav-item" id="navInfo" onclick="window.thApp.switchView('info')">
       <div class="nav-icon-wrap">
@@ -2317,7 +2392,7 @@ const PLACES=[
   // ── BANGKOK ──
   {id:"bkk01",dest:"Bangkok",name:"Thip Samai \u2014 Pad Thai",cat:"food",lat:13.7563,lng:100.5018,viral:true,
    tagline:"The original Pad Thai since 1966",
-   img:"https://images.unsplash.com/photo-1637806930600-37fa8892069d?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=75",
    desc:"Bangkok's most legendary pad thai. They wrap noodles in a thin egg omelette for a pillowy, crispy finish. Order the royal version with river prawns.",
    menu:["Pad Thai in egg wrap (river prawn)","Classic pad thai","Fresh orange juice"],
    shoot:"Shoot the wok station through the open kitchen window at golden hour \u2014 orange fire + steam is pure magic. Portrait mode to blur the busy street behind.",
@@ -2325,7 +2400,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/thipsamai",yt:"https://www.youtube.com/results?search_query=thip+samai+pad+thai"},
   {id:"bkk02",dest:"Bangkok",name:"Bo.lan \u2014 Fine Thai Dining",cat:"food",lat:13.7289,lng:100.5685,
    tagline:"Michelin-starred, seasonal Thai cuisine",
-   img:"https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1626804475297-41608ea09aeb?auto=format&fit=crop&w=800&q=75",
    desc:"Bo.lan revives forgotten Thai recipes using organic, local produce. A seasonal tasting menu that reads like food anthropology.",
    menu:["9-course seasonal tasting menu","Heritage nam phrik dips","Coconut ice cream with palm sugar"],
    shoot:"The garden sala seating has gorgeous dappled afternoon light. Clay pot curry details for feed content.",
@@ -2333,7 +2408,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/bolan-bangkok",yt:"https://www.youtube.com/results?search_query=bolan+restaurant+bangkok"},
   {id:"bkk03",dest:"Bangkok",name:"Jodd Fairs Night Market",cat:"food",lat:13.7601,lng:100.5593,viral:true,
    tagline:"Bangkok's coolest night market \u2014 neon & noodles",
-   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Lebua_at_State_Tower_IMG_1402_01.jpg/800px-Lebua_at_State_Tower_IMG_1402_01.jpg",
+   img:"https://images.unsplash.com/photo-1555992336-fb0d29498b13?auto=format&fit=crop&w=800&q=75",
    desc:"Retro neon signs, vintage car props, and hundreds of stalls. The seafood grills and mango sticky rice here are next-level.",
    menu:["Grilled river prawns with garlic butter","Tom kha coconut soup","Mango sticky rice","Rolled ice cream"],
    shoot:"Wide shots of neon reflections on wet concrete after rain. Vintage cars as portrait backdrops. Come at 8pm when energy peaks.",
@@ -2341,7 +2416,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/jodd-fairs",yt:"https://www.youtube.com/results?search_query=jodd+fairs+bangkok"},
   {id:"bkk04",dest:"Bangkok",name:"Vesper Cocktail Bar",cat:"nightlife",lat:13.7244,lng:100.5287,
    tagline:"Asia's 50 Best Bars \u2014 Thai herb alchemy",
-   img:"https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1575444758702-4a6b9222336e?auto=format&fit=crop&w=800&q=75",
    desc:"Consistently ranked among Asia's 50 Best Bars. The bartenders are alchemists \u2014 Thai herbs, local spirits, unexpected techniques in a sleek dimly lit Silom space.",
    menu:["Muay Thai Collins","Rambutan Martini","Pandan Negroni"],
    shoot:"Low-light portrait shots under amber pendant lights are stunning. Bar seat gives great bartender B-roll.",
@@ -2389,7 +2464,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/ari-bangkok",yt:"https://www.youtube.com/results?search_query=ari+bangkok+cafe"},
   {id:"bkk10",dest:"Bangkok",name:"Vertigo Rooftop \u2014 Banyan Tree",cat:"nightlife",lat:13.7238,lng:100.5281,
    tagline:"Open-air 61st floor bar \u2014 360\u00b0 city views",
-   img:"https://images.unsplash.com/photo-1517840901101-0a95e5ed17cd?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=75",
    desc:"An open-air terrace with no walls, only Bangkok's skyline in every direction. Sunsets here are transformative.",
    menu:["Bangkok Sling (house)","Champagne by the glass","Wagyu sliders"],
    shoot:"Golden hour just before sunset (6\u20137pm) turns the city amber. Vertical reel format works brilliantly.",
@@ -2431,7 +2506,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/phuket-old-town",yt:"https://www.youtube.com/results?search_query=phuket+old+town+heritage"},
   {id:"pkt02",dest:"Phuket",name:"Big Buddha (Phra Puttamingmongkol)",cat:"culture",lat:7.8273,lng:98.3096,
    tagline:"45m white marble Buddha visible across the island",
-   img:"https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1591454371758-644f9d123a81?auto=format&fit=crop&w=800&q=75",
    desc:"Phuket's most iconic landmark. The 45-metre white Burmese marble Buddha sits on Nakkerd Hill, visible from almost everywhere on the island. The hilltop temple complex includes multiple smaller shrines, a large chedi with Buddha relics, and 360\u00b0 panoramic views over Kata Bay, Chalong Bay and the interior. The road up passes through jungle and the breeze at the top is glorious after the heat below. One of LP's top-rated Phuket sights.",
    menu:[],
    shoot:"Wide-angle shot of the Buddha from below looking up against blue sky. Golden hour from 5pm turns the marble warm amber. Views from beside the Buddha toward Kata/Chalong Bay are world-class for travel content. Don't miss the smaller colourful statues around the base.",
@@ -2487,7 +2562,7 @@ const PLACES=[
    shoot:"Walk north from Catch at low tide for the widest, most photogenic stretch. Longtail boats moored in northern section at sunrise. Aerial-perspective shots of the lagoon behind the beach.",
    tips:["Catch Beach Club is at the south end (500 THB redeemable day pass)","Sunbeds free on the open beach","Grab app works for rides to Old Town (~200 THB)","Combine morning run on the beach with breakfast at Catch"],
    gmaps:"https://maps.app.goo.gl/bang-tao-beach-phuket",yt:"https://www.youtube.com/results?search_query=bang+tao+beach+phuket"},
-  {id:"pkt09",dest:"Phuket",name:"Freedom Beach",cat:"nature",lat:7.8766,lng:98.2756,viral:true,
+  {id:"pkt09",dest:"Phuket",name:"Freedom Beach",cat:"nature",lat:7.7618,lng:98.306,viral:true,
    tagline:"Hidden paradise \u2014 boat access only, no vendors",
    img:"https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800&q=75",
    desc:"Phuket's best-kept secret beach. Freedom Beach is only accessible by longtail boat from Patong or a steep hike through jungle \u2014 which keeps it blissfully uncrowded. LP notes it has 'beautiful clear water and fine white sand, backed by forest'. 200 metres of pristine beach, excellent snorkelling on the north headland reef, and absolute quiet. Feels like a private island just 15 minutes from chaotic Patong.",
@@ -2505,9 +2580,9 @@ const PLACES=[
    shoot:"Polarising filter is essential here to cut glare. Multiple layers: lighthouse foreground, sea mid, islands background. Shoot in portrait format for Reels with the sky taking up 2/3. Return for sunrise \u2014 completely empty and equally stunning.",
    tips:["Sunset time Apr\u2013May: ~6:45\u20137pm","Arrive by 6pm \u2014 gets busy","Scooter or Grab (~150 THB from Nai Harn)","The hilltop viewing area above the main car park has better angles","Combine with Nai Harn Beach same afternoon"],
    gmaps:"https://maps.app.goo.gl/cape-promthep-phuket",yt:"https://www.youtube.com/results?search_query=cape+promthep+sunset+phuket"},
-  {id:"pkt11",dest:"Phuket",name:"Khao Rang Hill Viewpoint",cat:"shoot",lat:7.9071,lng:98.3817,
+  {id:"pkt11",dest:"Phuket",name:"Khao Rang Hill Viewpoint",cat:"shoot",lat:7.8935,lng:98.381,
    tagline:"360\u00b0 view over Phuket Town \u2014 no crowds",
-   img:"https://images.unsplash.com/photo-1549880338-65ddcdfd0000?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1516546453174-5e1098a4b4af?auto=format&fit=crop&w=800&q=75",
    desc:"Phuket Town's forested hill park with an open-air restaurant and two viewpoints giving panoramic views over the city. Far less visited than Cape Promthep but genuinely impressive \u2014 you can see the Old Town grid, Chalong Bay, and on clear days the distant karst towers of Phang Nga. There's a large fitness park and running track on the hill, popular with locals at sunrise. Good for morning runs and less touristy than other viewpoints.",
    menu:["Tunk-ka Cafe: Southern Thai curry with hilltop view","Fresh coconut","Som tum papaya salad"],
    shoot:"Tunk-ka Cafe terrace at golden hour for the most cinematic Old Town panorama shot. Morning mist over the city at 7am.",
@@ -2531,7 +2606,7 @@ const PLACES=[
    shoot:"The original kopitiam counter with vintage Milo tins and enamel cups. Action shots of the kitchen for food content. The noodle bowl in natural light.",
    tips:["Opens 11am, often SOLD OUT by 12:30pm \u2014 arrive early","Cash only","~150\u2013300 THB per dish","Closed Sundays","Best budget meal in all of Phuket Town"],
    gmaps:"https://maps.app.goo.gl/kopitiam-wilai-phuket",yt:"https://www.youtube.com/results?search_query=kopitiam+wilai+phuket"},
-  {id:"pkt14",dest:"Phuket",name:"Baan Rim Pa",cat:"food",lat:7.8945,lng:98.2878,
+  {id:"pkt14",dest:"Phuket",name:"Baan Rim Pa",cat:"food",lat:7.9068,lng:98.2881,
    tagline:"Royal Thai cuisine on the cliffs above Patong",
    img:"https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=75",
    desc:"One of Phuket's most famous fine-dining restaurants, built on a dramatic cliffside above Patong Bay. Baan Rim Pa has been serving Royal Thai cuisine for over 30 years and appears in virtually every Lonely Planet edition since. The food uses the elaborate multi-step techniques of Thailand's royal kitchens \u2014 four types of green curry, ornate fruit carving garnishes, ceremonial serving. The views of Patong Bay at sunset are exceptional, especially from the terrace.",
@@ -2541,7 +2616,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/baan-rim-pa-phuket",yt:"https://www.youtube.com/results?search_query=baan+rim+pa+phuket"},
   {id:"pkt15",dest:"Phuket",name:"Rawai Seafood Market",cat:"food",lat:7.7809,lng:98.3269,
    tagline:"Pick your fish from the boats, grill it on the spot",
-   img:"https://images.unsplash.com/photo-1610725664285-7c57e6eeac3f?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1623341214825-9f4f963727da?auto=format&fit=crop&w=800&q=75",
    desc:"Rawai's beachside seafood market is Phuket's most authentic dining experience. You walk along rows of ice-covered seafood displays, choose your tiger prawns, mantis shrimp, scallops, sea bass, crab \u2014 then have it cooked to order at one of a dozen open-air restaurants behind the market. LP describes it as 'the closest you'll get to eating fish straight from the sea'. Rawai itself is a working Chao Le (sea gypsy) fishing village \u2014 not touristy at all.",
    menu:["Grilled tiger prawns with garlic butter (by weight)","Mantis shrimp with garlic & pepper","Steamed whole crab","Seafood tom yum with fresh squid","Sea bass in lemongrass & kaffir lime"],
    shoot:"Fish market at early morning when boats unload (5\u20137am) \u2014 incredible visual. The live tank crabs and colourful coral fish in ice. Open-air grill smoke against Chalong Bay backdrop.",
@@ -2551,7 +2626,7 @@ const PLACES=[
   // ── CAF\u00c9S ──
   {id:"pkt16",dest:"Phuket",name:"Shelter Coffee",cat:"cafe",lat:7.8881,lng:98.3897,
    tagline:"Best specialty coffee in Phuket \u2014 100yr shophouse",
-   img:"https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=75",
    desc:"A warm, exposed-brick specialty coffee shop in a 100-year-old Peranakan shophouse on Thalang Road. Own-roasted Thai single-origin beans, legendary matcha croissant baked fresh daily, and some of the most beautiful cafe interiors in Phuket. LP-listed as the standout cafe in Old Town. The owner sources beans directly from hill tribe farms in Chiang Rai and Mae Hong Son.",
    menu:["Gesha pour-over (seasonal)","Thai-style iced latte with palm sugar","Cold brew with coconut milk","Matcha croissant (sells out by 10am)","Iced rose latte"],
    shoot:"The exposed brick wall with hanging plants makes a beautiful portrait backdrop. Morning light through the arched shophouse windows. Coffee details in copper cups.",
@@ -2559,7 +2634,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/shelter-coffee-phuket",yt:"https://www.youtube.com/results?search_query=shelter+coffee+phuket"},
   {id:"pkt17",dest:"Phuket",name:"Coffee Wanderer",cat:"cafe",lat:7.8873,lng:98.3905,
    tagline:"Rooftop Old Town cafe with shophouse views",
-   img:"https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=800&q=75",
    desc:"A rooftop cafe above a heritage shophouse giving elevated views over Phuket Old Town's tiled rooftops, Chinese shrines and decorated facades. Less well-known than Shelter but LP mentions it for the elevated street perspective. Thai-style coffee, fruit toasts, and one of the better people-watching spots during the Sunday Walking Street.",
    menu:["Thai iced coffee (traditional style)","Kaya toast with soft-boiled egg","Mango smoothie bowl","Cold drip single origin"],
    shoot:"Rooftop shots looking over the Old Town terracotta roofscape at golden hour. The contrast of modern travellers against 150-year-old building is great content.",
@@ -2567,7 +2642,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/coffee-wanderer-phuket",yt:"https://www.youtube.com/results?search_query=old+town+phuket+rooftop+cafe"},
 
   // ── NIGHTLIFE ──
-  {id:"pkt18",dest:"Phuket",name:"Catch Beach Club",cat:"nightlife",lat:8.0066,lng:98.2966,
+  {id:"pkt18",dest:"Phuket",name:"Catch Beach Club",cat:"nightlife",lat:8.0135,lng:98.2923,
    tagline:"Phuket's iconic day-to-night beachfront club",
    img:"https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=75",
    desc:"The definitive Phuket beach club experience. Catch sits on Surin Beach and transitions perfectly from poolside lounging at noon to full club atmosphere by 10pm. The food is genuinely excellent (not just an afterthought), the resident DJ lineup is curated, and the crowd skews international and stylish. LP and every expat in Phuket rates this as the top beach club. The famous pool deck with teak sunbeds against the Andaman is the image most associated with Phuket's upscale scene.",
@@ -2575,9 +2650,9 @@ const PLACES=[
    shoot:"The 4pm golden hour pool deck shot is the one. Pool reflections + sunbeds + Andaman Sea. Drone footage of the full club complex is spectacular. Fire performance at 8pm for evening content.",
    tips:["500 THB day pass (fully redeemable against food/drink)","Arrive before 1pm on weekends for sunbed","Swimwear fine until 7pm, smart-casual after","Book a table if dining on weekends","Combine Bang Tao beach walk in the morning + Catch from 1pm"],
    gmaps:"https://maps.app.goo.gl/catch-beach-club-phuket",yt:"https://www.youtube.com/results?search_query=catch+beach+club+phuket"},
-  {id:"pkt19",dest:"Phuket",name:"Illuzion Nightclub",cat:"nightlife",lat:7.8904,lng:98.2978,
+  {id:"pkt19",dest:"Phuket",name:"Illuzion Nightclub",cat:"nightlife",lat:7.8984,lng:98.2966,
    tagline:"SE Asia's biggest super-club \u2014 5,000 capacity",
-   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Patong_Beach.jpg/800px-Patong_Beach.jpg",
+   img:"https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=75",
    desc:"SE Asia's largest nightclub by capacity. Illuzion dominates the Bangla Road scene with an LED ceiling covering the entire 5,000-person dance floor, international DJ residencies (Martin Garrix, Hardwell et al have played here), and production levels that rival Ibiza. If you're going to experience Bangla Road nightlife, this is the one to do. LP notes it as 'Patong's most impressive club' \u2014 the production genuinely is extraordinary.",
    menu:["Chang beer tower","Vodka Red Bull buckets","Sparkling wine tower service","VIP table packages"],
    shoot:"The LED ceiling in full effect \u2014 shoot wide-angle upward with crowd. Videos will always outperform photos here. The entrance on Bangla Road at 11pm has great crowd energy shots.",
@@ -2585,7 +2660,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/illuzion-patong-phuket",yt:"https://www.youtube.com/results?search_query=illuzion+nightclub+phuket"},
   {id:"pkt20",dest:"Phuket",name:"Bangla Road",cat:"nightlife",lat:7.8909,lng:98.2975,
    tagline:"Phuket's legendary 400m neon strip \u2014 do it once",
-   img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Patong_Beach.jpg/800px-Patong_Beach.jpg",
+   img:"https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=800&q=75",
    desc:"Bangla Road is Patong's 400-metre pedestrian strip that turns into organised chaos nightly. Fire performers, live bands at open-air bars, tuk-tuks blasting EDM, bucket cocktails for 200 THB, and the full spectrum of Phuket nightlife all compressed into one street. Touristy? Absolutely. Worth doing once? Yes. LP advises: 'Walk the strip, have one drink, go to Illuzion, then escape to better bars.' The street itself closes to traffic at 8pm.",
    menu:["Bucket cocktails (200\u2013300 THB)","Chang draught at open bars","Muay Thai shorts from stalls"],
    shoot:"Blue hour (7:30\u20138pm) before the crowds peak \u2014 neon reflections on the road surface with fewer people. Fire performance shots at ~9pm. Shoot wide to capture the full chaos of the street.",
@@ -2601,7 +2676,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/nickys-handlebar-phuket",yt:"https://www.youtube.com/results?search_query=nickys+handlebar+phuket"},
 
   // ── FITNESS & WELLNESS ──
-  {id:"pkt22",dest:"Phuket",name:"Tiger Muay Thai",cat:"fitness",lat:7.8929,lng:98.3006,
+  {id:"pkt22",dest:"Phuket",name:"Tiger Muay Thai",cat:"fitness",lat:7.8466,lng:98.3181,
    tagline:"World-famous fight gym \u2014 your 2-week Phuket base",
    img:"https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=800&q=75",
    desc:"The most famous Muay Thai facility in the world outside of Bangkok's Lumpini Stadium. Tiger Muay Thai in Chalong is a city-sized campus with 30+ open-air training rings, an Olympic pool, weights gym, MMA cage, BJJ mats, CrossFit facility, cafe, physiotherapy, and fighter accommodation. The Thai trainers are mostly retired professional fighters with genuine K1 and UFC connections. LP consistently lists it as the best reason to base in Phuket for a week+. With a 2-week pass you'll come home transformed.",
@@ -2647,7 +2722,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/koh-yao-nai",yt:"https://www.youtube.com/results?search_query=koh+yao+nai"},
   {id:"kyn02",dest:"KohYaoNai",name:"Mangrove Kayaking Tour",cat:"nature",lat:8.1052,lng:98.6201,
    tagline:"Paddle through ancient mangrove tunnels at sunrise",
-   img:"https://images.unsplash.com/photo-1563299796-17596ed6b017?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1560979084-75f7e5ed23af?auto=format&fit=crop&w=800&q=75",
    desc:"Local guides lead 2-hour kayak tours through mangrove channels where the canopy closes overhead. Birds call from the roots.",
    menu:[],
    shoot:"Mangrove tunnel shots with overhead light filtering. GoPro on bow for POV content. Shoot early morning.",
@@ -2655,7 +2730,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/koh-yao-nai-mangrove",yt:"https://www.youtube.com/results?search_query=koh+yao+nai+kayaking"},
   {id:"kyn03",dest:"KohYaoNai",name:"Sabai Corner Restaurant",cat:"food",lat:8.0901,lng:98.6098,
    tagline:"Best seafood on the island \u2014 Phang Nga views",
-   img:"https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1555992336-fb0d29498b13?auto=format&fit=crop&w=800&q=75",
    desc:"A local institution where the owner's family catches the fish daily. Watch longtail boats come in while you eat the freshest seafood of your trip.",
    menu:["Grilled sea bass with kaffir lime butter","Garlic butter tiger prawns","Tom yum with fresh squid"],
    shoot:"Beachside tables with Phang Nga karsts at sunset \u2014 the defining Koh Yao Nai composition.",
@@ -2663,7 +2738,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/sabai-corner-koh-yao-nai",yt:"https://www.youtube.com/results?search_query=koh+yao+nai+restaurant"},
   {id:"kyn04",dest:"KohYaoNai",name:"Buffalo Bay Beach",cat:"shoot",lat:8.0810,lng:98.6088,
    tagline:"Secret shallow turquoise lagoon at low tide",
-   img:"https://images.unsplash.com/photo-1559494007-9f5847c49d94?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=75",
    desc:"At low tide, Buffalo Bay reveals a shallow wading lagoon with knee-high crystal water for 200m. No sunbeds, no vendors, just sand.",
    menu:[],
    shoot:"The 'walk in the water' shot is iconic here \u2014 shallow turquoise water reflects the sky perfectly. Come at low tide.",
@@ -2671,7 +2746,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/buffalo-bay-koh-yao-nai",yt:"https://www.youtube.com/results?search_query=buffalo+bay+koh+yao+nai"},
   {id:"kyn05",dest:"KohYaoNai",name:"Island Cycling Route",cat:"fitness",lat:8.0950,lng:98.6150,
    tagline:"25km loop through rice paddies and fishing villages",
-   img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=75",
    desc:"The best way to explore Koh Yao Nai \u2014 25km through rice paddies, stilted fishing villages, Muslim shrines, dense jungle. Almost zero traffic.",
    menu:[],
    shoot:"Rice paddy stretch in the island's centre. Cycling past stilted houses at dusk makes beautiful travel content.",
@@ -2697,7 +2772,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/sunrise-beach-koh-lipe",yt:"https://www.youtube.com/results?search_query=koh+lipe+sunrise+beach"},
   {id:"klipe02",dest:"KohLipe",name:"Castaway Beach Resort",cat:"stay",lat:6.4915,lng:99.3076,
    tagline:"Barefoot luxury right on Sunrise Beach",
-   img:"https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=75",
    desc:"Wood and bamboo bungalows on stilts over the sand, hammocks over the water. Best place to stay on Koh Lipe.",
    menu:["Freshly caught tuna sashimi","Grilled lobster with herb butter","Cocktails at beach bar"],
    shoot:"Overwater hammock \u2014 Koh Lipe's water color makes it special. Blue-to-teal gradient is the selling point.",
@@ -2705,7 +2780,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/castaway-koh-lipe",yt:"https://www.youtube.com/results?search_query=castaway+koh+lipe"},
   {id:"klipe03",dest:"KohLipe",name:"Nee Papaya Restaurant",cat:"food",lat:6.4898,lng:99.3045,
    tagline:"The island's legendary local Thai restaurant",
-   img:"https://images.unsplash.com/photo-1562565651-6edec4e61285?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=75",
    desc:"Nee Papaya has been feeding travelers for over 20 years. The som tam (papaya salad) is ranked among the best in southern Thailand.",
    menu:["Green papaya salad (som tam)","Massaman curry with roti","Pad see ew with river prawn"],
    shoot:"Open-air wooden restaurant with street life behind \u2014 natural, unposed food content.",
@@ -2721,7 +2796,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/serendipity-beach-lipe",yt:"https://www.youtube.com/results?search_query=koh+lipe+snorkeling"},
   {id:"klipe05",dest:"KohLipe",name:"Walking Street Sunset",cat:"nightlife",lat:6.4895,lng:99.3040,
    tagline:"Koh Lipe's sand path \u2014 bars, food & fire shows",
-   img:"https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1557844352-761f2565b576?auto=format&fit=crop&w=800&q=75",
    desc:"Walking Street is the beating heart of Koh Lipe. Reggae Bar has nightly fire shows and the best sundowners.",
    menu:["Sunset Sangria at Reggae Bar","Fresh coconut cocktails","Grilled seafood skewers"],
    shoot:"Fire show at Reggae Bar after sunset (~8pm) is spectacular for video content.",
@@ -2739,7 +2814,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/full-moon-party",yt:"https://www.youtube.com/results?search_query=full+moon+party+koh+phangan"},
   {id:"kph02",dest:"KoPhangan",name:"Haad Yuan Beach",cat:"shoot",lat:9.6897,lng:100.0842,
    tagline:"Stunning secluded bay \u2014 boat access only",
-   img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1532590053414-0bc1cc63c61b?auto=format&fit=crop&w=800&q=75",
    desc:"Accessible only by longtail \u2014 a crescent bay with golden sand, clear water, and a long-running beach bar scene.",
    menu:["Fisherman's catch grilled on beach","Coconut vodka cocktails"],
    shoot:"Shoot from the bow as the bay comes into view. From the rocks at either end for the full crescent.",
@@ -2747,7 +2822,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/haad-yuan-beach",yt:"https://www.youtube.com/results?search_query=haad+yuan+koh+phangan"},
   {id:"kph03",dest:"KoPhangan",name:"Shambhala Waterfall Restaurant",cat:"food",lat:9.7450,lng:100.0550,
    tagline:"Jungle restaurant next to a waterfall",
-   img:"https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1516569422572-79e31f46d9c0?auto=format&fit=crop&w=800&q=75",
    desc:"Open-air restaurant perched beside Than Sadet waterfall in the jungle interior. Thai-healthy food, extraordinary setting.",
    menu:["Red jungle curry","Mango banana smoothie bowl","Banana chocolate crepe"],
    shoot:"Waterfall in background of meal shot \u2014 unique content. Jungle ambience at golden hour (5pm).",
@@ -2771,7 +2846,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/bakery99-koh-phangan",yt:"https://www.youtube.com/results?search_query=koh+phangan+cafe"},
   {id:"kph06",dest:"KoPhangan",name:"Amsterdam Bar",cat:"nightlife",lat:9.7270,lng:99.9611,
    tagline:"Pre-party ground zero before Full Moon",
-   img:"https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=75",
    desc:"The warm-up venue every FMP veteran knows. Filling from 6pm, wall of sound by 10pm. Beach terrace facing the sea.",
    menu:["Buckets (Red Bull + Thai whisky)","Singha tower","Fruit punch bowl"],
    shoot:"Capture the pre-party energy \u2014 transition from golden hour beach sunset to neon-lit chaos.",
@@ -2789,7 +2864,7 @@ const PLACES=[
   // ── KOH TAO ──
   {id:"ktao01",dest:"KohTao",name:"Chumphon Pinnacle",cat:"dive",lat:10.1420,lng:99.8118,
    tagline:"Thailand's best dive site \u2014 whale sharks & barracuda",
-   img:"https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=75",
    desc:"Granite boulders 13km NW of Koh Tao rising from 35m to 14m. Massive chevron barracuda schools and seasonal whale sharks.",
    menu:[],
    shoot:"Wide angle for scale of barracuda schools. Whale shark: stay calm, low angle upward for scale.",
@@ -2797,7 +2872,7 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/chumphon-pinnacle",yt:"https://www.youtube.com/results?search_query=chumphon+pinnacle+koh+tao"},
   {id:"ktao02",dest:"KohTao",name:"Southwest Pinnacle",cat:"dive",lat:10.0614,lng:99.8103,
    tagline:"Leopard sharks, sea fans & brilliant coral",
-   img:"https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=800&q=75",
+   img:"https://images.unsplash.com/photo-1583212292454-1fe6229603b7?auto=format&fit=crop&w=800&q=75",
    desc:"Koh Tao's most photogenic dive site. Boulders covered in sea fans, coral trees, nudibranch. Leopard sharks on sandy patches.",
    menu:[],
    shoot:"Position below the diver for scale shots against the rising pinnacle. Sea fans at 20m with blue water.",
@@ -4048,6 +4123,163 @@ const PLACES=[
    gmaps:"https://maps.app.goo.gl/indy-market-phuket",yt:"https://www.youtube.com/results?search_query=indy+market+phuket"}
 ];
 
+// ── THAI PHRASEBOOK: 55+ essential phrases across categories ──
+const PHRASES = [
+  // Greetings
+  {c:"Greetings", en:"Hello / Goodbye", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35", r:"sa-wat-dee"},
+  {c:"Greetings", en:"Hello (male speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e23\u0e31\u0e1a", r:"sa-wat-dee khrap"},
+  {c:"Greetings", en:"Hello (female speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e48\u0e30", r:"sa-wat-dee kha"},
+  {c:"Greetings", en:"Thank you", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13", r:"khop khun"},
+  {c:"Greetings", en:"Thank you very much", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13\u0e21\u0e32\u0e01", r:"khop khun maak"},
+  {c:"Greetings", en:"You're welcome / No problem", th:"\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e44\u0e23", r:"mai pen rai"},
+  {c:"Greetings", en:"Sorry / Excuse me", th:"\u0e02\u0e2d\u0e42\u0e17\u0e29", r:"khor thot"},
+  {c:"Greetings", en:"How are you?", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35\u0e44\u0e2b\u0e21", r:"sa-baai dee mai"},
+  {c:"Greetings", en:"I'm fine", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35", r:"sa-baai dee"},
+  {c:"Greetings", en:"See you later", th:"\u0e41\u0e25\u0e49\u0e27\u0e40\u0e08\u0e2d\u0e01\u0e31\u0e19", r:"laew jer gan"},
+  {c:"Greetings", en:"My name is Arun", th:"\u0e1c\u0e21\u0e0a\u0e37\u0e48\u0e2d\u0e2d\u0e32\u0e23\u0e38\u0e13", r:"phom cheu Arun"},
+
+  // Food
+  {c:"Food", en:"Delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22", r:"a-roi"},
+  {c:"Food", en:"Very delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22\u0e21\u0e32\u0e01", r:"a-roi maak"},
+  {c:"Food", en:"Not spicy, please", th:"\u0e44\u0e21\u0e48\u0e40\u0e1c\u0e47\u0e14", r:"mai phet"},
+  {c:"Food", en:"A little spicy", th:"\u0e40\u0e1c\u0e47\u0e14\u0e19\u0e34\u0e14\u0e2b\u0e19\u0e48\u0e2d\u0e22", r:"phet nit noi"},
+  {c:"Food", en:"I'm vegetarian", th:"\u0e1c\u0e21\u0e01\u0e34\u0e19\u0e40\u0e08", r:"phom gin jay"},
+  {c:"Food", en:"No meat", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d", r:"mai ao neua"},
+  {c:"Food", en:"No fish sauce", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e19\u0e49\u0e33\u0e1b\u0e25\u0e32", r:"mai ao nam pla"},
+  {c:"Food", en:"Water please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33", r:"khor naam"},
+  {c:"Food", en:"Ice please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33\u0e41\u0e02\u0e47\u0e07", r:"khor naam khaeng"},
+  {c:"Food", en:"One Pad Thai", th:"\u0e1c\u0e31\u0e14\u0e44\u0e17\u0e22\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e17\u0e35\u0e48", r:"pad thai neung thee"},
+  {c:"Food", en:"Bill please", th:"\u0e40\u0e0a\u0e47\u0e04\u0e1a\u0e34\u0e25", r:"chek bin"},
+  {c:"Food", en:"Cheers!", th:"\u0e0a\u0e19\u0e41\u0e01\u0e49\u0e27", r:"chon kaew"},
+
+  // Numbers / Money
+  {c:"Numbers", en:"One / Two / Three", th:"\u0e2b\u0e19\u0e36\u0e48\u0e07 \u0e2a\u0e2d\u0e07 \u0e2a\u0e32\u0e21", r:"neung, song, saam"},
+  {c:"Numbers", en:"Four / Five", th:"\u0e2a\u0e35\u0e48 \u0e2b\u0e49\u0e32", r:"see, haa"},
+  {c:"Numbers", en:"Ten / Hundred / Thousand", th:"\u0e2a\u0e34\u0e1a \u0e23\u0e49\u0e2d\u0e22 \u0e1e\u0e31\u0e19", r:"sip, roi, phan"},
+  {c:"Numbers", en:"How much?", th:"\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48", r:"thao rai"},
+  {c:"Numbers", en:"Too expensive", th:"\u0e41\u0e1e\u0e07\u0e44\u0e1b", r:"phaeng pai"},
+  {c:"Numbers", en:"Cheaper please?", th:"\u0e25\u0e14\u0e2b\u0e19\u0e48\u0e2d\u0e22\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"lot noi dai mai"},
+  {c:"Numbers", en:"I don't want it", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32", r:"mai ao"},
+  {c:"Numbers", en:"I'll take it", th:"\u0e40\u0e2d\u0e32", r:"ao"},
+
+  // Transport
+  {c:"Transport", en:"Where is...?", th:"...\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19", r:"... yoo thee nai"},
+  {c:"Transport", en:"Airport", th:"\u0e2a\u0e19\u0e32\u0e21\u0e1a\u0e34\u0e19", r:"sa-naam bin"},
+  {c:"Transport", en:"Hotel", th:"\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21", r:"rong raem"},
+  {c:"Transport", en:"Taxi please", th:"\u0e02\u0e2d\u0e41\u0e17\u0e47\u0e01\u0e0b\u0e35\u0e48", r:"khor taxi"},
+  {c:"Transport", en:"Turn on the meter", th:"\u0e01\u0e14\u0e21\u0e34\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e14\u0e49\u0e27\u0e22", r:"got meter duai"},
+  {c:"Transport", en:"Stop here", th:"\u0e08\u0e2d\u0e14\u0e17\u0e35\u0e48\u0e19\u0e35\u0e48", r:"jot thee nee"},
+  {c:"Transport", en:"Go straight", th:"\u0e15\u0e23\u0e07\u0e44\u0e1b", r:"trong pai"},
+  {c:"Transport", en:"Turn left / right", th:"\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e0b\u0e49\u0e32\u0e22 / \u0e02\u0e27\u0e32", r:"liao sai / khwa"},
+  {c:"Transport", en:"Boat to Koh Yao Noi", th:"\u0e40\u0e23\u0e37\u0e2d\u0e44\u0e1b\u0e40\u0e01\u0e32\u0e30\u0e22\u0e32\u0e27\u0e19\u0e49\u0e2d\u0e22", r:"reua pai Koh Yao Noi"},
+
+  // Emergency
+  {c:"Emergency", en:"Help!", th:"\u0e0a\u0e48\u0e27\u0e22\u0e14\u0e49\u0e27\u0e22", r:"chuay duay"},
+  {c:"Emergency", en:"Call police", th:"\u0e40\u0e23\u0e35\u0e22\u0e01\u0e15\u0e33\u0e23\u0e27\u0e08", r:"riak tam-ruat"},
+  {c:"Emergency", en:"I need a doctor", th:"\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e2b\u0e21\u0e2d", r:"tong-kaan maw"},
+  {c:"Emergency", en:"Hospital", th:"\u0e42\u0e23\u0e07\u0e1e\u0e22\u0e32\u0e1a\u0e32\u0e25", r:"rong pha-ya-baan"},
+  {c:"Emergency", en:"I'm lost", th:"\u0e1c\u0e21\u0e2b\u0e25\u0e07\u0e17\u0e32\u0e07", r:"phom long thaang"},
+  {c:"Emergency", en:"I don't understand", th:"\u0e1c\u0e21\u0e44\u0e21\u0e48\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08", r:"phom mai khao-jai"},
+  {c:"Emergency", en:"Do you speak English?", th:"\u0e1e\u0e39\u0e14\u0e20\u0e32\u0e29\u0e32\u0e2d\u0e31\u0e07\u0e01\u0e24\u0e29\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"phood paasaa ang-grit dai mai"},
+  {c:"Emergency", en:"Dangerous", th:"\u0e2d\u0e31\u0e19\u0e15\u0e23\u0e32\u0e22", r:"an-taraai"},
+
+  // Diving / Beach
+  {c:"Dive / Beach", en:"Dive shop", th:"\u0e23\u0e49\u0e32\u0e19\u0e14\u0e33\u0e19\u0e49\u0e33", r:"raan dam naam"},
+  {c:"Dive / Beach", en:"Strong current", th:"\u0e01\u0e23\u0e30\u0e41\u0e2a\u0e19\u0e49\u0e33\u0e41\u0e23\u0e07", r:"kra-sae naam raeng"},
+  {c:"Dive / Beach", en:"Sunscreen", th:"\u0e04\u0e23\u0e35\u0e21\u0e01\u0e31\u0e19\u0e41\u0e14\u0e14", r:"cream gan dadt"},
+  {c:"Dive / Beach", en:"Beach", th:"\u0e0a\u0e32\u0e22\u0e2b\u0e32\u0e14", r:"chai haat"},
+  {c:"Dive / Beach", en:"Full moon party", th:"\u0e1b\u0e32\u0e23\u0e4c\u0e15\u0e35\u0e49\u0e1e\u0e23\u0e30\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e40\u0e15\u0e47\u0e21\u0e14\u0e27\u0e07", r:"party phra-jan tem duang"},
+
+  // Shopping / Social
+  {c:"Shopping", en:"I want this", th:"\u0e40\u0e2d\u0e32\u0e2d\u0e31\u0e19\u0e19\u0e35\u0e49", r:"ao an nee"},
+  {c:"Shopping", en:"Do you have...?", th:"\u0e21\u0e35...\u0e44\u0e2b\u0e21", r:"mee ... mai"},
+  {c:"Shopping", en:"Can I pay by card?", th:"\u0e08\u0e48\u0e32\u0e22\u0e14\u0e49\u0e27\u0e22\u0e1a\u0e31\u0e15\u0e23\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21", r:"jaai duay bat dai mai"},
+  {c:"Shopping", en:"Receipt please", th:"\u0e02\u0e2d\u0e43\u0e1a\u0e40\u0e2a\u0e23\u0e47\u0e08", r:"khor bai set"},
+  {c:"Shopping", en:"Beautiful!", th:"\u0e2a\u0e27\u0e22", r:"suay"},
+  {c:"Shopping", en:"Handsome", th:"\u0e2b\u0e25\u0e48\u0e2d", r:"law"},
+  {c:"Shopping", en:"Friend", th:"\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19", r:"pheuan"},
+  {c:"Shopping", en:"Good luck!", th:"\u0e42\u0e0a\u0e04\u0e14\u0e35", r:"chok dee"}
+];
+
+// ── Offline EN->TH dictionary for translator (word + phrase level) ──
+const THAI_DICT = {
+  "hello":["\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35","sa-wat-dee"],
+  "hi":["\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35","sa-wat-dee"],
+  "goodbye":["\u0e25\u0e32\u0e01\u0e48\u0e2d\u0e19","laa gorn"],
+  "bye":["\u0e25\u0e32\u0e01\u0e48\u0e2d\u0e19","laa gorn"],
+  "thank you":["\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13","khop khun"],
+  "thanks":["\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13","khop khun"],
+  "sorry":["\u0e02\u0e2d\u0e42\u0e17\u0e29","khor thot"],
+  "excuse me":["\u0e02\u0e2d\u0e42\u0e17\u0e29","khor thot"],
+  "yes":["\u0e43\u0e0a\u0e48","chai"],
+  "no":["\u0e44\u0e21\u0e48","mai"],
+  "ok":["\u0e15\u0e01\u0e25\u0e07","tok long"],
+  "please":["\u0e01\u0e23\u0e38\u0e13\u0e32","garunaa"],
+  "you":["\u0e04\u0e38\u0e13","khun"],
+  "i":["\u0e1c\u0e21","phom"],
+  "me":["\u0e1c\u0e21","phom"],
+  "we":["\u0e40\u0e23\u0e32","rao"],
+  "friend":["\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e19","pheuan"],
+  "good":["\u0e14\u0e35","dee"],
+  "bad":["\u0e44\u0e21\u0e48\u0e14\u0e35","mai dee"],
+  "beautiful":["\u0e2a\u0e27\u0e22","suay"],
+  "delicious":["\u0e2d\u0e23\u0e48\u0e2d\u0e22","a-roi"],
+  "love":["\u0e23\u0e31\u0e01","rak"],
+  "i love you":["\u0e1c\u0e21\u0e23\u0e31\u0e01\u0e04\u0e38\u0e13","phom rak khun"],
+  "how much":["\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48","thao rai"],
+  "how much is this":["\u0e2d\u0e31\u0e19\u0e19\u0e35\u0e49\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48","an nee thao rai"],
+  "expensive":["\u0e41\u0e1e\u0e07","phaeng"],
+  "cheap":["\u0e16\u0e39\u0e01","thook"],
+  "too expensive":["\u0e41\u0e1e\u0e07\u0e44\u0e1b","phaeng pai"],
+  "discount":["\u0e25\u0e14\u0e23\u0e32\u0e04\u0e32","lot ra-kha"],
+  "water":["\u0e19\u0e49\u0e33","naam"],
+  "food":["\u0e2d\u0e32\u0e2b\u0e32\u0e23","aa-haan"],
+  "rice":["\u0e02\u0e49\u0e32\u0e27","khao"],
+  "chicken":["\u0e44\u0e01\u0e48","gai"],
+  "pork":["\u0e2b\u0e21\u0e39","moo"],
+  "beef":["\u0e40\u0e19\u0e37\u0e49\u0e2d","neua"],
+  "fish":["\u0e1b\u0e25\u0e32","pla"],
+  "shrimp":["\u0e01\u0e38\u0e49\u0e07","goong"],
+  "vegetable":["\u0e1c\u0e31\u0e01","phak"],
+  "spicy":["\u0e40\u0e1c\u0e47\u0e14","phet"],
+  "not spicy":["\u0e44\u0e21\u0e48\u0e40\u0e1c\u0e47\u0e14","mai phet"],
+  "sweet":["\u0e2b\u0e27\u0e32\u0e19","waan"],
+  "coffee":["\u0e01\u0e32\u0e41\u0e1f","gaa-fae"],
+  "tea":["\u0e0a\u0e32","chaa"],
+  "beer":["\u0e40\u0e1a\u0e35\u0e22\u0e23\u0e4c","beer"],
+  "cheers":["\u0e0a\u0e19\u0e41\u0e01\u0e49\u0e27","chon kaew"],
+  "bill":["\u0e40\u0e0a\u0e47\u0e04\u0e1a\u0e34\u0e25","chek bin"],
+  "menu":["\u0e40\u0e21\u0e19\u0e39","menu"],
+  "taxi":["\u0e41\u0e17\u0e47\u0e01\u0e0b\u0e35\u0e48","taxi"],
+  "hotel":["\u0e42\u0e23\u0e07\u0e41\u0e23\u0e21","rong raem"],
+  "airport":["\u0e2a\u0e19\u0e32\u0e21\u0e1a\u0e34\u0e19","sa-naam bin"],
+  "beach":["\u0e0a\u0e32\u0e22\u0e2b\u0e32\u0e14","chai haat"],
+  "boat":["\u0e40\u0e23\u0e37\u0e2d","reua"],
+  "market":["\u0e15\u0e25\u0e32\u0e14","ta-laat"],
+  "temple":["\u0e27\u0e31\u0e14","wat"],
+  "where":["\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19","thee nai"],
+  "where is the bathroom":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e2d\u0e22\u0e39\u0e48\u0e17\u0e35\u0e48\u0e44\u0e2b\u0e19","hong naam yoo thee nai"],
+  "toilet":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33","hong naam"],
+  "bathroom":["\u0e2b\u0e49\u0e2d\u0e07\u0e19\u0e49\u0e33","hong naam"],
+  "help":["\u0e0a\u0e48\u0e27\u0e22\u0e14\u0e49\u0e27\u0e22","chuay duay"],
+  "police":["\u0e15\u0e33\u0e23\u0e27\u0e08","tam-ruat"],
+  "doctor":["\u0e2b\u0e21\u0e2d","maw"],
+  "hospital":["\u0e42\u0e23\u0e07\u0e1e\u0e22\u0e32\u0e1a\u0e32\u0e25","rong pha-ya-baan"],
+  "today":["\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49","wan nee"],
+  "tomorrow":["\u0e1e\u0e23\u0e38\u0e48\u0e07\u0e19\u0e35\u0e49","phrung nee"],
+  "yesterday":["\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e27\u0e32\u0e19","meua waan"],
+  "now":["\u0e15\u0e2d\u0e19\u0e19\u0e35\u0e49","ton nee"],
+  "hot":["\u0e23\u0e49\u0e2d\u0e19","ron"],
+  "cold":["\u0e2b\u0e19\u0e32\u0e27","naao"],
+  "big":["\u0e43\u0e2b\u0e0d\u0e48","yai"],
+  "small":["\u0e40\u0e25\u0e47\u0e01","lek"],
+  "one":["\u0e2b\u0e19\u0e36\u0e48\u0e07","neung"],
+  "two":["\u0e2a\u0e2d\u0e07","song"],
+  "three":["\u0e2a\u0e32\u0e21","saam"],
+  "four":["\u0e2a\u0e35\u0e48","see"],
+  "five":["\u0e2b\u0e49\u0e32","haa"]
+};
+
 // ── REELS DATA: hook + captions + camera + drone + osmo + edit per place ──
 const REELS = {
   "bkk01":{hook:"POV: 1am Bangkok pad thai through a wok-fire window",
@@ -4531,14 +4763,14 @@ class ThailandApp {
     // Grid — rest of places
     document.getElementById("placesGrid").innerHTML = places.slice(1).map((p,i) => {
       const cc = CAT[p.cat] || {color:"#888",icon:"📍",label:"Place"};
-      const imgSrc = CLOUDINARY.resolve(p.img, 600) || FB;
+      const imgSrc = CLOUDINARY.resolve(p.img, 400) || FB;
       const rating = this._rating(p.id);
       const vCls = p.viral ? " is-viral" : "";
       const vStar = p.viral ? `<div class="viral-badge">Viral</div>` : "";
       return `<div class="place-card${vCls}" style="animation-delay:${i*55}ms"
           onclick="window.thApp.selectPlace('${p.id}')">
         <div class="pc-img-wrap">
-          <img class="place-card-img" src="${imgSrc}" alt="${p.name}" loading="lazy"
+          <img class="place-card-img" src="${imgSrc}" alt="${p.name}" loading="lazy" decoding="async"
             onload="this.classList.add('loaded')" onerror="this.src='${FB}';this.classList.add('loaded')">
           <div class="place-card-badge" style="background:${cc.color}e0">${cc.icon} ${cc.label}</div>
           ${p.viral?'<div class="place-card-badge" style="top:auto;bottom:10px;left:10px;background:linear-gradient(135deg,#FFD54F,#FF8A00);color:#fff">\u2B50 VIRAL</div>':''}
@@ -4666,15 +4898,18 @@ class ThailandApp {
     const infoV  = document.getElementById("infoView");
     const reelsV = document.getElementById("reelsView");
     const budgetV = document.getElementById("budgetView");
+    const phrasesV = document.getElementById("phrasesView");
     const nb = document.getElementById("navBrowse");
     const nm = document.getElementById("navMap");
     const ni = document.getElementById("navInfo");
     const nr = document.getElementById("navReels");
     const nbu = document.getElementById("navBudget");
-    [nb,nm,ni,nr,nbu].forEach(x => x && x.classList.remove("active"));
+    const nph = document.getElementById("navPhrases");
+    [nb,nm,ni,nr,nbu,nph].forEach(x => x && x.classList.remove("active"));
     browse.style.display = "none"; mapV.classList.remove("active"); infoV.style.display = "none";
     if (reelsV) reelsV.classList.remove("active");
     if (budgetV) budgetV.classList.remove("active");
+    if (phrasesV) phrasesV.classList.remove("active");
     if (v === "map") {
       mapV.classList.add("active"); nm.classList.add("active");
       setTimeout(() => { if(this.map) { this.map.invalidateSize({pan:false}); this._flyTo(this.dest); } }, 50);
@@ -4689,6 +4924,10 @@ class ThailandApp {
     } else if (v === "budget") {
       budgetV.classList.add("active"); nbu.classList.add("active");
       this.renderBudget();
+      this.closeSheet();
+    } else if (v === "phrases") {
+      phrasesV.classList.add("active"); nph.classList.add("active");
+      this.renderPhrases();
       this.closeSheet();
     } else {
       browse.style.display = "block";
@@ -4771,6 +5010,129 @@ class ThailandApp {
       const m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()];
       live.textContent = "today " + m + " " + d.getDate();
     }
+  }
+
+  // ── Phrases view rendering + offline translator ─────────────────────────
+  renderPhrases() {
+    const cats = document.getElementById("phCats");
+    const list = document.getElementById("phList");
+    if (!cats || !list) return;
+    if (!this._phCat) this._phCat = "All";
+    if (cats.dataset.rendered !== "1") {
+      const allCats = ["All", ...Array.from(new Set(PHRASES.map(p => p.c)))];
+      cats.innerHTML = allCats.map(c =>
+        `<button class="ph-cat${c===this._phCat?" active":""}" data-c="${c}" onclick="window.thApp.phFilter('${c}')">${c}</button>`
+      ).join("");
+      cats.dataset.rendered = "1";
+      // Wire the translator input (once)
+      const inp = document.getElementById("phTxIn");
+      if (inp && !inp.dataset.wired) {
+        inp.addEventListener("input", () => this.phTranslate(inp.value));
+        inp.dataset.wired = "1";
+      }
+    }
+    this._phRenderList();
+  }
+
+  _phRenderList() {
+    const list = document.getElementById("phList");
+    if (!list) return;
+    const cat = this._phCat || "All";
+    const items = PHRASES.filter(p => cat === "All" || p.c === cat);
+    if (!items.length) { list.innerHTML = '<div class="ph-empty">No phrases in this category</div>'; return; }
+    list.innerHTML = items.map((p, i) => `
+      <div class="ph-item">
+        <div class="ph-item-body">
+          <div class="ph-en">${p.en}</div>
+          <div class="ph-th">${p.th}</div>
+          <div class="ph-rom">${p.r}</div>
+        </div>
+        <button class="ph-speak" onclick="window.thApp.phSpeak(${JSON.stringify(p.th)})">&#128266;</button>
+      </div>`).join("");
+  }
+
+  phFilter(c) {
+    this._phCat = c;
+    document.querySelectorAll("#phCats .ph-cat").forEach(b => {
+      b.classList.toggle("active", b.dataset.c === c);
+    });
+    this._phRenderList();
+  }
+
+  phSpeak(thaiText) {
+    if (!thaiText) return;
+    try {
+      if (!("speechSynthesis" in window)) { alert("Speech not supported on this device"); return; }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(thaiText);
+      u.lang = "th-TH";
+      u.rate = 0.9;
+      // Try to pick a Thai voice
+      const voices = window.speechSynthesis.getVoices();
+      const thaiVoice = voices.find(v => (v.lang || "").toLowerCase().startsWith("th"));
+      if (thaiVoice) u.voice = thaiVoice;
+      window.speechSynthesis.speak(u);
+    } catch(e) { console.warn("tts error", e); }
+  }
+
+  phTranslate(raw) {
+    const thaiEl = document.getElementById("phTxThai");
+    const romEl  = document.getElementById("phTxRom");
+    if (!thaiEl || !romEl) return;
+    const q = (raw || "").toLowerCase().trim().replace(/[?!.,;:]/g, "");
+    if (!q) {
+      thaiEl.textContent = "Translation appears here";
+      thaiEl.classList.add("ph-tx-empty");
+      thaiEl.dataset.thai = "";
+      romEl.textContent = "";
+      return;
+    }
+    // 1) Exact phrase match in PHRASES
+    const exactPhrase = PHRASES.find(p => p.en.toLowerCase().replace(/[?!.,;:]/g,"").trim() === q);
+    if (exactPhrase) {
+      thaiEl.textContent = exactPhrase.th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = exactPhrase.th;
+      romEl.textContent = exactPhrase.r;
+      return;
+    }
+    // 2) Exact phrase match in THAI_DICT
+    if (THAI_DICT[q]) {
+      const [th, r] = THAI_DICT[q];
+      thaiEl.textContent = th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = th;
+      romEl.textContent = r;
+      return;
+    }
+    // 3) Fuzzy: find any PHRASE whose English contains the query
+    const contains = PHRASES.find(p => p.en.toLowerCase().includes(q));
+    if (contains) {
+      thaiEl.textContent = contains.th;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = contains.th;
+      romEl.textContent = contains.r + "  (close match: \"" + contains.en + "\")";
+      return;
+    }
+    // 4) Word-by-word fallback using THAI_DICT
+    const words = q.split(/\s+/);
+    const thParts = [], rParts = [], missing = [];
+    for (const w of words) {
+      if (THAI_DICT[w]) { thParts.push(THAI_DICT[w][0]); rParts.push(THAI_DICT[w][1]); }
+      else { missing.push(w); }
+    }
+    if (thParts.length) {
+      const joined = thParts.join(" ");
+      thaiEl.textContent = joined;
+      thaiEl.classList.remove("ph-tx-empty");
+      thaiEl.dataset.thai = joined;
+      romEl.textContent = rParts.join(" ") + (missing.length ? "  (no dict: " + missing.join(", ") + ")" : "");
+      return;
+    }
+    thaiEl.textContent = "No match \u2014 try simpler words (hello, water, how much, taxi, beach)";
+    thaiEl.classList.add("ph-tx-empty");
+    thaiEl.dataset.thai = "";
+    romEl.textContent = "";
   }
 
   // ── Reels view rendering ────────────────────────────────────────────────
