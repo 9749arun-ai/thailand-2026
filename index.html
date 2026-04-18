@@ -1598,6 +1598,37 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
 </head>
 <body>
 
+<!-- Bullet-proof splash dismissal. Runs even if the main app constructor throws,
+     so the user is never trapped on the splash. Binds to click + touchend +
+     pointerup on both the CTA and the whole splash backdrop. -->
+<script>
+  window.__dismissSplash = function(){
+    var sp = document.getElementById('splash');
+    if (!sp || sp.classList.contains('gone')) return;
+    sp.classList.add('hiding');
+    sp.style.pointerEvents = 'none';
+    setTimeout(function(){
+      sp.classList.add('gone');
+      sp.style.display = 'none';
+    }, 650);
+    // If the app booted successfully, also flip to Explore view.
+    try {
+      if (window.thApp && window.thApp.switchView) window.thApp.switchView('browse');
+    } catch(e) {}
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    var sp = document.getElementById('splash');
+    if (!sp) return;
+    var fire = function(e){ window.__dismissSplash(); };
+    // Tapping anywhere on splash dismisses; multiple event types cover every iOS quirk.
+    ['click','touchend','pointerup'].forEach(function(ev){
+      sp.addEventListener(ev, fire, { passive: true });
+    });
+    // Safety net: after 8 s (e.g. if user ignores it) auto-dismiss.
+    setTimeout(window.__dismissSplash, 8000);
+  });
+</script>
+
 <!-- SPLASH -->
 <div id="splash">
   <div class="splash-bg"></div>
@@ -1616,10 +1647,10 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
     <div class="splash-title-sub">trip.</div>
     <div class="splash-tagline">Arun's personal thaitrip field guide. 200+ spots, viral reel briefs, Thai phrasebook, gym &amp; healthy-cook intel, full-moon to PADI.</div>
     <div class="splash-cta-row">
-      <button class="splash-cta" onclick="window.thApp&&window.thApp.hideSplash();return false;" ontouchend="window.thApp&&window.thApp.hideSplash();event.preventDefault();return false;">
+      <button type="button" class="splash-cta" onclick="__dismissSplash();return false;">
         Explore &nbsp;&#8594;
       </button>
-      <div class="splash-cta-arrow" onclick="window.thApp&&window.thApp.hideSplash();return false;" ontouchend="window.thApp&&window.thApp.hideSplash();event.preventDefault();return false;">
+      <div class="splash-cta-arrow" role="button" onclick="__dismissSplash()">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       </div>
     </div>
@@ -3995,186 +4026,4 @@ const PLACES=[
   {id:"pkt135",dest:"Phuket",name:"Phuket Wake Park",cat:"shoot",lat:8.0302,lng:98.3105,
    tagline:"Cable wakeboarding — action sports content paradise",
    img:"https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=800&q=75",
-   desc:"A cable wakeboard park in the Kathu area with a scenic lagoon surrounded by jungle hills. Great for action sports photography and video content. Beginners welcome with instruction included.",
-   menu:[],
-   shoot:"Action sports photography — wakeboarding, cable skiing. Jungle lagoon setting. GoPro POV.",
-   tips:["~700B for 2 hours","All levels welcome","Equipment included","Kathu area","Open 9am–6pm"],
-   gmaps:"https://maps.app.goo.gl/phuket-wake-park",yt:"https://www.youtube.com/results?search_query=phuket+wake+park"},
-
-
-
-  // ── KO PHANGAN EXTRAS ──
-  {id:"kph08",dest:"KoPhangan",name:"Thong Nai Pan Noi Beach",cat:"shoot",lat:9.7900,lng:100.0595,viral:true,
-   tagline:"Phangan\u2019s most beautiful north coast beach",
-   img:"https://upload.wikimedia.org/wikipedia/commons/f/fd/Koh_Phangan01.jpg",
-   desc:"A stunning white sand horseshoe bay backed by jungle hills. Accessible by rough road (worth it). Crystal clear water, minimal crowds.",
-   menu:[],
-   shoot:"Shoot looking south from the waterline \u2014 headland curves frame beautifully. Morning light 7\u20139am.",
-   tips:["40-min scooter north from Thong Sala","Road is rough \u2014 take it slow","Worth staying a night"],
-   gmaps:"https://maps.app.goo.gl/thong-nai-pan-koh-phangan",yt:"https://www.youtube.com/results?search_query=thong+nai+pan+koh+phangan"},
-  {id:"kph09",dest:"KoPhangan",name:"Secret Beach (Hat Son)",cat:"shoot",lat:9.7650,lng:99.9670,
-   tagline:"Hidden west coast cove \u2014 sunset perfection",
-   img:"https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=800&q=75",
-   desc:"A tiny cove on the west coast accessible by a jungle path or by kayak. The sunset here, looking over the Gulf, is one of the best on the island.",
-   menu:["Beach bar cocktails (basic)"],
-   shoot:"The cove entrance framed by jungle is a classic shot. Sunset silhouettes in the shallow water.",
-   tips:["Park at the top \u2014 path steep","Low tide gives more beach","Last swim by 5:30pm for sunset"],
-   gmaps:"https://maps.app.goo.gl/secret-beach-koh-phangan",yt:"https://www.youtube.com/results?search_query=secret+beach+koh+phangan"},
-  {id:"kph10",dest:"KoPhangan",name:"Agama Yoga Centre",cat:"fitness",lat:9.7590,lng:99.9680,
-   tagline:"Ko Phangan\u2019s premier yoga school",
-   img:"https://images.unsplash.com/photo-1588286840104-8957b019727f?auto=format&fit=crop&w=800&q=75",
-   desc:"Internationally recognised yoga school with a full curriculum of tantra, hatha and raja yoga. Drop-in classes available alongside 4-week intensives.",
-   menu:[],
-   shoot:"Yoga at sunrise on the rooftop deck with sea views \u2014 quintessential Ko Phangan content.",
-   tips:["Drop-in ~300 THB","Book 4-week course online","Vegetarian cafe on-site"],
-   gmaps:"https://maps.app.goo.gl/agama-yoga-koh-phangan",yt:"https://www.youtube.com/results?search_query=agama+yoga+koh+phangan"},
-
-  // ── KOH LIPE EXTRAS ──
-  {id:"klipe06",dest:"KohLipe",name:"Pattaya Beach",cat:"shoot",lat:6.4908,lng:99.3024,
-   tagline:"Sunset beach \u2014 long, calm, photogenic",
-   img:"https://upload.wikimedia.org/wikipedia/commons/e/ec/Pattaya_beach_from_view_point.jpg",
-   desc:"Koh Lipe\u2019s longest beach, facing west for spectacular sunsets. Calmer water than Sunrise Beach, with a more local vibe at the southern end.",
-   menu:[],
-   shoot:"Shoot the sun dropping into the Andaman from knee-deep water. Long exposures of waves at dusk.",
-   tips:["Walk the full beach to south end for fewer crowds","Palm tree foreground for composition","Fire shows from Walking Street visible at night"],
-   gmaps:"https://maps.app.goo.gl/pattaya-beach-koh-lipe",yt:"https://www.youtube.com/results?search_query=pattaya+beach+koh+lipe"},
-  {id:"klipe07",dest:"KohLipe",name:"4 Islands Snorkel Tour",cat:"dive",lat:6.4850,lng:99.2950,
-   tagline:"Full-day speedboat to 4 uninhabited islands",
-   img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=75",
-   desc:"Day trip by longtail or speedboat to four uninhabited limestone islands with pristine coral reefs. Koh Usen has Thailand\u2019s best near-shore soft coral.",
-   menu:["BBQ lunch on beach included"],
-   shoot:"Uninhabited island arrivals by boat with GoPro. Underwater footage is world-class.",
-   tips:["Book through any guesthouse ~1,000 THB","Bring reef-safe sunscreen","Go early before speedboats crowd the sites"],
-   gmaps:"https://maps.app.goo.gl/4-islands-koh-lipe",yt:"https://www.youtube.com/results?search_query=koh+lipe+4+islands+snorkel"},
-
-  // ── SHOPPING (viral + cheap) ──────────────────────────────────────────────
-  {id:"shop01",dest:"Bangkok",name:"Chatuchak Weekend Market",cat:"shopping",lat:13.7995,lng:100.5503,viral:true,
-   tagline:"15,000 stalls. The mother of all weekend markets.",
-   img:"https://upload.wikimedia.org/wikipedia/commons/3/33/Bangkok_-_Jatujak_Market_02.JPG",
-   desc:"Sat\u2013Sun only. Vintage tees from 100 THB, handmade silver, Thai designer streetwear, plant section, and the legendary food zone. Plan a 4\u2013hour loop, bargain in the second half of the day.",
-   menu:["Vintage band tees 150\u2013300 THB","Linen shirts 250 THB","Coconut ice cream 50 THB"],
-   shoot:"Aerial walking POV through Section 8. Crane up from the food court at noon when light hits the tin roof.",
-   tips:["Open 9am, dies after 6pm","BTS Mo Chit exit 1","Carry cash, 30% bargain off first quote","Map the sections on the official app first"],
-   gmaps:"https://maps.app.goo.gl/chatuchak",yt:"https://www.youtube.com/results?search_query=chatuchak+market+vlog+2026"},
-  {id:"shop02",dest:"Bangkok",name:"Platinum Fashion Mall",cat:"shopping",lat:13.7510,lng:100.5402,
-   tagline:"Wholesale fashion: 5 floors, prices in 3-piece minimums",
-   img:"https://upload.wikimedia.org/wikipedia/commons/4/45/Platinum_Fashion_Mall_%28I%29.jpg",
-   desc:"Where Bangkok's resellers stock up. Tops from 80 THB, dresses 200 THB if you buy 3. Aircon paradise after Chatuchak.",
-   menu:["Tops 80\u2013150 THB","Linen sets 350 THB","Bags 250 THB"],
-   shoot:"Skip filming inside (no-camera vibes). Get the storefront facade at golden hour.",
-   tips:["Buy in 3s for the wholesale price","Cash only at most stalls","BTS Chit Lom + 10-min walk"],
-   gmaps:"https://maps.app.goo.gl/platinum-fashion-mall",yt:"https://www.youtube.com/results?search_query=platinum+fashion+mall+haul"},
-  {id:"shop03",dest:"Bangkok",name:"Pratunam Market",cat:"shopping",lat:13.7517,lng:100.5407,
-   tagline:"Garment district maze \u2014 cheaper than Platinum if you hunt",
-   img:"https://upload.wikimedia.org/wikipedia/commons/f/f5/Pratunam_market.jpg",
-   desc:"Open-air alleys behind Platinum. Fabric, tailored shirts, knockoff trainers. Quality varies wildly \u2014 buy after touching.",
-   menu:["T-shirts 60 THB","Slides 150 THB","Tailored shirts 400 THB"],
-   shoot:"Tight street walks at 6pm, signs lighting up. Vertical 4K30 + Cinematic mode.",
-   tips:["Best 4\u201310pm","Watch belongings","Negotiate firmly"],
-   gmaps:"https://maps.app.goo.gl/pratunam",yt:"https://www.youtube.com/results?search_query=pratunam+bangkok"},
-  {id:"shop04",dest:"Bangkok",name:"JJ Green Night Market",cat:"shopping",lat:13.8027,lng:100.5497,
-   tagline:"Vintage Americana, neon bars, Thursday\u2013Sunday only",
-   img:"https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=800&q=75",
-   desc:"Bangkok's hipster open-air night market. Vintage Levi's, Polaroid cameras, leather jackets. Outdoor bars run till 2am.",
-   menu:["Vintage Levi's 800\u20131,200 THB","Pad Thai bowl 80 THB","Chang draft 90 THB"],
-   shoot:"Neon sign close-ups, bokeh from string lights, sit-down POVs at the bars.",
-   tips:["Thu\u2013Sun 6pm\u20131am","Free entry","BTS Mo Chit"],
-   gmaps:"https://maps.app.goo.gl/jj-green",yt:"https://www.youtube.com/results?search_query=jj+green+night+market"},
-  {id:"shop05",dest:"Bangkok",name:"Asiatique The Riverfront",cat:"shopping",lat:13.7045,lng:100.5028,
-   tagline:"Riverside warehouse market + 60-m Ferris wheel",
-   img:"https://upload.wikimedia.org/wikipedia/commons/8/8b/Asiatique_%28II%29.jpg",
-   desc:"Tourist-priced but the riverside setting + free shuttle boat from Saphan Taksin makes it worth one evening. Boutique souvenirs better than Khao San.",
-   menu:["Free shuttle from Sathorn pier","Ferris wheel 500 THB","Thai silk scarves 600 THB"],
-   shoot:"Sunset shuttle boat approach \u2014 iPhone 17 Pro handheld at 2.40:1, ND8.",
-   tips:["Open 4\u201311pm","Boat from Sathorn pier every 30 min","Skip the food court"],
-   gmaps:"https://maps.app.goo.gl/asiatique",yt:"https://www.youtube.com/results?search_query=asiatique+bangkok"},
-  {id:"shop06",dest:"Bangkok",name:"Khao San Road Market",cat:"shopping",lat:13.7589,lng:100.4972,
-   tagline:"Backpacker classic \u2014 cheap, chaotic, character",
-   img:"https://upload.wikimedia.org/wikipedia/commons/4/4b/2016_Bangkok%2C_Dystrykt_Phra_Nakhon%2C_Ulica_Khaosan_%2808%29.jpg",
-   desc:"Elephant pants, fake IDs, fruit shakes, neon bars. Touristy but iconic. Better at midnight than midday.",
-   menu:["Elephant pants 100 THB","Pad Thai 60 THB","Chang bucket 250 THB"],
-   shoot:"FPV-style walk at 11pm, vertical, music sync.",
-   tips:["Avoid lunch (dead)","Watch for tuk-tuk scams","Best Thu\u2013Sat night"],
-   gmaps:"https://maps.app.goo.gl/khao-san",yt:"https://www.youtube.com/results?search_query=khao+san+road+night"},
-  {id:"shop07",dest:"Phuket",name:"Phuket Walking Street (Sunday Night)",cat:"shopping",lat:7.8830,lng:98.3902,viral:true,
-   tagline:"Old Town Sunday market \u2014 Sino-Portuguese magic",
-   img:"https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=75",
-   desc:"Thalang Road closes Sundays 4\u201310pm. Pastel shophouses, street food, indie crafts, and the loveliest market vibe in Phuket. Eat moo ping while you shop.",
-   menu:["Moo ping (grilled pork) 10 THB/stick","Roti 40 THB","Indie tees 250 THB"],
-   shoot:"Drone is allowed before sundown for facade shots. Ground level: iPhone 17 Pro tracking shot down Thalang Rd at 6pm.",
-   tips:["Sundays only 4\u201310pm","Park at Robinson basement","Try the dim sum stalls north end"],
-   gmaps:"https://maps.app.goo.gl/phuket-walking-street",yt:"https://www.youtube.com/results?search_query=phuket+walking+street+sunday"},
-  {id:"shop08",dest:"Phuket",name:"Phuket Weekend Market (Naka)",cat:"shopping",lat:7.8970,lng:98.3850,viral:true,
-   tagline:"Locals' market \u2014 5 min from Wichit, dirt cheap",
-   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
-   desc:"Sat\u2013Sun nights. 100% local clientele. T-shirts 80 THB, fresh seafood plates 150 THB, fruit by the kilo. Five minutes from your Wichit Airbnb.",
-   menu:["Grilled squid plate 120 THB","Whole pineapple 30 THB","Thai t-shirts 80 THB"],
-   shoot:"Hand-held iPhone 17 Pro (Blackmagic Cam app) at neon stalls, ISO 1250, 1/50, 5600K. Vertical phone B-roll for reels.",
-   tips:["Sat\u2013Sun 4\u201310pm","Bring small notes","Park outside, walk in"],
-   gmaps:"https://maps.app.goo.gl/naka-market-phuket",yt:"https://www.youtube.com/results?search_query=phuket+weekend+market+naka"},
-  {id:"shop09",dest:"Phuket",name:"Chillva Market",cat:"shopping",lat:7.8985,lng:98.3814,
-   tagline:"Container-stall hipster night market in Phuket Town",
-   img:"https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=800&q=75",
-   desc:"Thu\u2013Sat 5pm\u201311pm. Repurposed shipping containers, indie streetwear, bubble tea, live music. Younger crowd, cheaper than Walking Street.",
-   menu:["Indie tees 200 THB","Bubble tea 50 THB","Korean corn dog 60 THB"],
-   shoot:"Container-row tracking shot at sunset, ND filter on drone for the overhead pan.",
-   tips:["Thu\u2013Sat 5\u201311pm","Free parking","Live music after 8pm"],
-   gmaps:"https://maps.app.goo.gl/chillva-market",yt:"https://www.youtube.com/results?search_query=chillva+market+phuket"},
-  {id:"shop10",dest:"Phuket",name:"Banzaan Fresh Market (Patong)",cat:"shopping",lat:7.8948,lng:98.2974,
-   tagline:"Pick fresh seafood downstairs \u2014 they cook it upstairs",
-   img:"https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=800&q=75",
-   desc:"Two-floor market behind Jungceylon. Buy live tiger prawns / red snapper / squid by the kilo on ground floor, take it to a vendor upstairs to cook for ~150 THB. Cheaper than any beachfront restaurant.",
-   menu:["Tiger prawns 800 THB/kg","Snapper 400 THB/kg","Cooking fee 150 THB"],
-   shoot:"Top-down macro of the seafood ice trays. Then time-lapse of the wok upstairs.",
-   tips:["Daily 7am\u201310pm","Bargain on per-kg price","Bring own beer"],
-   gmaps:"https://maps.app.goo.gl/banzaan-market",yt:"https://www.youtube.com/results?search_query=banzaan+market+phuket"},
-  {id:"shop11",dest:"Phuket",name:"Boat Avenue Market (Cherngtalay)",cat:"shopping",lat:7.9941,lng:98.2939,
-   tagline:"Friday-night farmers' market \u2014 expat / digital-nomad scene",
-   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
-   desc:"Friday 4\u201310pm. Artisan bread, organic veg, craft beer, vinyl, kid-friendly. Closer to the north Phuket cafe scene.",
-   menu:["Sourdough loaf 180 THB","Craft IPA 200 THB","Wood-fire pizza 350 THB"],
-   shoot:"Glide through the wood-stall aisles with Osmo, golden-hour lateral.",
-   tips:["Fridays only","Park at Boat Avenue plaza","Pair with Pa Pa Cafe Surin pre-market"],
-   gmaps:"https://maps.app.goo.gl/boat-avenue",yt:"https://www.youtube.com/results?search_query=boat+avenue+market+phuket"},
-  {id:"shop12",dest:"Phuket",name:"Indy Market (Phuket Town)",cat:"shopping",lat:7.8836,lng:98.3920,
-   tagline:"Wed\u2013Fri night market \u2014 student crowd, dirt-cheap food",
-   img:"https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=75",
-   desc:"Behind Limelight Mall. Wed\u2013Fri 4\u201310:30pm. Student vibe, 30-THB satay, fashion off the rack from local designers, cheaper than Walking Street.",
-   menu:["Satay 30 THB","Mango sticky rice 60 THB","Streetwear from 250 THB"],
-   shoot:"Low-angle iPhone 17 Pro walk at 7pm with neon. Student-energy reels.",
-   tips:["Wed\u2013Fri only","Cash","Skip if Walking Street is on Sunday"],
-   gmaps:"https://maps.app.goo.gl/indy-market-phuket",yt:"https://www.youtube.com/results?search_query=indy+market+phuket"}
-];
-
-// ── THAI PHRASEBOOK: 55+ essential phrases across categories ──
-const PHRASES = [
-  // Greetings
-  {c:"Greetings", en:"Hello / Goodbye", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35", r:"sa-wat-dee"},
-  {c:"Greetings", en:"Hello (male speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e23\u0e31\u0e1a", r:"sa-wat-dee khrap"},
-  {c:"Greetings", en:"Hello (female speaker)", th:"\u0e2a\u0e27\u0e31\u0e2a\u0e14\u0e35\u0e04\u0e48\u0e30", r:"sa-wat-dee kha"},
-  {c:"Greetings", en:"Thank you", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13", r:"khop khun"},
-  {c:"Greetings", en:"Thank you very much", th:"\u0e02\u0e2d\u0e1a\u0e04\u0e38\u0e13\u0e21\u0e32\u0e01", r:"khop khun maak"},
-  {c:"Greetings", en:"You're welcome / No problem", th:"\u0e44\u0e21\u0e48\u0e40\u0e1b\u0e47\u0e19\u0e44\u0e23", r:"mai pen rai"},
-  {c:"Greetings", en:"Sorry / Excuse me", th:"\u0e02\u0e2d\u0e42\u0e17\u0e29", r:"khor thot"},
-  {c:"Greetings", en:"How are you?", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35\u0e44\u0e2b\u0e21", r:"sa-baai dee mai"},
-  {c:"Greetings", en:"I'm fine", th:"\u0e2a\u0e1a\u0e32\u0e22\u0e14\u0e35", r:"sa-baai dee"},
-  {c:"Greetings", en:"See you later", th:"\u0e41\u0e25\u0e49\u0e27\u0e40\u0e08\u0e2d\u0e01\u0e31\u0e19", r:"laew jer gan"},
-  {c:"Greetings", en:"My name is Arun", th:"\u0e1c\u0e21\u0e0a\u0e37\u0e48\u0e2d\u0e2d\u0e32\u0e23\u0e38\u0e13", r:"phom cheu Arun"},
-
-  // Food
-  {c:"Food", en:"Delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22", r:"a-roi"},
-  {c:"Food", en:"Very delicious!", th:"\u0e2d\u0e23\u0e48\u0e2d\u0e22\u0e21\u0e32\u0e01", r:"a-roi maak"},
-  {c:"Food", en:"Not spicy, please", th:"\u0e44\u0e21\u0e48\u0e40\u0e1c\u0e47\u0e14", r:"mai phet"},
-  {c:"Food", en:"A little spicy", th:"\u0e40\u0e1c\u0e47\u0e14\u0e19\u0e34\u0e14\u0e2b\u0e19\u0e48\u0e2d\u0e22", r:"phet nit noi"},
-  {c:"Food", en:"I'm vegetarian", th:"\u0e1c\u0e21\u0e01\u0e34\u0e19\u0e40\u0e08", r:"phom gin jay"},
-  {c:"Food", en:"No meat", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d", r:"mai ao neua"},
-  {c:"Food", en:"No fish sauce", th:"\u0e44\u0e21\u0e48\u0e40\u0e2d\u0e32\u0e19\u0e49\u0e33\u0e1b\u0e25\u0e32", r:"mai ao nam pla"},
-  {c:"Food", en:"Water please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33", r:"khor naam"},
-  {c:"Food", en:"Ice please", th:"\u0e02\u0e2d\u0e19\u0e49\u0e33\u0e41\u0e02\u0e47\u0e07", r:"khor naam khaeng"},
-  {c:"Food", en:"One Pad Thai", th:"\u0e1c\u0e31\u0e14\u0e44\u0e17\u0e22\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e17\u0e35\u0e48", r:"pad thai neung thee"},
-  {c:"Food", en:"Bill please", th:"\u0e40\u0e0a\u0e47\u0e04\u0e1a\u0e34\u0e25", r:"chek bin"},
-  {c:"Food", en:"Cheers!", th:"\u0e0a\u0e19\u0e41\u0e01\u0e49\u0e27", r:"chon kaew"},
-
-  // Numbers / Money
-  {c:"Numbers", en:"One / Two / Three", th:"\u0e2b\u0e19\u0e36\u0e48\u0e07 \u0e2a\u0e2d\u0e07 \u0e2a\u0e32\u0e21", r:"neung, song, saam"},
-  {c:"Numbers", en:"Four / Five", th:"\u0e2a\u0e35\u0e48 \u0e2b\u0e49\u0e32", r:"see,
+   desc:"A cable wakeboard park in the Kathu area with a scenic lagoon surrounded by jungle
