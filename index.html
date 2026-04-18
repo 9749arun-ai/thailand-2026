@@ -2128,18 +2128,18 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
     <div class="bv-wallet-row">
       <div class="bv-wallet" data-w="usd">
         <div class="bv-w-label">USD cash</div>
-        <div class="bv-w-amount"><span class="bv-w-cur">$</span><input type="number" id="walUsd" value="600" step="10" inputmode="decimal"></div>
-        <div class="bv-w-hint" id="walUsdHint">&asymp; &#8377;50,256 &middot; &#3647;19,200</div>
+        <div class="bv-w-amount"><span class="bv-w-cur">$</span><input type="number" id="walUsd" value="1000" step="10" inputmode="decimal"></div>
+        <div class="bv-w-hint" id="walUsdHint">&asymp; &#8377;93,440 &middot; &#3647;32,000</div>
       </div>
       <div class="bv-wallet" data-w="baht">
         <div class="bv-w-label">Baht cash</div>
-        <div class="bv-w-amount"><span class="bv-w-cur">&#3647;</span><input type="number" id="walBaht" value="8000" step="100" inputmode="decimal"></div>
-        <div class="bv-w-hint" id="walBahtHint">&asymp; &#8377;23,360 &middot; $250</div>
+        <div class="bv-w-amount"><span class="bv-w-cur">&#3647;</span><input type="number" id="walBaht" value="2575" step="100" inputmode="decimal"></div>
+        <div class="bv-w-hint" id="walBahtHint">&asymp; &#8377;7,519 &middot; $80</div>
       </div>
       <div class="bv-wallet" data-w="card">
         <div class="bv-w-label">Card (INR)</div>
-        <div class="bv-w-amount"><span class="bv-w-cur">&#8377;</span><input type="number" id="walCard" value="120000" step="1000" inputmode="decimal"></div>
-        <div class="bv-w-hint" id="walCardHint">&asymp; $1,284 &middot; &#3647;41,095</div>
+        <div class="bv-w-amount"><span class="bv-w-cur">&#8377;</span><input type="number" id="walCard" value="66309" step="1000" inputmode="decimal"></div>
+        <div class="bv-w-hint" id="walCardHint">&asymp; $710 &middot; &#3647;22,709</div>
       </div>
     </div>
 
@@ -5341,6 +5341,10 @@ class ThailandApp {
     const walUsd = parseFloat(document.getElementById("walUsd")?.value)||0;
     const walBaht= parseFloat(document.getElementById("walBaht")?.value)||0;
     const walCard= parseFloat(document.getElementById("walCard")?.value)||0;
+    // Keep in-memory state mirror in sync with DOM. Without this, every
+    // renderBudget() call would clobber the fresh DOM values by writing
+    // back stale this._bvState.wallets (captured at last load).
+    if (this._bvState) this._bvState.wallets = { usd: walUsd, baht: walBaht, card: walCard };
     const state = { expenses: this._bvState.expenses, wallets: { usd:walUsd, baht:walBaht, card:walCard } };
     try { localStorage.setItem("th26_budget_v1", JSON.stringify(state)); } catch(e){}
     // Supabase sync (debounced, non-blocking)
@@ -5505,19 +5509,29 @@ class ThailandApp {
     const inrFinal = inr || thb*R.INR_PER_THB || usd*R.INR_PER_USD;
     if (!inrFinal) return alert("Enter an amount");
     this._bvState.expenses.unshift({ ts: Date.now(), name: name || "Expense", cat, inr: inrFinal, paid });
-    // Debit from wallet
-    if (paid==="baht") {
-      const el = document.getElementById("walBaht"); el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal/R.INR_PER_THB).toFixed(0);
-    } else if (paid==="usd") {
-      const el = document.getElementById("walUsd");  el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal/R.INR_PER_USD).toFixed(2);
-    } else {
-      const el = document.getElementById("walCard"); el.value = Math.max(0, (parseFloat(el.value)||0) - inrFinal).toFixed(0);
-    }
+    // Debit from wallet. Update BOTH the DOM input AND this._bvState.wallets
+    // before renderBudget() runs \u2014 otherwise renderBudget's state\u2192DOM copy
+    // overwrites the fresh debit with the stale pre-expense balance.
+    const walUsdEl = document.getElementById("walUsd");
+    const walBahtEl= document.getElementById("walBaht");
+    const walCardEl= document.getElementById("walCard");
+    const curUsd  = parseFloat(walUsdEl.value)||0;
+    const curBaht = parseFloat(walBahtEl.value)||0;
+    const curCard = parseFloat(walCardEl.value)||0;
+    let newUsd = curUsd, newBaht = curBaht, newCard = curCard;
+    if (paid==="baht")      newBaht = Math.max(0, curBaht - inrFinal/R.INR_PER_THB);
+    else if (paid==="usd")  newUsd  = Math.max(0, curUsd  - inrFinal/R.INR_PER_USD);
+    else                    newCard = Math.max(0, curCard - inrFinal);
+    walUsdEl.value  = newUsd.toFixed(2);
+    walBahtEl.value = newBaht.toFixed(0);
+    walCardEl.value = newCard.toFixed(0);
+    this._bvState.wallets = { usd: newUsd, baht: newBaht, card: newCard };
     // Reset inputs
     document.getElementById("bvActivity").value = "";
     document.getElementById("bvInr").value = "";
     document.getElementById("bvThb").value = "";
     document.getElementById("bvUsd").value = "";
+    this._bvSave();        // persist immediately so visibility flip won't revert
     this.renderBudget();
   }
   budgetDel(ts) {
