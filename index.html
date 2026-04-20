@@ -1021,6 +1021,24 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
 .bv-sync.ok{background:#E8F7EF;color:#10B981}
 .bv-sync.err{background:#FFF1F0;color:#E11D48}
 .bv-sync.syncing{background:#FFF7E6;color:#B45309}
+.bv-sync-row{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.bv-sync-row .bv-sync{margin-top:0}
+.bv-restore-btn{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;background:#F1F5F9;color:#475569;border:1px solid #CBD5E1;cursor:pointer;letter-spacing:.2px}
+.bv-restore-btn:active{background:#E2E8F0}
+.bv-restore-modal{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;display:flex;align-items:flex-end;justify-content:center;padding:0}
+.bv-restore-sheet{background:#fff;width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:16px 16px 28px;max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.bv-restore-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.bv-restore-title{font-size:18px;font-weight:900;color:#0E1A33;letter-spacing:-.3px}
+.bv-restore-close{background:none;border:none;font-size:26px;color:#64748B;cursor:pointer;padding:0 4px;line-height:1}
+.bv-restore-sub{font-size:12px;color:#64748B;line-height:1.45;margin-bottom:12px}
+.bv-restore-list{display:flex;flex-direction:column;gap:8px}
+.bv-restore-row{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.bv-restore-row:active{background:#EEF2F7}
+.bv-restore-row .bvr-left{display:flex;flex-direction:column;gap:2px}
+.bv-restore-row .bvr-when{font-size:13px;font-weight:700;color:#0E1A33}
+.bv-restore-row .bvr-meta{font-size:11px;color:#64748B}
+.bv-restore-row .bvr-right{font-size:12px;font-weight:700;color:#10B981}
+.bv-restore-empty{font-size:12.5px;color:#64748B;padding:14px;text-align:center;background:#F8FAFC;border-radius:12px}
 .bv-sub{font-size:12.5px;color:#5b6577;margin-top:6px;line-height:1.45}
 .bv-wallet-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0 8px}
 .bv-wallet{background:#fff;border-radius:16px;padding:12px 10px;box-shadow:0 4px 14px rgba(15,23,42,.05);border:1px solid #E2E8F0}
@@ -2122,7 +2140,22 @@ body{font-family:var(--ff);color:var(--ink);-webkit-font-smoothing:antialiased;
       <div class="bv-eyebrow">&#128176; Live Wallet</div>
       <div class="bv-title">thaitrip Budget</div>
       <div class="bv-sub">INR first &middot; auto &rarr; THB &amp; USD &middot; locked 1 THB = &#8377;2.92 &middot; 32 THB = $1</div>
-      <div class="bv-sync" id="bvSyncBadge">local only &mdash; edits will sync</div>
+      <div class="bv-sync-row">
+        <div class="bv-sync" id="bvSyncBadge">local only &mdash; edits will sync</div>
+        <button type="button" class="bv-restore-btn" id="bvRestoreBtn" onclick="window.thApp.bvOpenRestore()">&#8630; Restore</button>
+      </div>
+    </div>
+
+    <!-- Restore-from-backup modal -->
+    <div id="bvRestoreModal" class="bv-restore-modal" style="display:none">
+      <div class="bv-restore-sheet">
+        <div class="bv-restore-head">
+          <div class="bv-restore-title">Restore expenses</div>
+          <button type="button" class="bv-restore-close" onclick="window.thApp.bvCloseRestore()">&times;</button>
+        </div>
+        <div class="bv-restore-sub">Local backups &mdash; last 10 non-empty snapshots. Tap a row to restore it to this device and push to Supabase.</div>
+        <div class="bv-restore-list" id="bvRestoreList"></div>
+      </div>
     </div>
 
     <div class="bv-wallet-row">
@@ -2384,15 +2417,19 @@ async function pushSupabaseBudget(state) {
   } catch(e){ return false; }
 }
 async function fetchSupabaseBudget() {
+  // Return shapes:
+  //   { error:"network" }  \u2014 fetch failed / non-2xx (DO NOT unblock pushes)
+  //   { empty:true }       \u2014 HTTP ok but no row for this user (safe to push)
+  //   { state, updated_at } \u2014 row found
   try {
     const r = await fetch(`${SUPABASE_URL}/rest/v1/budget_state?user_id=eq.${TH26_USER}&select=state,updated_at`, {
       headers:{ apikey:SUPABASE_KEY, Authorization:`Bearer ${SUPABASE_KEY}` }
     });
-    if (!r.ok) return null;
+    if (!r.ok) return { error:"network" };
     const rows = await r.json();
-    if (!Array.isArray(rows) || !rows.length) return null;
+    if (!Array.isArray(rows) || !rows.length) return { empty:true };
     return { state: rows[0].state, updated_at: rows[0].updated_at };
-  } catch(e){ return null; }
+  } catch(e){ return { error:"network" }; }
 }
 
 // ── DESTINATIONS ──────────────────────────────────────────────────────────────
@@ -5337,7 +5374,7 @@ class ThailandApp {
       { ts: Date.parse("2026-04-17T17:00"), name:"Chillava market (top \u0E3F200 + tempered glass \u0E3F240 + dessert \u0E3F30 + tumbler \u0E3F350 + sushi \u0E3F80 + Stanley \u0E3F900)", cat:"shopping", inr:2344, paid:"baht" },
     ], wallets: { usd: 600, baht: 3280, card: 120000 } };
   }
-  _bvSave() {
+  _bvSave(opts={}) {
     const walUsd = parseFloat(document.getElementById("walUsd")?.value)||0;
     const walBaht= parseFloat(document.getElementById("walBaht")?.value)||0;
     const walCard= parseFloat(document.getElementById("walCard")?.value)||0;
@@ -5347,6 +5384,26 @@ class ThailandApp {
     if (this._bvState) this._bvState.wallets = { usd: walUsd, baht: walBaht, card: walCard };
     const state = { expenses: this._bvState.expenses, wallets: { usd:walUsd, baht:walBaht, card:walCard } };
     try { localStorage.setItem("th26_budget_v1", JSON.stringify(state)); } catch(e){}
+    // Rolling backup history (last 10 non-empty snapshots). Saves us from
+    // the April-17 data-loss class of bugs \u2014 if Supabase ever gets wiped,
+    // the user can restore from here locally.
+    if (Array.isArray(state.expenses) && state.expenses.length > 0) {
+      try {
+        const histKey = "th26_budget_backup_v1";
+        const hist = JSON.parse(localStorage.getItem(histKey) || "[]");
+        hist.unshift({ at: new Date().toISOString(), state });
+        localStorage.setItem(histKey, JSON.stringify(hist.slice(0, 10)));
+      } catch(e){}
+    }
+    // Hard guards against accidental remote wipe:
+    //   (1) Don't push until the initial remote pull has resolved \u2014
+    //       otherwise an empty cold-start state can race ahead of the pull
+    //       and overwrite the remote.
+    //   (2) Never push an empty-expenses state unless the user explicitly
+    //       just deleted (opts.allowEmpty). This protects against the
+    //       localStorage-cleared / private-tab / first-install wipe.
+    if (!this._bvPullDone) return;
+    if ((!state.expenses || state.expenses.length === 0) && !opts.allowEmpty) return;
     // Supabase sync (debounced, non-blocking)
     clearTimeout(this._bvSyncT);
     this._bvSyncT = setTimeout(() => {
@@ -5370,7 +5427,14 @@ class ThailandApp {
   _bvSyncFromRemote(opts={}) {
     return fetchSupabaseBudget().then(remote => {
       const badge = document.getElementById("bvSyncBadge");
-      if (!remote || !remote.state || !Array.isArray(remote.state.expenses)) {
+      // Network failure \u2014 keep pushes blocked (prevents offline-wipe bug).
+      if (remote && remote.error) {
+        if (badge) { badge.textContent = "\u26A0 offline \u2014 edits held locally"; badge.className = "bv-sync err"; }
+        return false;
+      }
+      // HTTP ok, no row yet \u2014 genuine fresh user, safe to push.
+      if (!remote || remote.empty || !remote.state || !Array.isArray(remote.state.expenses)) {
+        this._bvPullDone = true;
         if (badge && opts.showStatus) { badge.textContent = "local only \u2014 edits will sync"; badge.className = "bv-sync"; }
         return false;
       }
@@ -5383,12 +5447,30 @@ class ThailandApp {
           localStorage.setItem("th26_budget_v1", JSON.stringify(this._bvState));
           localStorage.setItem("th26_budget_updated_at", remoteUpd);
         } catch(e){}
+        // Snapshot the freshly-pulled state into the rolling backup too
+        if (Array.isArray(this._bvState.expenses) && this._bvState.expenses.length) {
+          try {
+            const histKey = "th26_budget_backup_v1";
+            const hist = JSON.parse(localStorage.getItem(histKey) || "[]");
+            hist.unshift({ at: remoteUpd || new Date().toISOString(), state: this._bvState, src: "remote" });
+            localStorage.setItem(histKey, JSON.stringify(hist.slice(0, 10)));
+          } catch(e){}
+        }
         // Re-paint wallet inputs + list without triggering another push
         this._bvApplyStateToUI();
         if (badge) { badge.textContent = "\u2713 synced from other device"; badge.className = "bv-sync ok"; }
+        this._bvPullDone = true;
         return true;
       }
       if (badge && opts.showStatus) { badge.textContent = "\u2713 up to date"; badge.className = "bv-sync ok"; }
+      this._bvPullDone = true;
+      return false;
+    }).catch(() => {
+      // Network failure \u2014 DO NOT set _bvPullDone. We must never push
+      // local (possibly empty) state over remote when we couldn't verify
+      // remote. Pushes stay blocked until a real pull succeeds.
+      const badge = document.getElementById("bvSyncBadge");
+      if (badge) { badge.textContent = "\u26A0 offline \u2014 edits held locally"; badge.className = "bv-sync err"; }
       return false;
     });
   }
@@ -5434,7 +5516,8 @@ class ThailandApp {
     if (this._bvState.wallets?.usd!=null) usdEl.value = this._bvState.wallets.usd;
     if (this._bvState.wallets?.baht!=null) bahtEl.value = this._bvState.wallets.baht;
     if (this._bvState.wallets?.card!=null) cardEl.value = this._bvState.wallets.card;
-    const refreshHints = () => {
+    // repaintHints: math-only, NEVER saves. Safe to call on mount.
+    const repaintHints = () => {
       const R = this._bvRates();
       const usd = parseFloat(usdEl.value)||0;
       const baht= parseFloat(bahtEl.value)||0;
@@ -5448,10 +5531,14 @@ class ThailandApp {
       const spent = this._bvState.expenses.reduce((s,e)=>s+(e.inr||0),0);
       document.getElementById("bvSpentInr").textContent = `\u20B9${Math.round(spent).toLocaleString("en-IN")}`;
       document.getElementById("bvSpentAlt").innerHTML = `$${Math.round(spent/R.INR_PER_USD).toLocaleString("en-IN")} \u00B7 \u0E3F${Math.round(spent/R.INR_PER_THB).toLocaleString("en-IN")}`;
-      this._bvSave();
     };
-    [usdEl,bahtEl,cardEl].forEach(el=>{ el.oninput = refreshHints; });
-    refreshHints();
+    // Only actual wallet-input edits trigger a save. Mount-time render no
+    // longer fires _bvSave() \u2014 that was the exact bug that raced the cold
+    // \u0060[]\u0060 expenses state ahead of the remote pull and wiped Supabase.
+    [usdEl,bahtEl,cardEl].forEach(el=>{
+      el.oninput = () => { repaintHints(); this._bvSave(); };
+    });
+    repaintHints();
 
     // Hook triple-bound amount inputs
     const inrEl = document.getElementById("bvInr"), thbEl = document.getElementById("bvThb"), usdAmt = document.getElementById("bvUsd");
@@ -5536,8 +5623,59 @@ class ThailandApp {
   }
   budgetDel(ts) {
     this._bvState.expenses = this._bvState.expenses.filter(e => e.ts !== ts);
-    this._bvSave();
+    // Explicit user delete is the ONLY path allowed to push an empty
+    // expense list to Supabase. All other \u201cempty\u201d pushes are blocked.
+    this._bvSave({ allowEmpty: true });
     this._bvRenderList();
+  }
+  // ── RESTORE FROM BACKUP ─────────────────────────────────────────
+  bvOpenRestore() {
+    const modal = document.getElementById("bvRestoreModal");
+    const list  = document.getElementById("bvRestoreList");
+    if (!modal || !list) return;
+    let hist = [];
+    try { hist = JSON.parse(localStorage.getItem("th26_budget_backup_v1") || "[]"); } catch(e){}
+    if (!hist.length) {
+      list.innerHTML = `<div class="bv-restore-empty">No local backups yet. As you add expenses, the last 10 snapshots will appear here.</div>`;
+    } else {
+      list.innerHTML = hist.map((h, i) => {
+        const n = h?.state?.expenses?.length || 0;
+        const sum = (h?.state?.expenses || []).reduce((s,e)=>s+(e.inr||0),0);
+        const dt = h.at ? new Date(h.at) : null;
+        const when = dt ? `${dt.toLocaleDateString("en-IN",{month:"short",day:"numeric"})} \u00B7 ${dt.toLocaleTimeString("en-IN",{hour:"numeric",minute:"2-digit"})}` : "unknown time";
+        const src = h.src === "remote" ? "from Supabase" : "local snapshot";
+        return `<div class="bv-restore-row" onclick="window.thApp.bvRestoreAt(${i})">
+          <div class="bvr-left">
+            <div class="bvr-when">${when}</div>
+            <div class="bvr-meta">${n} expense${n===1?"":"s"} \u00B7 \u20B9${Math.round(sum).toLocaleString("en-IN")} \u00B7 ${src}</div>
+          </div>
+          <div class="bvr-right">Restore \u2192</div>
+        </div>`;
+      }).join("");
+    }
+    modal.style.display = "flex";
+  }
+  bvCloseRestore() {
+    const modal = document.getElementById("bvRestoreModal");
+    if (modal) modal.style.display = "none";
+  }
+  bvRestoreAt(i) {
+    let hist = [];
+    try { hist = JSON.parse(localStorage.getItem("th26_budget_backup_v1") || "[]"); } catch(e){}
+    const snap = hist[i];
+    if (!snap || !snap.state) { alert("That backup is unreadable."); return; }
+    const n = snap.state.expenses?.length || 0;
+    if (!confirm(`Restore ${n} expense${n===1?"":"s"} from this backup?\n\nThis will overwrite the current expense list and sync to Supabase.`)) return;
+    this._bvState = {
+      expenses: Array.isArray(snap.state.expenses) ? snap.state.expenses : [],
+      wallets:  snap.state.wallets || this._bvState?.wallets || {}
+    };
+    try { localStorage.setItem("th26_budget_v1", JSON.stringify(this._bvState)); } catch(e){}
+    this._bvApplyStateToUI();
+    // Push to Supabase \u2014 we just restored, so allow non-empty push through
+    // the usual guards. _bvPullDone should already be true at this point.
+    this._bvSave({ allowEmpty: true });
+    this.bvCloseRestore();
   }
 }
 
